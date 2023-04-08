@@ -1,10 +1,45 @@
 import { Module } from '@nestjs/common';
+import { DataSource } from 'typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MintPackageController } from './mint-package/mint-package.controller';
+import { MintPackageService } from "./mint-package/mint-package.service";
+import { MintPackageModule } from "./mint-package/mint-package.module";
+import { MintPackage} from "./mint-package/mint-package.entity";
+import { TokenRewardController } from './token-reward/token-reward.controller';
+import { TokenRewardService } from './token-reward/token-reward.service';
+import { TokenRewardModule } from './token-reward/token-reward.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        ConfigModule.forRoot({
+          envFilePath: ['.env.local', '.env']
+        }),
+        TypeOrmModule.forRoot({
+          type: 'mysql',
+          host: process.env.DATABASE_HOST,
+          port: 3306,
+          username: process.env.DATABASE_USER,
+          password: process.env.DATABASE_PASSWORD,
+          database: process.env.DATABASE_NAME,
+          entities: [MintPackage],
+          synchronize: true,
+        }),
+        MintPackageModule,
+        TokenRewardModule
+    ],
+    controllers: [
+        AppController,
+        MintPackageController,
+        TokenRewardController],
+    providers: [
+        AppService,
+        MintPackageService,
+        TokenRewardService
+    ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
