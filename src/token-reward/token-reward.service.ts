@@ -3,8 +3,32 @@ import {MintPackage} from "../mint-package/mint-package.entity";
 
 @Injectable()
 export class TokenRewardService {
-    estimate(): number  {
-        return 0;
+    estimate(mintPackage: MintPackage, now: Date): number  {
+        const pricePackage = mintPackage.pricePaidEth/mintPackage.nbTokens;
+        const rewardRatios = this.getRewardRatios(pricePackage);
+
+        if (rewardRatios.length === 0) {
+            return 0;
+        }
+
+        const mintDate = new Date(mintPackage.mintAt);
+        if (isNaN(mintDate.getTime())) {
+            throw new Error("Invalid date string: " + mintPackage.mintAt);
+        }
+
+        const diffDays = this.getDaysBetweenDates(mintDate, now);
+        if (isNaN(diffDays)) {
+            throw new Error("Invalid date range: " + mintPackage.mintAt + " - " + now);
+        }
+
+        let rewards = 0;
+        rewardRatios.forEach((ratio) => {
+            rewards += diffDays * ratio * mintPackage.nbTokens
+        })
+
+        const roundedRewards = rewards.toFixed(2);
+
+        return Number(roundedRewards);
     }
 
     getDaysBetweenDates(startDate: Date, endDate: Date): number {
