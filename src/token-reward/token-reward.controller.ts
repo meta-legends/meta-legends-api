@@ -4,7 +4,7 @@ import {MintPackage} from "../mint-package/mint-package.entity";
 import {MintPackageService} from "../mint-package/mint-package.service";
 import {Decimal} from 'decimal.js';
 
-@Controller('token-reward')
+@Controller('token-rewards')
 export class TokenRewardController {
     constructor(
         private tokenRewardService: TokenRewardService,

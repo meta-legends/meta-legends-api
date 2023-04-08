@@ -7,7 +7,7 @@ import {MintPackageService} from "./mint-package.service";
 import {MintPackageUpdateDto} from "./mint-package-update.dto";
 import { Request } from 'express';
 
-@Controller('mint-package')
+@Controller('mint-packages')
 export class MintPackageController {
     constructor(private mintPackageService: MintPackageService) {}
 
