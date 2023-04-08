@@ -22,7 +22,4 @@ export class MintPackage {
 
     @Column("int")
     nbTokens: number;
-
-    @Column("varchar", { length: 63, default: null })
-    primaryWallet: string;
 }

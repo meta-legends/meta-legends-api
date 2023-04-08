@@ -51,8 +51,7 @@ describe('TokenRewardService', () => {
             pricePaidEth:0.3,
             mintAt:'2021-12-25',
             tokens:'',
-            nbTokens:1,
-            primaryWallet:''
+            nbTokens:1
         }
         expect(service.estimate(mintPackage, new Date('2022-01-01'))).toEqual(0);
     })
@@ -64,8 +63,7 @@ describe('TokenRewardService', () => {
             pricePaidEth:0.5,
             mintAt:'2021-12-25',
             tokens:'',
-            nbTokens:1,
-            primaryWallet:''
+            nbTokens:1
         }
         expect(service.estimate(mintPackage, new Date('2022-01-01'))).toEqual(1.47);
         mintPackage.pricePaidEth = 0.9;
@@ -79,8 +77,7 @@ describe('TokenRewardService', () => {
             pricePaidEth:6,
             mintAt:'2021-11-25',
             tokens:'',
-            nbTokens:2,
-            primaryWallet:''
+            nbTokens:2
         }
         expect(service.estimate(mintPackage, new Date('2023-04-07'))).toEqual(13137.24);
     })

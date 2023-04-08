@@ -9,6 +9,6 @@ export class MintPackageController {
     @Header('content-type', 'application/json')
     @Get(':walletAddress')
     findOne(@Param('walletAddress') walletAddress: string) {
-        return this.mintPackageService.getOneByFromMintWallet(walletAddress);
+        return this.mintPackageService.getByFromMintWallet(walletAddress);
     }
 }
