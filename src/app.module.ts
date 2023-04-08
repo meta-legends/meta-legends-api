@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +11,8 @@ import { MintPackage} from "./mint-package/mint-package.entity";
 import { TokenRewardController } from './token-reward/token-reward.controller';
 import { TokenRewardService } from './token-reward/token-reward.service';
 import { TokenRewardModule } from './token-reward/token-reward.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
     imports: [
@@ -28,7 +30,8 @@ import { TokenRewardModule } from './token-reward/token-reward.module';
           synchronize: true,
         }),
         MintPackageModule,
-        TokenRewardModule
+        TokenRewardModule,
+        AuthModule
     ],
     controllers: [
         AppController,
@@ -42,4 +45,8 @@ import { TokenRewardModule } from './token-reward/token-reward.module';
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
+
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(AuthMiddleware).forRoutes('');
+    }
 }
