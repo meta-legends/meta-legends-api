@@ -16,7 +16,7 @@ export class TokenRewardController {
     async estimate(@Param('walletAddress') walletAddress: string) {
         const mintPackages: MintPackage[] | null = await this.mintPackageService.getByFromMintWallet(walletAddress);
         if (0 === mintPackages.length) {
-            return new HttpException('Wallet not found', HttpStatus.NOT_FOUND);
+            return new HttpException('Wallet '+walletAddress+' not found', HttpStatus.NOT_FOUND);
         }
 
         let nbTokens = 0;
