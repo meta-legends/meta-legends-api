@@ -14,7 +14,7 @@ export class TokenRewardController {
     @Header('content-type', 'application/json')
     @Get(':walletAddress/estimate')
     async estimate(@Param('walletAddress') walletAddress: string) {
-        const mintPackages: MintPackage[] | null = await this.mintPackageService.getByFromMintWallet(walletAddress);
+        const mintPackages: MintPackage[] | null = await this.mintPackageService.getByMintWallet(walletAddress);
         if (0 === mintPackages.length) {
             return new HttpException('Wallet '+walletAddress+' not found', HttpStatus.NOT_FOUND);
         }
@@ -30,11 +30,16 @@ export class TokenRewardController {
             rewards = rewards.plus(new Decimal(reward));
         });
 
+        const perkPackages = this.tokenRewardService.getPerkPackages(
+          mintPackages,
+          new Date());
+
         return {
-            wallet: walletAddress,
-            price_paid: Number(pricePaid),
-            number_of_token: nbTokens,
-            rewards: Number(rewards),
+            wallet: walletAddress.toLowerCase(),
+            total_paid: Number(pricePaid),
+            total_nft: nbTokens,
+            total_token_rewards: Number(rewards),
+            perk_packages: perkPackages,
             mint_packages: mintPackages
         };
     }

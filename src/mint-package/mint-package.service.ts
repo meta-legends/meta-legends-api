@@ -11,7 +11,7 @@ export class MintPackageService {
         private mintPackageRepository: Repository<MintPackage>,
     ) {}
 
-    getByFromMintWallet(mintWallet: string): Promise<MintPackage[] | null>  {
+    getByMintWallet(mintWallet: string): Promise<MintPackage[] | null>  {
         return this.mintPackageRepository.findBy({ mintWallet });
     }
 

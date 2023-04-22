@@ -15,7 +15,7 @@ export class MintPackageController {
     @Get('search')
     search(@Req() request: Request) {
         const walletAddress = request.query['wallet'].toString().toLowerCase();
-        return this.mintPackageService.getByFromMintWallet(walletAddress);
+        return this.mintPackageService.getByMintWallet(walletAddress);
     }
 
     @Header('content-type', 'application/json')
