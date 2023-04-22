@@ -1,4 +1,4 @@
 export class MintPackageUpdateDto {
-    readonly id: number;
-    readonly mintWallet: string;
+  readonly id: number;
+  readonly mintWallet: string;
 }
