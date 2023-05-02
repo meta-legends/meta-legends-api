@@ -1,0 +1,44 @@
+version: '3.6'
+services:
+
+  mariadb:
+    container_name: mariadb
+    image: 'mariadb:10.6'
+    environment:
+      - MARIADB_DATABASE=meta-legends
+      - MARIADB_ROOT_USER=root
+      - MARIADB_ROOT_PASSWORD=root
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: mariadb
+
+  backend:
+    build: .
+    image: node:18.15.0-alpine
+    working_dir: /app
+    container_name: backend
+    depends_on:
+      - mariadb
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_DATABASE: meta-legends
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    command: npm run start
+    env_file: .env
+
+volumes:
+  db_data:
