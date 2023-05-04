@@ -37,7 +37,7 @@ export class TokenRewardController {
     mintPackages.forEach((mintPackage) => {
       nbTokens += mintPackage.nbTokens;
       pricePaid = pricePaid.plus(new Decimal(mintPackage.pricePaidEth));
-      let reward = this.tokenRewardService.estimate(mintPackage, new Date());
+      const reward = this.tokenRewardService.estimate(mintPackage, new Date());
       rewards = rewards.plus(new Decimal(reward));
     });
 

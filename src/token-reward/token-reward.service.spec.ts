@@ -118,7 +118,7 @@ describe('TokenRewardService', () => {
     expect(service.estimate(mintPackage, new Date('2022-01-01'))).toEqual(0);
   });
   it('should estimate token rewards by package', () => {
-    let mintArmorPackage: MintPackage = {
+    const mintArmorPackage: MintPackage = {
       id: 1,
       mintWallet: '',
       priceOfSaleEth: 0.5,
@@ -138,7 +138,7 @@ describe('TokenRewardService', () => {
       8.19,
     );
 
-    let mintLandPackage: MintPackage = {
+    const mintLandPackage: MintPackage = {
       id: 1,
       mintWallet: '',
       priceOfSaleEth: 3,
@@ -209,7 +209,7 @@ describe('TokenRewardService', () => {
   });
 
   it('should estimate token rewards by no perk', () => {
-    let mintPackage: MintPackage = {
+    const mintPackage: MintPackage = {
       id: 1,
       mintWallet: '',
       priceOfSaleEth: 0.3,
@@ -230,7 +230,7 @@ describe('TokenRewardService', () => {
     );
   });
   it('should estimate armor perk', () => {
-    let mintPackage: MintPackage = {
+    const mintPackage: MintPackage = {
       id: 1,
       mintWallet: '',
       priceOfSaleEth: 0.5,
@@ -252,7 +252,7 @@ describe('TokenRewardService', () => {
   });
 
   it('should estimate land perk', () => {
-    let mintPackage: MintPackage = {
+    const mintPackage: MintPackage = {
       id: 1,
       mintWallet: '',
       priceOfSaleEth: 3,

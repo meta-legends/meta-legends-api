@@ -13,6 +13,7 @@ import { TokenRewardService } from './token-reward/token-reward.service';
 import { TokenRewardModule } from './token-reward/token-reward.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { BadgeRewardModule } from './badge-reward/badge-reward.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     MintPackageModule,
     TokenRewardModule,
     AuthModule,
+    BadgeRewardModule,
   ],
   controllers: [AppController, MintPackageController, TokenRewardController],
   providers: [AppService, MintPackageService, TokenRewardService],
