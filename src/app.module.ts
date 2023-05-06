@@ -14,6 +14,7 @@ import { TokenRewardModule } from './token-reward/token-reward.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { BadgeRewardModule } from './badge-reward/badge-reward.module';
+import { RewardModule } from './reward/reward.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { BadgeRewardModule } from './badge-reward/badge-reward.module';
     TokenRewardModule,
     AuthModule,
     BadgeRewardModule,
+    RewardModule,
   ],
   controllers: [AppController, MintPackageController, TokenRewardController],
   providers: [AppService, MintPackageService, TokenRewardService],
