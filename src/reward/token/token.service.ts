@@ -1,7 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { MintPackage } from '../../mint-package/mint-package.entity';
-import { MintPackageService } from '../../mint-package/mint-package.service';
-import { Decimal } from "decimal.js";
+import { Decimal } from 'decimal.js';
 
 export const PERK_LABEL_ARMOR = 'armor';
 export const PERK_LABEL_PET = 'pet';
@@ -40,18 +39,7 @@ export const REWARD_RATIOS = [
 
 @Injectable()
 export class TokenService {
-  constructor(private mintPackageService: MintPackageService) {}
-
-  async getRewardToken(walletAddress: string): Promise<object> {
-    const mintPackages: MintPackage[] | null =
-      await this.mintPackageService.getByMintWallet(walletAddress);
-    if (0 === mintPackages.length) {
-      return new HttpException(
-        'Wallet ' + walletAddress + ' not found',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
+  async getRewardToken(mintPackages: MintPackage[]): Promise<object> {
     let rewards = new Decimal(0);
 
     mintPackages.forEach((mintPackage) => {
@@ -61,6 +49,7 @@ export class TokenService {
 
     return {
       total_token_rewards: Number(rewards),
+      perk_packages: this.getPerkPackages(mintPackages, new Date()),
       mint_packages: mintPackages,
     };
   }

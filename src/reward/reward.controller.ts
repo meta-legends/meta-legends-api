@@ -1,8 +1,17 @@
-import { Controller, Get, Header, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Header,
+  HttpException,
+  HttpStatus,
+  Param,
+} from '@nestjs/common';
 import { RewardService } from './reward.service';
 import { MoralisService } from '../client/moralis/moralis.service';
 import { BadgeService } from './badge/badge.service';
 import { TokenService } from './token/token.service';
+import { MintPackage } from '../mint-package/mint-package.entity';
+import { MintPackageService } from '../mint-package/mint-package.service';
 
 @Controller('rewards')
 export class RewardController {
@@ -10,6 +19,7 @@ export class RewardController {
     private rewardService: RewardService,
     private badgeService: BadgeService,
     private tokenService: TokenService,
+    private mintPackageService: MintPackageService,
     private moralisService: MoralisService,
   ) {}
 
@@ -20,11 +30,21 @@ export class RewardController {
       walletAddress,
       false,
     );
+
+    const mintPackages: MintPackage[] | null =
+      await this.mintPackageService.getByMintWallet(walletAddress);
+    if (0 === mintPackages.length) {
+      return new HttpException(
+        'Wallet ' + walletAddress + ' not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
     return {
       wallet: walletAddress.toLowerCase(),
       rewards: {
         badge: this.badgeService.getRewardBadge(response.result.length),
-        token: await this.tokenService.getRewardToken(walletAddress),
+        token: await this.tokenService.getRewardToken(mintPackages),
         // holding: {},
         // staked-asset: {},
         // unstaked-asset: {},

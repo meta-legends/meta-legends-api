@@ -16,24 +16,23 @@ import {
 import { MintPackage } from '../../mint-package/mint-package.entity';
 
 describe('TokenService', () => {
-  let service: TokenService;
-
+  let tokenService: TokenService;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [TokenService],
     }).compile();
 
-    service = module.get<TokenService>(TokenService);
+    tokenService = module.get<TokenService>(TokenService);
   });
 
   it('should be estimated days between 2 dates', () => {
     const startDate = new Date('2022-01-01 20:00:00');
     const endDate = new Date('2022-01-07 15:00:00');
-    expect(service.getDaysBetweenDates(startDate, endDate)).toEqual(6);
+    expect(tokenService.getDaysBetweenDates(startDate, endDate)).toEqual(6);
   });
 
   it('should get ratio empty for none package', () => {
-    expect(service.getRewardRatios(0.3)).toEqual([]);
+    expect(tokenService.getRewardRatios(0.3)).toEqual([]);
   });
   it('should get ratio armor for package', () => {
     const expectArmor = [
@@ -42,8 +41,8 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_ARMOR,
       },
     ];
-    expect(service.getRewardRatios(0.5)).toEqual(expectArmor);
-    expect(service.getRewardRatios(0.6)).toEqual(expectArmor);
+    expect(tokenService.getRewardRatios(0.5)).toEqual(expectArmor);
+    expect(tokenService.getRewardRatios(0.6)).toEqual(expectArmor);
   });
   it('should get ratio pets for package', () => {
     const expectPet = [
@@ -56,8 +55,8 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_PET,
       },
     ];
-    expect(service.getRewardRatios(1)).toEqual(expectPet);
-    expect(service.getRewardRatios(1.3)).toEqual(expectPet);
+    expect(tokenService.getRewardRatios(1)).toEqual(expectPet);
+    expect(tokenService.getRewardRatios(1.3)).toEqual(expectPet);
   });
   it('should get ratio vehicle for package', () => {
     const expectVehicle = [
@@ -74,8 +73,8 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_VEHICLE,
       },
     ];
-    expect(service.getRewardRatios(1.5)).toEqual(expectVehicle);
-    expect(service.getRewardRatios(1.9)).toEqual(expectVehicle);
+    expect(tokenService.getRewardRatios(1.5)).toEqual(expectVehicle);
+    expect(tokenService.getRewardRatios(1.9)).toEqual(expectVehicle);
   });
   it('should get ratio residence for package', () => {
     const expectVehicle = [
@@ -96,13 +95,13 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_RESIDENCE,
       },
     ];
-    expect(service.getRewardRatios(2.1)).toEqual(expectVehicle);
+    expect(tokenService.getRewardRatios(2.1)).toEqual(expectVehicle);
   });
   it('should get ratio land for package', () => {
     const expectLand = REWARD_RATIOS;
-    expect(service.getRewardRatios(2.5)).toEqual(expectLand);
-    expect(service.getRewardRatios(2.9)).toEqual(expectLand);
-    expect(service.getRewardRatios(3)).toEqual(expectLand);
+    expect(tokenService.getRewardRatios(2.5)).toEqual(expectLand);
+    expect(tokenService.getRewardRatios(2.9)).toEqual(expectLand);
+    expect(tokenService.getRewardRatios(3)).toEqual(expectLand);
   });
 
   it('should estimate token rewards by none package', () => {
@@ -115,7 +114,9 @@ describe('TokenService', () => {
       tokens: '',
       nbTokens: 1,
     };
-    expect(service.estimate(mintPackage, new Date('2022-01-01'))).toEqual(0);
+    expect(tokenService.estimate(mintPackage, new Date('2022-01-01'))).toEqual(
+      0,
+    );
   });
   it('should estimate token rewards by package', () => {
     const mintArmorPackage: MintPackage = {
@@ -129,14 +130,14 @@ describe('TokenService', () => {
     };
 
     // armor package: days 7
-    expect(service.estimate(mintArmorPackage, new Date('2022-01-01'))).toEqual(
-      1.47,
-    );
+    expect(
+      tokenService.estimate(mintArmorPackage, new Date('2022-01-01')),
+    ).toEqual(1.47);
     // armor package: days 39
     mintArmorPackage.pricePaidEth = 0.9;
-    expect(service.estimate(mintArmorPackage, new Date('2022-02-02'))).toEqual(
-      8.19,
-    );
+    expect(
+      tokenService.estimate(mintArmorPackage, new Date('2022-02-02')),
+    ).toEqual(8.19);
 
     const mintLandPackage: MintPackage = {
       id: 1,
@@ -149,9 +150,9 @@ describe('TokenService', () => {
     };
 
     // land package: days 468
-    expect(service.estimate(mintLandPackage, new Date('2023-04-07'))).toEqual(
-      13137.24,
-    );
+    expect(
+      tokenService.estimate(mintLandPackage, new Date('2023-04-07')),
+    ).toEqual(13137.24);
   });
 
   it('should get REWARD RATIO by perk label', () => {
@@ -161,7 +162,7 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_ARMOR,
       },
     ];
-    expect(service.getRewardRatiosByPerkLabel(PERK_LABEL_ARMOR)).toEqual(
+    expect(tokenService.getRewardRatiosByPerkLabel(PERK_LABEL_ARMOR)).toEqual(
       expectedArmor,
     );
 
@@ -187,7 +188,7 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_LAND,
       },
     ];
-    expect(service.getRewardRatiosByPerkLabel(PERK_LABEL_LAND)).toEqual(
+    expect(tokenService.getRewardRatiosByPerkLabel(PERK_LABEL_LAND)).toEqual(
       expectedLand,
     );
 
@@ -201,11 +202,11 @@ describe('TokenService', () => {
         perk_ratio: PERK_RATIO_REWARD_PET,
       },
     ];
-    expect(service.getRewardRatiosByPerkLabel(PERK_LABEL_PET)).toEqual(
+    expect(tokenService.getRewardRatiosByPerkLabel(PERK_LABEL_PET)).toEqual(
       expectedPet,
     );
 
-    expect(service.getRewardRatiosByPerkLabel('unknown')).toEqual([]);
+    expect(tokenService.getRewardRatiosByPerkLabel('unknown')).toEqual([]);
   });
 
   it('should estimate token rewards by no perk', () => {
@@ -225,7 +226,7 @@ describe('TokenService', () => {
       [PERK_LABEL_RESIDENCE]: { quantity: 0, tokens: 0 },
       [PERK_LABEL_LAND]: { quantity: 0, tokens: 0 },
     };
-    expect(service.getPerkPackages([mintPackage], new Date())).toEqual(
+    expect(tokenService.getPerkPackages([mintPackage], new Date())).toEqual(
       expected,
     );
   });
@@ -247,7 +248,7 @@ describe('TokenService', () => {
       [PERK_LABEL_LAND]: { quantity: 0, tokens: 0 },
     };
     expect(
-      service.getPerkPackages([mintPackage], new Date('2023-04-07')),
+      tokenService.getPerkPackages([mintPackage], new Date('2023-04-07')),
     ).toEqual(expected);
   });
 
@@ -269,7 +270,7 @@ describe('TokenService', () => {
       [PERK_LABEL_LAND]: { quantity: 2, tokens: 7410.24 },
     };
     expect(
-      service.getPerkPackages([mintPackage], new Date('2023-04-07')),
+      tokenService.getPerkPackages([mintPackage], new Date('2023-04-07')),
     ).toEqual(expected);
   });
 });
