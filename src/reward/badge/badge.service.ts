@@ -1,7 +1,4 @@
-// import {Injectable} from '@nestjs/common';
-
-// @Injectable()
-
+import { Injectable } from '@nestjs/common';
 export const PERK_BADGE_SNIPER_BRONZE = 'sniper-bronze';
 export const PERK_BADGE_ARMOR_CYBER = 'armor-cyber';
 export const PERK_BADGE_WEAPON_GOLDBOI = 'weapon-goldboi';
@@ -9,8 +6,8 @@ export const PERK_BADGE_CYBER_PET = 'cyber-pet';
 export const PERK_BADGE_GOLDBOI_CAR = 'goldboi-car';
 export const PERK_BADGE_SNIPER_RIFLE_CELESTIAL = 'sniper-rifle-celestial';
 
+@Injectable()
 export class BadgeService {
-
   getBadgeRewards(nbNftHold: number): object {
     if (nbNftHold === 0) {
       return this.initBadgeRewards(0);

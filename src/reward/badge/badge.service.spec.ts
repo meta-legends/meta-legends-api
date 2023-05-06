@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { BadgeService } from './badge.service';
 import {
-  BadgeService,
   PERK_BADGE_ARMOR_CYBER,
   PERK_BADGE_CYBER_PET,
   PERK_BADGE_GOLDBOI_CAR,
