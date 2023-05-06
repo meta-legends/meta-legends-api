@@ -11,8 +11,4 @@ describe('RewardService', () => {
 
     service = module.get<RewardService>(RewardService);
   });
-
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
 });

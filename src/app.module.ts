@@ -13,8 +13,12 @@ import { TokenRewardService } from './token-reward/token-reward.service';
 import { TokenRewardModule } from './token-reward/token-reward.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { BadgeModule } from './reward/badge/badge-reward.module';
 import { RewardModule } from './reward/reward.module';
+import { ClientModule } from './client/client.module';
+import { RewardController } from './reward/reward.controller';
+import { RewardService } from './reward/reward.service';
+import { MoralisService } from './client/moralis/moralis.service';
+import { BadgeService } from "./reward/badge/badge.service";
 
 @Module({
   imports: [
@@ -34,11 +38,23 @@ import { RewardModule } from './reward/reward.module';
     MintPackageModule,
     TokenRewardModule,
     AuthModule,
-    BadgeModule,
     RewardModule,
+    ClientModule,
   ],
-  controllers: [AppController, MintPackageController, TokenRewardController],
-  providers: [AppService, MintPackageService, TokenRewardService],
+  controllers: [
+    AppController,
+    MintPackageController,
+    TokenRewardController,
+    RewardController,
+  ],
+  providers: [
+    AppService,
+    MintPackageService,
+    TokenRewardService,
+    RewardService,
+    MoralisService,
+    BadgeService,
+  ],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

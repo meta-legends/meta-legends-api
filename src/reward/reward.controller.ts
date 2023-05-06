@@ -1,8 +1,32 @@
-import { Controller, Get, Header } from "@nestjs/common";
+import { Controller, Get, Header, Param } from '@nestjs/common';
+import { RewardService } from './reward.service';
+import { MoralisService } from '../client/moralis/moralis.service';
+import { BadgeService } from './badge/badge.service';
 
-@Controller('reward')
+@Controller('rewards')
 export class RewardController {
-  @Header('content-type', 'application/json')
-  @Get(':walletAddress/badge')
+  constructor(
+    private rewardService: RewardService,
+    private badgeService: BadgeService,
+    private moralisService: MoralisService,
+  ) {}
 
+  @Header('content-type', 'application/json')
+  @Get(':walletAddress/estimate')
+  async estimate(@Param('walletAddress') walletAddress: string) {
+    const response = await this.moralisService.getWalletNFtsByMLCollection(
+      walletAddress,
+      false,
+    );
+    return {
+      wallet: walletAddress.toLowerCase(),
+      rewards: {
+        badge: this.badgeService.getBadgeRewards(response.result.length),
+        // token: this.badgeService.test(),
+        // holding: {},
+        // staked-asset: {},
+        // unstaked-asset: {},
+      },
+    };
+  }
 }
