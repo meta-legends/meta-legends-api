@@ -8,9 +8,6 @@ import { MintPackageController } from './mint-package/mint-package.controller';
 import { MintPackageService } from './mint-package/mint-package.service';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { MintPackage } from './mint-package/mint-package.entity';
-import { TokenRewardController } from './token-reward/token-reward.controller';
-import { TokenRewardService } from './token-reward/token-reward.service';
-import { TokenRewardModule } from './token-reward/token-reward.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { RewardModule } from './reward/reward.module';
@@ -18,7 +15,8 @@ import { ClientModule } from './client/client.module';
 import { RewardController } from './reward/reward.controller';
 import { RewardService } from './reward/reward.service';
 import { MoralisService } from './client/moralis/moralis.service';
-import { BadgeService } from "./reward/badge/badge.service";
+import { BadgeService } from './reward/badge/badge.service';
+import { TokenService } from './reward/token/token.service';
 
 @Module({
   imports: [
@@ -36,24 +34,18 @@ import { BadgeService } from "./reward/badge/badge.service";
       synchronize: true,
     }),
     MintPackageModule,
-    TokenRewardModule,
     AuthModule,
     RewardModule,
     ClientModule,
   ],
-  controllers: [
-    AppController,
-    MintPackageController,
-    TokenRewardController,
-    RewardController,
-  ],
+  controllers: [AppController, MintPackageController, RewardController],
   providers: [
     AppService,
     MintPackageService,
-    TokenRewardService,
     RewardService,
     MoralisService,
     BadgeService,
+    TokenService,
   ],
 })
 export class AppModule {
