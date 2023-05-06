@@ -23,7 +23,7 @@ export class RewardController {
     return {
       wallet: walletAddress.toLowerCase(),
       rewards: {
-        badge: this.badgeService.getBadgeRewards(response.result.length),
+        badge: this.badgeService.getRewardBadge(response.result.length),
         token: await this.tokenService.getRewardToken(walletAddress),
         // holding: {},
         // staked-asset: {},

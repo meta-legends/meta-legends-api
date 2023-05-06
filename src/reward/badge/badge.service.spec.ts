@@ -57,7 +57,7 @@ describe('BadgeService', () => {
       },
     ];
     expectedData.map((testCase) => {
-      expect(service.getBadgeRewards(testCase['nb'])).toEqual(
+      expect(service.getRewardBadge(testCase['nb'])).toEqual(
         testCase['expect'],
       );
     });

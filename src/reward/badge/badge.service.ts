@@ -8,7 +8,7 @@ export const PERK_BADGE_SNIPER_RIFLE_CELESTIAL = 'sniper-rifle-celestial';
 
 @Injectable()
 export class BadgeService {
-  getBadgeRewards(nbNftHold: number): object {
+  getRewardBadge(nbNftHold: number): object {
     if (nbNftHold === 0) {
       return this.initBadgeRewards(0);
     }
