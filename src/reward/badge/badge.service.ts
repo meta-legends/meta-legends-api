@@ -9,7 +9,7 @@ export const PERK_BADGE_CYBER_PET = 'cyber-pet';
 export const PERK_BADGE_GOLDBOI_CAR = 'goldboi-car';
 export const PERK_BADGE_SNIPER_RIFLE_CELESTIAL = 'sniper-rifle-celestial';
 
-export class BadgeRewardService {
+export class BadgeService {
 
   getBadgeRewards(nbNftHold: number): object {
     if (nbNftHold === 0) {

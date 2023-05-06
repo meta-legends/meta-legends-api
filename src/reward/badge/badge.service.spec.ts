@@ -1,20 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import {
-  BadgeRewardService,
-  PERK_BADGE_ARMOR_CYBER, PERK_BADGE_CYBER_PET, PERK_BADGE_GOLDBOI_CAR,
-  PERK_BADGE_SNIPER_BRONZE, PERK_BADGE_SNIPER_RIFLE_CELESTIAL,
-  PERK_BADGE_WEAPON_GOLDBOI
-} from "./badge-reward.service";
+  BadgeService,
+  PERK_BADGE_ARMOR_CYBER,
+  PERK_BADGE_CYBER_PET,
+  PERK_BADGE_GOLDBOI_CAR,
+  PERK_BADGE_SNIPER_BRONZE,
+  PERK_BADGE_SNIPER_RIFLE_CELESTIAL,
+  PERK_BADGE_WEAPON_GOLDBOI,
+} from './badge.service';
 
-describe('BadgeRewardService', () => {
-  let service: BadgeRewardService;
+describe('BadgeService', () => {
+  let service: BadgeService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [BadgeRewardService],
+      providers: [BadgeService],
     }).compile();
 
-    service = module.get<BadgeRewardService>(BadgeRewardService);
+    service = module.get<BadgeService>(BadgeService);
   });
 
   it('should be estimate badge rewards', () => {
@@ -28,8 +31,9 @@ describe('BadgeRewardService', () => {
           [PERK_BADGE_CYBER_PET]: 0,
           [PERK_BADGE_GOLDBOI_CAR]: 0,
           [PERK_BADGE_SNIPER_RIFLE_CELESTIAL]: 0,
-        }
-      }, {
+        },
+      },
+      {
         nb: 32,
         expect: {
           [PERK_BADGE_SNIPER_BRONZE]: 1,
@@ -38,8 +42,9 @@ describe('BadgeRewardService', () => {
           [PERK_BADGE_CYBER_PET]: 1,
           [PERK_BADGE_GOLDBOI_CAR]: 1,
           [PERK_BADGE_SNIPER_RIFLE_CELESTIAL]: 0,
-        }
-      }, {
+        },
+      },
+      {
         nb: 90,
         expect: {
           [PERK_BADGE_SNIPER_BRONZE]: 2,
@@ -48,8 +53,8 @@ describe('BadgeRewardService', () => {
           [PERK_BADGE_CYBER_PET]: 2,
           [PERK_BADGE_GOLDBOI_CAR]: 2,
           [PERK_BADGE_SNIPER_RIFLE_CELESTIAL]: 1,
-        }
-      }
+        },
+      },
     ];
     expectedData.map((testCase) => {
       expect(service.getBadgeRewards(testCase['nb'])).toEqual(

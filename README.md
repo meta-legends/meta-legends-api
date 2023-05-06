@@ -39,13 +39,19 @@ $ npm run test:cov
  
 ```bash
 # MintPackage : Search GET   /mint-packages/search?wallet=[wallet-address]
-
 # MintPackage : View   GET   /mint-packages/[mint-package-id]
-
 # MintPackage : Update PATCH /mint-packages/[mint-package-id]
 # => (Body Json: mintWallet)             
 
-# RewardToken : View   GET   /[wallet-address]/estimate
+# RewardToken : View   GET   /token-rewards/[wallet-address]/estimate
+
+# Reward 
+# - badge           : View   GET   /rewards/[wallet-address]/badge
+# - holding         : View   GET   /rewards/[wallet-address]/holding
+# - staked-asset    : View   GET   /rewards/[wallet-address]/staked-asset
+# - unstaked-asset  : View   GET   /rewards/[wallet-address]/unstaked-asset
+
+# - ALL             : View   GET   /rewards/[wallet-address]/estimate
 ```
 
 
