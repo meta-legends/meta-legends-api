@@ -47,23 +47,24 @@ export class RewardController {
   @Header('content-type', 'application/json')
   @Get(':walletAddress/estimate')
   async estimate(@Param('walletAddress') walletAddress: string) {
+    const wallet = walletAddress.toLowerCase();
     const rewards = await this.cacheManager.get(
-      'reward-estimate-' + walletAddress,
+      'reward-estimate-' + wallet,
     );
     if (rewards != null) {
       return rewards;
     }
 
     const response = await this.moralisService.getWalletNFtsByMLCollection(
-      walletAddress,
+      wallet,
       false,
     );
-    const wallet = walletAddress.toLowerCase();
+
     const mintPackages: MintPackage[] | null =
-      await this.mintPackageService.getByMintWallet(walletAddress);
+      await this.mintPackageService.getByMintWallet(wallet);
     if (0 === mintPackages.length) {
       return new HttpException(
-        'Wallet ' + walletAddress + ' not found',
+        'Wallet ' + wallet + ' not found',
         HttpStatus.NOT_FOUND,
       );
     }
@@ -75,7 +76,6 @@ export class RewardController {
         token: await this.tokenService.getRewardToken(mintPackages),
         unstaked: await this.unstakedService.findOneByWallet(wallet),
         // holding: {},
-        // staked-asset: {},
       },
     };
     await this.cacheManager.set(
