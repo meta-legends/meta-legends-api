@@ -12,11 +12,14 @@ import { RewardController } from './reward/reward.controller';
 import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
 import { MintPackageService } from './mint-package/mint-package.service';
-import { MoralisService } from './client/moralis/moralis.service';
-import { EtherscanService } from './client/etherscan/etherscan.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
+import { HoldingService } from './reward/holding/holding.service';
+
+import { AlchemyService } from './client/alchemy/alchemy.service';
+import { EtherscanService } from './client/etherscan/etherscan.service';
+import { MoralisService } from './client/moralis/moralis.service';
 
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
@@ -27,7 +30,6 @@ import { MintPackage } from './mint-package/mint-package.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { HoldingService } from "./reward/holding/holding.service";
 
 @Module({
   imports: [
@@ -60,6 +62,7 @@ import { HoldingService } from "./reward/holding/holding.service";
     RewardService,
     MoralisService,
     EtherscanService,
+    AlchemyService,
     BadgeService,
     TokenService,
     UnstakedService,
