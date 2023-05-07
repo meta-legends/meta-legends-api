@@ -1,25 +1,36 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
 import { DataSource } from 'typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MintPackageController } from './mint-package/mint-package.controller';
-import { MintPackageService } from './mint-package/mint-package.service';
-import { MintPackageModule } from './mint-package/mint-package.module';
-import { MintPackage } from './mint-package/mint-package.entity';
-import { AuthModule } from './auth/auth.module';
-import { AuthMiddleware } from './middleware/auth.middleware';
-import { RewardModule } from './reward/reward.module';
-import { ClientModule } from './client/client.module';
 import { RewardController } from './reward/reward.controller';
-import { RewardService } from './reward/reward.service';
-import { MoralisService } from './client/moralis/moralis.service';
+
+import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
+import { MintPackageService } from './mint-package/mint-package.service';
+import { MoralisService } from './client/moralis/moralis.service';
+import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
+
+import { AuthModule } from './auth/auth.module';
+import { ClientModule } from './client/client.module';
+import { MintPackageModule } from './mint-package/mint-package.module';
+import { RewardModule } from './reward/reward.module';
+
+import { MintPackage } from './mint-package/mint-package.entity';
+
+import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
   imports: [
+    CacheModule.register({
+      isGlobal: true,
+      max: 10000,
+    }),
     ConfigModule.forRoot({
       envFilePath: ['.env'],
     }),
@@ -46,6 +57,10 @@ import { TokenService } from './reward/token/token.service';
     MoralisService,
     BadgeService,
     TokenService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
   ],
 })
 export class AppModule {
