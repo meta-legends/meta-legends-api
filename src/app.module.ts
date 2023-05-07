@@ -24,6 +24,8 @@ import { RewardModule } from './reward/reward.module';
 import { MintPackage } from './mint-package/mint-package.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { UnstakedService } from './reward/unstaked/unstaked.service';
+import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 @Module({
   imports: [
@@ -41,7 +43,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [MintPackage],
+      entities: [MintPackage, Unstaked],
       synchronize: true,
     }),
     MintPackageModule,
@@ -57,6 +59,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     MoralisService,
     BadgeService,
     TokenService,
+    UnstakedService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,

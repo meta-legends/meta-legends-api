@@ -10,9 +10,11 @@ import { MintPackageService } from '../mint-package/mint-package.service';
 import { MoralisService } from '../client/moralis/moralis.service';
 import { TokenService } from './token/token.service';
 import { RewardService } from './reward.service';
+import { UnstakedService } from './unstaked/unstaked.service';
+import { Unstaked } from './unstaked/unstaked.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MintPackage])],
+  imports: [TypeOrmModule.forFeature([MintPackage, Unstaked])],
   exports: [TypeOrmModule],
   controllers: [RewardController],
   providers: [
@@ -21,6 +23,7 @@ import { RewardService } from './reward.service';
     BadgeService,
     TokenService,
     MintPackageService,
+    UnstakedService,
   ],
 })
 export class RewardModule {}
