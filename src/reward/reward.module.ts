@@ -7,7 +7,7 @@ import { MintPackage } from '../mint-package/mint-package.entity';
 
 import { BadgeService } from './badge/badge.service';
 import { MintPackageService } from '../mint-package/mint-package.service';
-import { MoralisService } from '../client/moralis/moralis.service';
+import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { TokenService } from './token/token.service';
 import { RewardService } from './reward.service';
 import { UnstakedService } from './unstaked/unstaked.service';
@@ -20,7 +20,7 @@ import { HoldingService } from './holding/holding.service';
   controllers: [RewardController],
   providers: [
     RewardService,
-    MoralisService,
+    EtherscanService,
     BadgeService,
     TokenService,
     MintPackageService,

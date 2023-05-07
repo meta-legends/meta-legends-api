@@ -9,7 +9,7 @@ import {
   Inject,
 } from '@nestjs/common';
 import { RewardService } from './reward.service';
-import { MoralisService } from '../client/moralis/moralis.service';
+import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { BadgeService } from './badge/badge.service';
 import { TokenService } from './token/token.service';
 import { UnstakedService } from './unstaked/unstaked.service';
@@ -26,7 +26,7 @@ export class RewardController {
     private tokenService: TokenService,
     private mintPackageService: MintPackageService,
     private unstakedService: UnstakedService,
-    private moralisService: MoralisService,
+    private etherscanService: EtherscanService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -48,17 +48,12 @@ export class RewardController {
   @Get(':walletAddress/estimate')
   async estimate(@Param('walletAddress') walletAddress: string) {
     const wallet = walletAddress.toLowerCase();
-    const rewards = await this.cacheManager.get(
-      'reward-estimate-' + wallet,
-    );
+    const rewards = await this.cacheManager.get('reward-estimate-' + wallet);
     if (rewards != null) {
       return rewards;
     }
 
-    const response = await this.moralisService.getWalletNFtsByMLCollection(
-      wallet,
-      false,
-    );
+    const response = await this.etherscanService.getNFTsByWallet(wallet);
 
     const mintPackages: MintPackage[] | null =
       await this.mintPackageService.getByMintWallet(wallet);
