@@ -13,8 +13,10 @@ import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
 import { MintPackageService } from './mint-package/mint-package.service';
 import { MoralisService } from './client/moralis/moralis.service';
+import { EtherscanService } from './client/etherscan/etherscan.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
+import { UnstakedService } from './reward/unstaked/unstaked.service';
 
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
@@ -22,10 +24,9 @@ import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
 
 import { MintPackage } from './mint-package/mint-package.entity';
+import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { UnstakedService } from './reward/unstaked/unstaked.service';
-import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
     MintPackageService,
     RewardService,
     MoralisService,
+    EtherscanService,
     BadgeService,
     TokenService,
     UnstakedService,
