@@ -12,6 +12,7 @@ import { TokenService } from './token/token.service';
 import { RewardService } from './reward.service';
 import { UnstakedService } from './unstaked/unstaked.service';
 import { Unstaked } from './unstaked/unstaked.entity';
+import { HoldingService } from './holding/holding.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MintPackage, Unstaked])],
@@ -24,6 +25,7 @@ import { Unstaked } from './unstaked/unstaked.entity';
     TokenService,
     MintPackageService,
     UnstakedService,
+    HoldingService,
   ],
 })
 export class RewardModule {}

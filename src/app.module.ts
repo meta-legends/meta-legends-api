@@ -27,6 +27,7 @@ import { MintPackage } from './mint-package/mint-package.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { HoldingService } from "./reward/holding/holding.service";
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     BadgeService,
     TokenService,
     UnstakedService,
+    HoldingService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
