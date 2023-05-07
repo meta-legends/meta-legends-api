@@ -48,9 +48,9 @@ export class TokenService {
     });
 
     return {
-      total_token_rewards: Number(rewards),
-      perk_packages: this.getPerkPackages(mintPackages, new Date()),
-      mint_packages: mintPackages,
+      totalTokenRewards: Number(rewards),
+      perkPackages: this.getPerkPackages(mintPackages, new Date()),
+      mintPackages: mintPackages,
     };
   }
 

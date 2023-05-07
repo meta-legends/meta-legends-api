@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-export const PERK_BADGE_SNIPER_BRONZE = 'sniper-bronze';
-export const PERK_BADGE_ARMOR_CYBER = 'armor-cyber';
-export const PERK_BADGE_WEAPON_GOLDBOI = 'weapon-goldboi';
-export const PERK_BADGE_CYBER_PET = 'cyber-pet';
-export const PERK_BADGE_GOLDBOI_CAR = 'goldboi-car';
-export const PERK_BADGE_SNIPER_RIFLE_CELESTIAL = 'sniper-rifle-celestial';
+export const PERK_BADGE_SNIPER_BRONZE = 'sniperBronze';
+export const PERK_BADGE_ARMOR_CYBER = 'armorCyber';
+export const PERK_BADGE_WEAPON_GOLDBOI = 'weaponGoldboi';
+export const PERK_BADGE_CYBER_PET = 'cyberPet';
+export const PERK_BADGE_GOLDBOI_CAR = 'goldboiCar';
+export const PERK_BADGE_SNIPER_RIFLE_CELESTIAL = 'sniperRifleCelestial';
 
 @Injectable()
 export class BadgeService {
