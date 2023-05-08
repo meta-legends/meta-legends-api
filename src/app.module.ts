@@ -26,6 +26,7 @@ import { ClientModule } from './client/client.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
 
+import { Legend } from './reward/legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 
@@ -47,7 +48,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [MintPackage, Unstaked],
+      entities: [MintPackage, Unstaked, Legend],
       synchronize: true,
     }),
     MintPackageModule,

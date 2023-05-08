@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RewardController } from './reward.controller';
 
 import { MintPackage } from '../mint-package/mint-package.entity';
+import { Unstaked } from './unstaked/unstaked.entity';
+import { Legend } from './legend/legend.entity';
 
 import { BadgeService } from './badge/badge.service';
 import { MintPackageService } from '../mint-package/mint-package.service';
@@ -15,7 +17,7 @@ import { Unstaked } from './unstaked/unstaked.entity';
 import { HoldingService } from './holding/holding.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MintPackage, Unstaked])],
+  imports: [TypeOrmModule.forFeature([MintPackage, Unstaked, Legend])],
   exports: [TypeOrmModule],
   controllers: [RewardController],
   providers: [
