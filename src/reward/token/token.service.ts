@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MintPackage } from '../../mint-package/mint-package.entity';
 import { Decimal } from 'decimal.js';
+import { DatetimeService } from '../../utils/datetime/datetime.service';
 
 export const PERK_LABEL_ARMOR = 'armor';
 export const PERK_LABEL_PET = 'pet';
@@ -39,6 +40,8 @@ export const REWARD_RATIOS = [
 
 @Injectable()
 export class TokenService {
+  constructor(private datetimeService: DatetimeService) {}
+
   async getRewardToken(mintPackages: MintPackage[]): Promise<object> {
     let rewards = new Decimal(0);
 
@@ -57,22 +60,12 @@ export class TokenService {
   estimate(mintPackage: MintPackage, now: Date): number {
     const pricePackage = mintPackage.pricePaidEth / mintPackage.nbTokens;
     const rewardRatios = this.getRewardRatios(pricePackage);
+    // console.log(rewardRatios);
     if (rewardRatios.length === 0) {
       return 0;
     }
-
-    const mintDate = new Date(mintPackage.mintAt);
-    if (isNaN(mintDate.getTime())) {
-      throw new Error('Invalid date string: ' + mintPackage.mintAt);
-    }
-
-    const diffDays = this.getDaysBetweenDates(mintDate, now);
-    if (isNaN(diffDays)) {
-      throw new Error(
-        'Invalid date range: ' + mintPackage.mintAt + ' - ' + now,
-      );
-    }
-
+    const diffDays = this.defineDiffDays(mintPackage, now);
+    console.log(`diffDays: ${diffDays} `);
     let rewards = 0;
     rewardRatios.forEach((reward) => {
       rewards += diffDays * reward['perk_ratio'] * mintPackage.nbTokens;
@@ -81,14 +74,6 @@ export class TokenService {
     const roundedRewards = rewards.toFixed(2);
 
     return Number(roundedRewards);
-  }
-
-  getDaysBetweenDates(startDate: Date, endDate: Date): number {
-    // Hours * minutes * seconds * milliseconds
-    const oneDay = 24 * 60 * 60 * 1000;
-    return Math.round(
-      Math.abs((endDate.getTime() - startDate.getTime()) / oneDay),
-    );
   }
 
   getRewardRatiosByPerkLabel(perkLabel): Array<object> | Array<null> {
@@ -141,21 +126,12 @@ export class TokenService {
     mintPackages.forEach((mintPackage) => {
       const pricePackage = mintPackage.pricePaidEth / mintPackage.nbTokens;
       const perkLabel = this.definePerkPackage(pricePackage);
-      const mintDate = new Date(mintPackage.mintAt);
-      if (isNaN(mintDate.getTime())) {
-        throw new Error('Invalid date string: ' + mintPackage.mintAt);
-      }
-
-      const diffDays = this.getDaysBetweenDates(mintDate, now);
-      if (isNaN(diffDays)) {
-        throw new Error(
-          'Invalid date range: ' + mintPackage.mintAt + ' - ' + now,
-        );
-      }
 
       if (perkLabel === null) {
         return;
       }
+      const diffDays = this.defineDiffDays(mintPackage, now);
+      console.log('diffDays: ' + diffDays);
 
       const rewardRatios = this.getRewardRatiosByPerkLabel(perkLabel);
       rewardRatios.map((rewardRatio) => {
@@ -168,5 +144,20 @@ export class TokenService {
     });
 
     return perkPackages;
+  }
+
+  defineDiffDays(mintPackage: MintPackage, now: Date): number {
+    const mintDate = new Date(mintPackage.mintAt);
+    if (isNaN(mintDate.getTime())) {
+      throw new Error('Invalid date string: ' + mintPackage.mintAt);
+    }
+
+    const diffDays = this.datetimeService.getDaysBetweenDates(mintDate, now);
+    if (isNaN(diffDays)) {
+      throw new Error(
+        'Invalid date range: ' + mintPackage.mintAt + ' - ' + now,
+      );
+    }
+    return diffDays;
   }
 }

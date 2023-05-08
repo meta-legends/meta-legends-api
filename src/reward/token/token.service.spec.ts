@@ -14,21 +14,31 @@ import {
   TokenService,
 } from './token.service';
 import { MintPackage } from '../../mint-package/mint-package.entity';
+import { DatetimeService } from '../../utils/datetime/datetime.service';
 
 describe('TokenService', () => {
   let tokenService: TokenService;
+  let datetimeService: DatetimeService;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TokenService],
+      providers: [
+        TokenService,
+        {
+          provide: DatetimeService,
+          useValue: {
+            getDaysBetweenDates: jest
+              .fn()
+              .mockReturnValueOnce(39)
+              .mockReturnValueOnce(7)
+              .mockReturnValueOnce(498)
+              .mockReturnValueOnce(500),
+          },
+        },
+      ],
     }).compile();
 
     tokenService = module.get<TokenService>(TokenService);
-  });
-
-  it('should be estimated days between 2 dates', () => {
-    const startDate = new Date('2022-01-01 20:00:00');
-    const endDate = new Date('2022-01-07 15:00:00');
-    expect(tokenService.getDaysBetweenDates(startDate, endDate)).toEqual(6);
+    datetimeService = module.get<DatetimeService>(DatetimeService);
   });
 
   it('should get ratio empty for none package', () => {
@@ -114,6 +124,7 @@ describe('TokenService', () => {
       tokens: '',
       nbTokens: 1,
     };
+    // 7 days
     expect(tokenService.estimate(mintPackage, new Date('2022-01-01'))).toEqual(
       0,
     );
@@ -122,22 +133,23 @@ describe('TokenService', () => {
     const mintArmorPackage: MintPackage = {
       id: 1,
       mintWallet: '',
-      priceOfSaleEth: 0.5,
-      pricePaidEth: 0.5,
+      priceOfSaleEth: 0.9,
+      pricePaidEth: 0.9,
       mintAt: '2021-12-25',
       tokens: '',
       nbTokens: 1,
     };
-
-    // armor package: days 7
-    expect(
-      tokenService.estimate(mintArmorPackage, new Date('2022-01-01')),
-    ).toEqual(1.47);
     // armor package: days 39
-    mintArmorPackage.pricePaidEth = 0.9;
     expect(
       tokenService.estimate(mintArmorPackage, new Date('2022-02-02')),
     ).toEqual(8.19);
+
+    // armor package: days 7
+    mintArmorPackage.pricePaidEth = 0.5;
+    expect(
+      tokenService.estimate(mintArmorPackage, new Date('2022-01-02')),
+    ).toEqual(1.47);
+
 
     const mintLandPackage: MintPackage = {
       id: 1,
@@ -149,7 +161,7 @@ describe('TokenService', () => {
       nbTokens: 2,
     };
 
-    // land package: days 468
+    // land package: days 498
     expect(
       tokenService.estimate(mintLandPackage, new Date('2023-04-07')),
     ).toEqual(13137.24);
@@ -241,14 +253,14 @@ describe('TokenService', () => {
       nbTokens: 1,
     };
     const expected = {
-      [PERK_LABEL_ARMOR]: { quantity: 1, tokens: 104.58 },
+      [PERK_LABEL_ARMOR]: { quantity: 1, tokens: 8.19 },
       [PERK_LABEL_PET]: { quantity: 0, tokens: 0 },
       [PERK_LABEL_VEHICLE]: { quantity: 0, tokens: 0 },
       [PERK_LABEL_RESIDENCE]: { quantity: 0, tokens: 0 },
       [PERK_LABEL_LAND]: { quantity: 0, tokens: 0 },
     };
     expect(
-      tokenService.getPerkPackages([mintPackage], new Date('2023-04-07')),
+      tokenService.getPerkPackages([mintPackage], new Date('2022-02-02')),
     ).toEqual(expected);
   });
 
@@ -263,14 +275,14 @@ describe('TokenService', () => {
       nbTokens: 2,
     };
     const expected = {
-      [PERK_LABEL_ARMOR]: { quantity: 2, tokens: 209.16 },
-      [PERK_LABEL_PET]: { quantity: 2, tokens: 816.72 },
-      [PERK_LABEL_VEHICLE]: { quantity: 2, tokens: 1633.44 },
-      [PERK_LABEL_RESIDENCE]: { quantity: 2, tokens: 3067.68 },
-      [PERK_LABEL_LAND]: { quantity: 2, tokens: 7410.24 },
+      [PERK_LABEL_ARMOR]: { quantity: 2, tokens: 16.38 },
+      [PERK_LABEL_PET]: { quantity: 2, tokens: 63.96 },
+      [PERK_LABEL_VEHICLE]: { quantity: 2, tokens: 127.92 },
+      [PERK_LABEL_RESIDENCE]: { quantity: 2, tokens: 240.24 },
+      [PERK_LABEL_LAND]: { quantity: 2, tokens: 580.32 },
     };
     expect(
-      tokenService.getPerkPackages([mintPackage], new Date('2023-04-07')),
+      tokenService.getPerkPackages([mintPackage], new Date('2022-02-02')),
     ).toEqual(expected);
   });
 });
