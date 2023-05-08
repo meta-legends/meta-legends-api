@@ -16,6 +16,7 @@ import { LegendService } from './legend/legend.service';
 
 import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { AlchemyService } from '../client/alchemy/alchemy.service';
+import { DatetimeService } from '../utils/datetime/datetime.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MintPackage, Unstaked, Legend])],
@@ -30,6 +31,7 @@ import { AlchemyService } from '../client/alchemy/alchemy.service';
     MintPackageService,
     UnstakedService,
     LegendService,
+    DatetimeService,
   ],
 })
 export class RewardModule {}

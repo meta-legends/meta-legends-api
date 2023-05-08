@@ -16,6 +16,7 @@ import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { LegendService } from './reward/legend/legend.service';
+import { DatetimeService } from './utils/datetime/datetime.service';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
@@ -31,6 +32,7 @@ import { MintPackage } from './mint-package/mint-package.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { UtilsModule } from './utils/utils.module';
 
 @Module({
   imports: [
@@ -51,14 +53,16 @@ import { AuthMiddleware } from './middleware/auth.middleware';
       entities: [MintPackage, Unstaked, Legend],
       synchronize: true,
     }),
-    MintPackageModule,
     AuthModule,
+    UtilsModule,
+    MintPackageModule,
     RewardModule,
     ClientModule,
   ],
   controllers: [AppController, MintPackageController, RewardController],
   providers: [
     AppService,
+    DatetimeService,
     MintPackageService,
     RewardService,
     MoralisService,
