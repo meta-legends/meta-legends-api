@@ -30,8 +30,7 @@ describe('TokenService', () => {
               .fn()
               .mockReturnValueOnce(39)
               .mockReturnValueOnce(7)
-              .mockReturnValueOnce(498)
-              .mockReturnValueOnce(500),
+              .mockReturnValueOnce(498),
           },
         },
       ],

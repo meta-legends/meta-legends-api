@@ -30,19 +30,6 @@ export class RewardController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  @Get('get-all-data')
-  async getData() {
-    //Get all keys
-    const keys = await this.cacheManager.store.keys();
-
-    //Loop through keys and get data
-    const allData: { [key: string]: any } = {};
-    for (const key of keys) {
-      allData[key] = await this.cacheManager.get(key);
-    }
-    return allData;
-  }
-
   @UseInterceptors(CacheInterceptor)
   @Header('content-type', 'application/json')
   @Get(':walletAddress/estimate')
