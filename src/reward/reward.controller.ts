@@ -9,7 +9,7 @@ import {
   Inject,
 } from '@nestjs/common';
 import { RewardService } from './reward.service';
-import { EtherscanService } from '../client/etherscan/etherscan.service';
+import { AlchemyService } from '../client/alchemy/alchemy.service';
 import { BadgeService } from './badge/badge.service';
 import { TokenService } from './token/token.service';
 import { UnstakedService } from './unstaked/unstaked.service';
@@ -26,7 +26,7 @@ export class RewardController {
     private tokenService: TokenService,
     private mintPackageService: MintPackageService,
     private unstakedService: UnstakedService,
-    private etherscanService: EtherscanService,
+    private alchemyService: AlchemyService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -53,7 +53,12 @@ export class RewardController {
       return rewards;
     }
 
-    const response = await this.etherscanService.getNFTsByWallet(wallet);
+    const response = await this.alchemyService.getNFTsByWallet(wallet);
+    await this.cacheManager.set(
+      'client-alchemy-getNFTsByWallet-' + wallet,
+      response,
+      3600000,
+    );
 
     const mintPackages: MintPackage[] | null =
       await this.mintPackageService.getByMintWallet(wallet);
@@ -67,17 +72,13 @@ export class RewardController {
     const value = {
       wallet: wallet,
       rewards: {
-        badge: this.badgeService.getRewardBadge(response.result.length),
+        badge: this.badgeService.getRewardBadge(response.totalCount),
         token: await this.tokenService.getRewardToken(mintPackages),
         unstaked: await this.unstakedService.findOneByWallet(wallet),
-        // holding: {},
+        // legend: {},
       },
     };
-    await this.cacheManager.set(
-      'reward-estimate-' + walletAddress,
-      value,
-      3600000,
-    );
+    await this.cacheManager.set('reward-estimate-' + wallet, value, 3600000);
 
     return value;
   }

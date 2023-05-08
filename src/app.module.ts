@@ -15,7 +15,7 @@ import { MintPackageService } from './mint-package/mint-package.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
-import { HoldingService } from './reward/holding/holding.service';
+import { LegendService } from './reward/legend/legend.service';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
@@ -67,7 +67,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     BadgeService,
     TokenService,
     UnstakedService,
-    HoldingService,
+    LegendService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,

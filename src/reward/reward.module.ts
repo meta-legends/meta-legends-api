@@ -9,12 +9,13 @@ import { Legend } from './legend/legend.entity';
 
 import { BadgeService } from './badge/badge.service';
 import { MintPackageService } from '../mint-package/mint-package.service';
-import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { TokenService } from './token/token.service';
 import { RewardService } from './reward.service';
 import { UnstakedService } from './unstaked/unstaked.service';
-import { Unstaked } from './unstaked/unstaked.entity';
-import { HoldingService } from './holding/holding.service';
+import { LegendService } from './legend/legend.service';
+
+import { EtherscanService } from '../client/etherscan/etherscan.service';
+import { AlchemyService } from '../client/alchemy/alchemy.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MintPackage, Unstaked, Legend])],
@@ -23,11 +24,12 @@ import { HoldingService } from './holding/holding.service';
   providers: [
     RewardService,
     EtherscanService,
+    AlchemyService,
     BadgeService,
     TokenService,
     MintPackageService,
     UnstakedService,
-    HoldingService,
+    LegendService,
   ],
 })
 export class RewardModule {}
