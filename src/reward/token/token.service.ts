@@ -60,12 +60,10 @@ export class TokenService {
   estimate(mintPackage: MintPackage, now: Date): number {
     const pricePackage = mintPackage.pricePaidEth / mintPackage.nbTokens;
     const rewardRatios = this.getRewardRatios(pricePackage);
-    // console.log(rewardRatios);
     if (rewardRatios.length === 0) {
       return 0;
     }
     const diffDays = this.defineDiffDays(mintPackage, now);
-    console.log(`diffDays: ${diffDays} `);
     let rewards = 0;
     rewardRatios.forEach((reward) => {
       rewards += diffDays * reward['perk_ratio'] * mintPackage.nbTokens;
@@ -131,7 +129,6 @@ export class TokenService {
         return;
       }
       const diffDays = this.defineDiffDays(mintPackage, now);
-      console.log('diffDays: ' + diffDays);
 
       const rewardRatios = this.getRewardRatiosByPerkLabel(perkLabel);
       rewardRatios.map((rewardRatio) => {
