@@ -2,7 +2,7 @@ import { Controller, Get, Inject } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 
-import { LegendService } from './reward/legend/legend.service';
+import { LegendService } from './legend/legend.service';
 
 
 @Controller()
@@ -33,8 +33,8 @@ export class AppController {
 
   @Get('/hello')
   async getHello() {
-    return await this.legendService.getRewardHolding(
-      '0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd',
+    return await this.legendService.getNfts(
+      '0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd'.toLowerCase(),
     );
   }
 

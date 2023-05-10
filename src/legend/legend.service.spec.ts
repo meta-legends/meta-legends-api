@@ -10,8 +10,8 @@ import {
   PERK_LABEL_ROBOTER_WEAPON,
   PERK_LABEL_ROUGH_PETS,
 } from './legend.service';
-import { EtherscanService } from '../../client/etherscan/etherscan.service';
-import { AlchemyService } from '../../client/alchemy/alchemy.service';
+import { EtherscanService } from '../client/etherscan/etherscan.service';
+import { AlchemyService } from '../client/alchemy/alchemy.service';
 
 import { Legend } from './legend.entity';
 

@@ -16,7 +16,7 @@ import { AlchemyService } from '../client/alchemy/alchemy.service';
 import { MintPackage } from '../mint-package/mint-package.entity';
 
 import { BadgeService } from './badge/badge.service';
-import { LegendService } from './legend/legend.service';
+import { LegendService } from '../legend/legend.service';
 import { MintPackageService } from '../mint-package/mint-package.service';
 import { RewardService } from './reward.service';
 import { TokenService } from './token/token.service';
@@ -67,7 +67,7 @@ export class RewardController {
         badge: this.badgeService.getRewardBadge(response.totalCount),
         token: await this.tokenService.getRewardToken(mintPackages),
         unstaked: await this.unstakedService.findOneByWallet(wallet),
-        legend: await this.legendService.getRewardHolding(wallet),
+        legend: await this.legendService.getNfts(wallet),
       },
     };
     await this.cacheManager.set('reward-estimate-' + wallet, value, 3600000);

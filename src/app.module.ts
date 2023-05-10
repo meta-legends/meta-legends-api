@@ -15,7 +15,7 @@ import { MintPackageService } from './mint-package/mint-package.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
-import { LegendService } from './reward/legend/legend.service';
+import { LegendService } from './legend/legend.service';
 import { DatetimeService } from './utils/datetime/datetime.service';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
@@ -27,12 +27,13 @@ import { ClientModule } from './client/client.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
 
-import { Legend } from './reward/legend/legend.entity';
+import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { UtilsModule } from './utils/utils.module';
+import { LegendController } from './legend/legend.controller';
 
 @Module({
   imports: [
@@ -59,7 +60,7 @@ import { UtilsModule } from './utils/utils.module';
     RewardModule,
     ClientModule,
   ],
-  controllers: [AppController, MintPackageController, RewardController],
+  controllers: [AppController, MintPackageController, RewardController, LegendController],
   providers: [
     AppService,
     DatetimeService,

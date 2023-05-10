@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as moment from 'moment';
 import { Legend } from './legend.entity';
-import { EtherscanService } from '../../client/etherscan/etherscan.service';
-import { AlchemyService } from '../../client/alchemy/alchemy.service';
+import { EtherscanService } from '../client/etherscan/etherscan.service';
+import { AlchemyService } from '../client/alchemy/alchemy.service';
 
 export const PERK_LABEL_CYBER_WEAPON = 'cyberWeapon';
 export const PERK_LABEL_CYBER_ARMOR = 'cyberArmor';
@@ -58,7 +58,7 @@ export class LegendService {
     return data;
   }
 
-  async getRewardHolding(address: string) {
+  async getNfts(address: string) {
     let nftFromBdd = await this.legendRepository.findBy({ address });
     const [tokenIds, nftFromAlchemy] = await this.getNftDataFromAlchemy(
       address,
