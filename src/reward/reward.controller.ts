@@ -8,15 +8,19 @@ import {
   UseInterceptors,
   Inject,
 } from '@nestjs/common';
-import { RewardService } from './reward.service';
-import { AlchemyService } from '../client/alchemy/alchemy.service';
-import { BadgeService } from './badge/badge.service';
-import { TokenService } from './token/token.service';
-import { UnstakedService } from './unstaked/unstaked.service';
-import { MintPackage } from '../mint-package/mint-package.entity';
-import { MintPackageService } from '../mint-package/mint-package.service';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+
+import { AlchemyService } from '../client/alchemy/alchemy.service';
+
+import { MintPackage } from '../mint-package/mint-package.entity';
+
+import { BadgeService } from './badge/badge.service';
+import { LegendService } from './legend/legend.service';
+import { MintPackageService } from '../mint-package/mint-package.service';
+import { RewardService } from './reward.service';
+import { TokenService } from './token/token.service';
+import { UnstakedService } from './unstaked/unstaked.service';
 
 @Controller('rewards')
 export class RewardController {
@@ -25,6 +29,7 @@ export class RewardController {
     private badgeService: BadgeService,
     private tokenService: TokenService,
     private mintPackageService: MintPackageService,
+    private legendService: LegendService,
     private unstakedService: UnstakedService,
     private alchemyService: AlchemyService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
@@ -62,7 +67,7 @@ export class RewardController {
         badge: this.badgeService.getRewardBadge(response.totalCount),
         token: await this.tokenService.getRewardToken(mintPackages),
         unstaked: await this.unstakedService.findOneByWallet(wallet),
-        // legend: {},
+        legend: await this.legendService.getRewardHolding(wallet),
       },
     };
     await this.cacheManager.set('reward-estimate-' + wallet, value, 3600000);
