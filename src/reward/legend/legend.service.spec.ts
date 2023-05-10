@@ -1,7 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { LegendService } from './legend.service';
+import {
+  LegendService,
+  PERK_LABEL_CYBER_ARMOR,
+  PERK_LABEL_CYBER_WEAPON,
+  PERK_LABEL_HEALING_DRONE,
+  PERK_LABEL_MATRIX_ANGEL_VEHICLE,
+  PERK_LABEL_ROBOTER_WEAPON,
+  PERK_LABEL_ROUGH_PETS,
+} from './legend.service';
 import { EtherscanService } from '../../client/etherscan/etherscan.service';
 import { AlchemyService } from '../../client/alchemy/alchemy.service';
 
@@ -237,5 +245,73 @@ describe('LegendService', () => {
       [6, 100, 1229],
       toRemove,
     ]);
+  });
+
+  it('should be define holding rewards', () => {
+    const expected = {
+      [PERK_LABEL_CYBER_WEAPON]: false,
+      [PERK_LABEL_CYBER_ARMOR]: false,
+      [PERK_LABEL_ROUGH_PETS]: false,
+      [PERK_LABEL_ROBOTER_WEAPON]: false,
+      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: false,
+      [PERK_LABEL_HEALING_DRONE]: false,
+    };
+    expect(
+      legendService.defineHoldingRewards(
+        new Date('2023-01-01 00:00:00'),
+        new Date('2023-01-02 00:00:00'),
+      ),
+    ).toEqual(expected);
+    expect(
+      legendService.defineHoldingRewards(
+        new Date('2023-01-01 00:00:00'),
+        new Date('2023-01-31 00:00:00'),
+      ),
+    ).toEqual(expected);
+
+    const expected2 = {
+      [PERK_LABEL_CYBER_WEAPON]: true,
+      [PERK_LABEL_CYBER_ARMOR]: false,
+      [PERK_LABEL_ROUGH_PETS]: false,
+      [PERK_LABEL_ROBOTER_WEAPON]: false,
+      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: false,
+      [PERK_LABEL_HEALING_DRONE]: false,
+    };
+    expect(
+      legendService.defineHoldingRewards(
+        new Date('2023-01-01 00:00:00'),
+        new Date('2023-02-05 00:00:00'),
+      ),
+    ).toEqual(expected2);
+
+    const expected3 = {
+      [PERK_LABEL_CYBER_WEAPON]: true,
+      [PERK_LABEL_CYBER_ARMOR]: true,
+      [PERK_LABEL_ROUGH_PETS]: true,
+      [PERK_LABEL_ROBOTER_WEAPON]: true,
+      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: false,
+      [PERK_LABEL_HEALING_DRONE]: false,
+    };
+    expect(
+      legendService.defineHoldingRewards(
+        new Date('2023-01-01 00:00:00'),
+        new Date('2023-09-05 00:00:00'),
+      ),
+    ).toEqual(expected3);
+
+    const expected4 = {
+      [PERK_LABEL_CYBER_WEAPON]: true,
+      [PERK_LABEL_CYBER_ARMOR]: true,
+      [PERK_LABEL_ROUGH_PETS]: true,
+      [PERK_LABEL_ROBOTER_WEAPON]: true,
+      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: true,
+      [PERK_LABEL_HEALING_DRONE]: true,
+    };
+    expect(
+      legendService.defineHoldingRewards(
+        new Date('2023-01-01 00:00:00'),
+        new Date('2024-04-01 00:00:00'),
+      ),
+    ).toEqual(expected4);
   });
 });

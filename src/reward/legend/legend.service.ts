@@ -6,6 +6,20 @@ import { Legend } from './legend.entity';
 import { EtherscanService } from '../../client/etherscan/etherscan.service';
 import { AlchemyService } from '../../client/alchemy/alchemy.service';
 
+export const PERK_LABEL_CYBER_WEAPON = 'cyberWeapon';
+export const PERK_LABEL_CYBER_ARMOR = 'cyberArmor';
+export const PERK_LABEL_ROUGH_PETS = 'roughPet';
+export const PERK_LABEL_ROBOTER_WEAPON = 'roboterWeapon';
+export const PERK_LABEL_MATRIX_ANGEL_VEHICLE = 'matrixAngelVehicle';
+export const PERK_LABEL_HEALING_DRONE = 'healingDrone';
+
+export const MINPERIOD_HOLD_CYBER_WEAPON = 1;
+export const MINPERIOD_HOLD_CYBER_ARMOR = 2;
+export const MINPERIOD_HOLD_ROUGH_PETS = 5;
+export const MINPERIOD_HOLD_ROBOTER_WEAPON = 8;
+export const MINPERIOD_HOLD_MA_VEHICLE = 11;
+export const MINPERIOD_HOLD_HEALING_DRONE = 15;
+
 @Injectable()
 export class LegendService {
   constructor(
@@ -156,9 +170,29 @@ export class LegendService {
         tokenId: legend.tokenId,
         purchasedOn: legend.purchasedOn,
         media: nftFromApi[legend.tokenId].media,
+        holdingRewards: this.defineHoldingRewards(
+          new Date(legend.purchasedOn),
+          new Date(),
+        ),
       };
       result.push(obj);
     });
     return result;
+  }
+
+  defineHoldingRewards(purchasedOnDate: Date, now: Date): object {
+    const months = moment(now.getTime()).diff(
+      purchasedOnDate.getTime(),
+      'months',
+    );
+
+    return {
+      [PERK_LABEL_CYBER_WEAPON]: MINPERIOD_HOLD_CYBER_WEAPON <= months,
+      [PERK_LABEL_CYBER_ARMOR]: MINPERIOD_HOLD_CYBER_ARMOR <= months,
+      [PERK_LABEL_ROUGH_PETS]: MINPERIOD_HOLD_ROUGH_PETS <= months,
+      [PERK_LABEL_ROBOTER_WEAPON]: MINPERIOD_HOLD_ROBOTER_WEAPON <= months,
+      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: MINPERIOD_HOLD_MA_VEHICLE <= months,
+      [PERK_LABEL_HEALING_DRONE]: MINPERIOD_HOLD_HEALING_DRONE <= months,
+    };
   }
 }
