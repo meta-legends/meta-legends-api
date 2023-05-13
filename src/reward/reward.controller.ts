@@ -2,8 +2,6 @@ import {
   Controller,
   Get,
   Header,
-  HttpException,
-  HttpStatus,
   Param,
   UseInterceptors,
   Inject,
@@ -54,12 +52,6 @@ export class RewardController {
 
     const mintPackages: MintPackage[] | null =
       await this.mintPackageService.getByMintWallet(wallet);
-    if (0 === mintPackages.length) {
-      return new HttpException(
-        'Wallet ' + wallet + ' not found',
-        HttpStatus.NOT_FOUND,
-      );
-    }
 
     const value = {
       wallet: wallet,

@@ -11,7 +11,12 @@ export class UnstakedService {
     private unstakedRepository: Repository<Unstaked>,
   ) {}
 
-  findOneByWallet(address: string): Promise<Unstaked | null> {
-    return this.unstakedRepository.findOneBy({ address });
+  async findOneByWallet(address: string): Promise<Promise<Unstaked> | object> {
+    const unstaked = await this.unstakedRepository.findOneBy({ address });
+    if (unstaked === null) {
+      return {};
+    }
+
+    return unstaked;
   }
 }

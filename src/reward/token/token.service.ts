@@ -57,6 +57,14 @@ export class TokenService {
     };
   }
 
+  getRewardTokenEmpty(): object {
+    return {
+      totalTokenRewards: Number(0),
+      perkPackages: this.getPerkPackages([], new Date()),
+      mintPackages: [],
+    };
+  }
+
   estimate(mintPackage: MintPackage, now: Date): number {
     const pricePackage = mintPackage.pricePaidEth / mintPackage.nbTokens;
     const rewardRatios = this.getRewardRatios(pricePackage);
