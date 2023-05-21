@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('claim_og_pet')
+@Entity()
 export class OgPet {
   @PrimaryGeneratedColumn()
   id: number;

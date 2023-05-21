@@ -6,17 +6,20 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
+import { EligibilityController } from './eligibility/eligibility.controller';
 import { MintPackageController } from './mint-package/mint-package.controller';
+import { LegendController } from './legend/legend.controller';
 import { RewardController } from './reward/reward.controller';
 
 import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
+import { DatetimeService } from './utils/datetime/datetime.service';
 import { MintPackageService } from './mint-package/mint-package.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
-import { UnstakedService } from './reward/unstaked/unstaked.service';
+import { OgPetService } from './eligibility/og-pet/og-pet.service';
 import { LegendService } from './legend/legend.service';
-import { DatetimeService } from './utils/datetime/datetime.service';
+import { UnstakedService } from './reward/unstaked/unstaked.service';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
@@ -24,17 +27,17 @@ import { MoralisService } from './client/moralis/moralis.service';
 
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
+import { EligibilityModule } from './eligibility/eligibility.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
+import { UtilsModule } from './utils/utils.module';
 
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
+import { OgPet } from './eligibility/og-pet/og-pet.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { UtilsModule } from './utils/utils.module';
-import { LegendController } from './legend/legend.controller';
-import { ClaimModule } from './claim/claim.module';
 
 @Module({
   imports: [
@@ -52,7 +55,7 @@ import { ClaimModule } from './claim/claim.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [MintPackage, Unstaked, Legend],
+      entities: [MintPackage, Unstaked, Legend, OgPet],
       synchronize: true,
     }),
     AuthModule,
@@ -60,9 +63,15 @@ import { ClaimModule } from './claim/claim.module';
     MintPackageModule,
     RewardModule,
     ClientModule,
-    ClaimModule,
+    EligibilityModule,
   ],
-  controllers: [AppController, MintPackageController, RewardController, LegendController],
+  controllers: [
+    AppController,
+    MintPackageController,
+    RewardController,
+    LegendController,
+    EligibilityController,
+  ],
   providers: [
     AppService,
     DatetimeService,
@@ -75,6 +84,7 @@ import { ClaimModule } from './claim/claim.module';
     TokenService,
     UnstakedService,
     LegendService,
+    OgPetService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
