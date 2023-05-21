@@ -34,6 +34,7 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { UtilsModule } from './utils/utils.module';
 import { LegendController } from './legend/legend.controller';
+import { ClaimModule } from './claim/claim.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { LegendController } from './legend/legend.controller';
     MintPackageModule,
     RewardModule,
     ClientModule,
+    ClaimModule,
   ],
   controllers: [AppController, MintPackageController, RewardController, LegendController],
   providers: [
