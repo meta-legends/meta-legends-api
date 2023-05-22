@@ -38,6 +38,7 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { ClaimModule } from './claim/claim.module';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     RewardModule,
     ClientModule,
     EligibilityModule,
+    ClaimModule,
   ],
   controllers: [
     AppController,
