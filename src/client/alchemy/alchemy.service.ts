@@ -19,4 +19,17 @@ export class AlchemyService {
       console.log(error);
     }
   }
+
+  async getOwnersForCollectionML() {
+    const contract = process.env.CONTRACT_ML;
+    const alchemyUrl = process.env.ALCHEMY_URL;
+    const alchemyApiKey = process.env.ALCHEMY_API_KEY;
+    const url = `${alchemyUrl}/nft/v2/${alchemyApiKey}/getOwnersForCollection?contractAddress=${contract}&withTokenBalances=true`;
+    try {
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
