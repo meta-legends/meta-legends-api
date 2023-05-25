@@ -39,6 +39,7 @@ import { OgPet } from './eligibility/og-pet/og-pet.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ClaimModule } from './claim/claim.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { ClaimModule } from './claim/claim.module';
     ClientModule,
     EligibilityModule,
     ClaimModule,
+    UserModule,
   ],
   controllers: [
     AppController,
