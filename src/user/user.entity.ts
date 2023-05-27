@@ -10,4 +10,10 @@ export class User {
 
   @Column('boolean')
   isActive: boolean;
+
+  @Column('datetime')
+  lastLogin: string;
+
+  @Column('datetime')
+  createdAt: string;
 }
