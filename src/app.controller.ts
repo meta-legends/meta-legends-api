@@ -1,7 +1,8 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, Inject, Headers, UseGuards } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-
+import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from './auth/auth.guard';
 import { LegendService } from './legend/legend.service';
 import { UserService } from '@src/user/user.service';
 
@@ -11,6 +12,7 @@ export class AppController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private legendService: LegendService,
     private userService: UserService,
+    private jwtService: JwtService,
   ) {}
 
   @Get('/cache/clear')
@@ -47,9 +49,21 @@ export class AppController {
   }
 
   @Get('/hello3')
-  async getHello3() {
-    return await this.userService.countMLBag(
-      '0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd',
-    );
+  async getHello3(@Headers() headers) {
+    const token = this.getBearerToken(headers.authorization);
+    const data = await this.jwtService.decode(token);
+    console.log(data);
+    return true;
+  }
+
+  getBearerToken(authorization: string) {
+    const [type, token] = authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/hello4')
+  async getHello4() {
+    return true;
   }
 }
