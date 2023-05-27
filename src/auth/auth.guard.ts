@@ -19,7 +19,10 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     try {
-      request['user'] = await this.jwtService.decode(token);
+      const dynamicData = await this.jwtService.decode(token);
+      request['user'] = dynamicData;
+      const address = dynamicData['verified_credentials'][0]['address'];
+      request['user-wallet'] = address.toLowerCase();
     } catch {
       throw new UnauthorizedException();
     }
