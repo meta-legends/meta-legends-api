@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { MintOrder } from '@src/mint/order/mint-order.entity';
 
 @Entity()
 export class User {
@@ -8,7 +9,7 @@ export class User {
   @Column('varchar', { length: 63 })
   wallet: string;
 
-  @Column('boolean')
+  @Column({ default: true })
   isActive: boolean;
 
   @Column('datetime')
@@ -16,4 +17,7 @@ export class User {
 
   @Column('datetime')
   createdAt: string;
+
+  @OneToMany(() => MintOrder, (mintOrder) => mintOrder.user)
+  mintOrders: MintOrder[];
 }

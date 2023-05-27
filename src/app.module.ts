@@ -33,7 +33,6 @@ import { EligibilityModule } from './eligibility/eligibility.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
-import { ClaimModule } from './claim/claim.module';
 import { UserModule } from './user/user.module';
 
 import { Legend } from './legend/legend.entity';
@@ -43,6 +42,10 @@ import { OgPet } from './eligibility/og-pet/og-pet.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { MintModule } from './mint/mint.module';
+import { OrderService } from './mint/order/order.service';
+import { Asset } from '@src/mint/asset/asset.entity';
+import { MintOrder } from '@src/mint/order/mint-order.entity';
 
 @Module({
   imports: [
@@ -60,7 +63,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [MintPackage, Unstaked, Legend, OgPet, User],
+      entities: [MintPackage, Unstaked, Legend, OgPet, User, Asset, MintOrder],
       synchronize: true,
     }),
     AuthModule,
@@ -69,8 +72,8 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     RewardModule,
     ClientModule,
     EligibilityModule,
-    ClaimModule,
     UserModule,
+    MintModule,
   ],
   controllers: [
     AppController,
@@ -98,6 +101,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    OrderService,
   ],
 })
 export class AppModule {
