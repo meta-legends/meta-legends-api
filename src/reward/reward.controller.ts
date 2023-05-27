@@ -2,9 +2,10 @@ import {
   Controller,
   Get,
   Header,
-  Param,
   UseInterceptors,
   Inject,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
@@ -19,6 +20,8 @@ import { MintPackageService } from '../mint-package/mint-package.service';
 import { RewardService } from './reward.service';
 import { TokenService } from './token/token.service';
 import { UnstakedService } from './unstaked/unstaked.service';
+import { AuthGuard } from '@src/auth/auth.guard';
+import { Request } from 'express';
 
 @Controller('rewards')
 export class RewardController {
@@ -33,11 +36,12 @@ export class RewardController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
+  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   @Header('content-type', 'application/json')
-  @Get(':walletAddress/estimate')
-  async estimate(@Param('walletAddress') walletAddress: string) {
-    const wallet = walletAddress.toLowerCase();
+  @Get('')
+  async estimate(@Req() request: Request) {
+    const wallet = request['user-wallet'];
     const rewards = await this.cacheManager.get('reward-estimate-' + wallet);
     if (rewards != null) {
       return rewards;
