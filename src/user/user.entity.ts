@@ -7,4 +7,7 @@ export class User {
 
   @Column('varchar', { length: 63 })
   wallet: string;
+
+  @Column('boolean')
+  isActive: boolean;
 }
