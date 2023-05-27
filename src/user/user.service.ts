@@ -1,21 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import {UserCreateDto} from "./user-create.dto";
+import {
+  AlchemyService,
+  isHolderOfCollection,
+} from '@src/client/alchemy/alchemy.service';
+
+import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
-    private dataSource: DataSource,
+    private alchemyService: AlchemyService,
   ) {}
 
-  async findOne(wallet: string) {
-    return await this.userRepository.findOneBy({ wallet });
-  }
-
-  async create(userCreateDto: UserCreateDto) {
-    return await this.userRepository.create();
+  async isHolder(wallet: string) {
+    const params = {
+      wallet: wallet,
+      contractAddress: CONTRACT_META_LEGENDS,
+    };
+    return this.alchemyService.get(isHolderOfCollection, params);
   }
 }

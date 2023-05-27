@@ -40,6 +40,8 @@ import { OgPet } from './eligibility/og-pet/og-pet.entity';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { ClaimModule } from './claim/claim.module';
 import { UserModule } from './user/user.module';
+import {UserController} from "@src/user/user.controller";
+import {UserService} from "@src/user/user.service";
 
 @Module({
   imports: [
@@ -71,24 +73,26 @@ import { UserModule } from './user/user.module';
   ],
   controllers: [
     AppController,
+    EligibilityController,
+    LegendController,
     MintPackageController,
     RewardController,
-    LegendController,
-    EligibilityController,
+    UserController,
   ],
   providers: [
     AppService,
-    DatetimeService,
-    MintPackageService,
-    RewardService,
-    MoralisService,
-    EtherscanService,
     AlchemyService,
     BadgeService,
-    TokenService,
-    UnstakedService,
+    DatetimeService,
+    EtherscanService,
     LegendService,
+    MintPackageService,
+    MoralisService,
     OgPetService,
+    TokenService,
+    RewardService,
+    UnstakedService,
+    UserService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
