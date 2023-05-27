@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 export const isHolderOfCollection = 'isHolderOfCollection';
+export const getContractsForOwner = 'getContractsForOwner';
 
 @Injectable()
 export class AlchemyService {

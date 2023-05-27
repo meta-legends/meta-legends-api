@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import {
   AlchemyService,
+  getContractsForOwner,
   isHolderOfCollection,
 } from '@src/client/alchemy/alchemy.service';
 
@@ -42,5 +43,23 @@ export class UserService {
         86400000,
       );
     });
+  }
+
+  async countMLBag(wallet: string) {
+    const params = {
+      owner: wallet,
+    };
+    try {
+      const data = await this.alchemyService.get(getContractsForOwner, params);
+      let count = 0;
+      data['contracts'].forEach((contract) => {
+        if (contract['address'].toLowerCase() == CONTRACT_META_LEGENDS) {
+          count = contract['totalBalance'];
+        }
+      });
+      return count;
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
