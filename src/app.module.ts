@@ -15,11 +15,13 @@ import { UserController } from '@src/user/user.controller';
 import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
 import { DatetimeService } from './utils/datetime/datetime.service';
+import { OgPetService } from './eligibility/og-pet/og-pet.service';
+import { OrderService } from './command/order/order.service';
 import { MintPackageService } from './mint-package/mint-package.service';
+import { MintOrderService } from './mint-order/mint-order.service';
+import { LegendService } from './legend/legend.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
-import { OgPetService } from './eligibility/og-pet/og-pet.service';
-import { LegendService } from './legend/legend.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { UserService } from '@src/user/user.service';
 
@@ -35,16 +37,16 @@ import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './user/user.module';
 
+import { Asset } from '@src/mint/asset/asset.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
-import { Unstaked } from './reward/unstaked/unstaked.entity';
+import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
+import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { MintModule } from './mint/mint.module';
-import { Asset } from '@src/mint/asset/asset.entity';
-import { MintOrder } from '@src/mint/order/mint-order.entity';
 
 @Module({
   imports: [
@@ -100,6 +102,8 @@ import { MintOrder } from '@src/mint/order/mint-order.entity';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    MintOrderService,
+    OrderService,
   ],
 })
 export class AppModule {
