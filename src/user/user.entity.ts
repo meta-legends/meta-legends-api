@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { MintOrder } from '@src/mint/order/mint-order.entity';
+import { MintOrder } from '@src/mint-order/mint-order.entity';
 
 @Entity()
 export class User {
