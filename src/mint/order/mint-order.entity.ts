@@ -19,9 +19,12 @@ export class MintOrder {
   @Column('varchar', { length: 123 })
   choice: string;
 
-  @Column({ default: false })
+  @Column('boolean', { default: false })
   minted: boolean;
 
   @Column('datetime')
   updatedAt: string;
+
+  @Column('datetime', { nullable: true })
+  mintedAt!: string | null;
 }
