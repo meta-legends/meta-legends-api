@@ -13,4 +13,8 @@ export class OgPetService {
   getEstimateByWallet(address: string): Promise<OgPet | null> {
     return this.eliOgPetRepository.findOneBy({ address });
   }
+
+  findAll(): Promise<OgPet[] | null> {
+    return this.eliOgPetRepository.find();
+  }
 }
