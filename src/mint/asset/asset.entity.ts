@@ -12,17 +12,17 @@ export class Asset {
   @Column('varchar', { length: 123 })
   code: string;
 
-  @Column('varchar', { length: 63 })
-  contract: string;
+  @Column('varchar', { length: 63, nullable: true })
+  contract!: string | null;
 
-  @Column('int')
-  supply: number;
+  @Column({ type: 'int', nullable: true })
+  supply!: number | null;
 
   @Column({ default: false })
   isOpen: boolean;
 
-  @Column('datetime')
-  openOn: string;
+  @Column({ type: 'datetime', nullable: true })
+  openOn!: string | null;
 
   @OneToMany(() => MintOrder, (mintOrder) => mintOrder.asset)
   mintOrders: MintOrder[];

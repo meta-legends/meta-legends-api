@@ -43,7 +43,6 @@ import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { MintModule } from './mint/mint.module';
-import { OrderService } from './mint/order/order.service';
 import { Asset } from '@src/mint/asset/asset.entity';
 import { MintOrder } from '@src/mint/order/mint-order.entity';
 
@@ -101,7 +100,6 @@ import { MintOrder } from '@src/mint/order/mint-order.entity';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    OrderService,
   ],
 })
 export class AppModule {
