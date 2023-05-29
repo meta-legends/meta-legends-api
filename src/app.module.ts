@@ -48,6 +48,7 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { OgPetUserService } from './command/og-pet-user/og-pet-user.service';
 
 @Module({
   imports: [
@@ -106,6 +107,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     },
     MintOrderService,
     OrderService,
+    OgPetUserService,
   ],
 })
 export class AppModule {
