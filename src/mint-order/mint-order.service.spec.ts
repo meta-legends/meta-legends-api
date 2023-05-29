@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MintOrderService } from './mint-order.service';
 import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
 import { User } from '@src/user/user.entity';
-import { Asset } from '@src/mint/asset/asset.entity';
+import { Asset } from '@src/asset/asset.entity';
 
 describe('MintOrderService', () => {
   let service: MintOrderService;
@@ -19,8 +19,19 @@ describe('MintOrderService', () => {
     expect(service).toBeDefined();
   });
 
-  it('test', () => {
+  it('should create mintorders by ogPet object', () => {
     expect(true).toBeTruthy();
+    const user: User = {
+      id: 1,
+      wallet: '0x',
+      isActive: true,
+      lastLogin: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      mintOrders: [],
+      ogPet: null,
+      isModo: false,
+      isAdmin: false,
+    };
     const ogPet: OgPet = {
       id: 1,
       address: '',
@@ -31,14 +42,7 @@ describe('MintOrderService', () => {
       mint: 2,
       og: 0,
       whale: 1,
-    };
-    const user: User = {
-      id: 1,
-      wallet: '0x',
-      isActive: true,
-      lastLogin: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-      mintOrders: [],
+      user: user,
     };
     const asset: Asset = {
       id: 1,

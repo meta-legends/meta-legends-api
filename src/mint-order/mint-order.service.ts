@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm/data-source/DataSource';
 
 import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
-import { Asset } from '@src/mint/asset/asset.entity';
+import { Asset } from '@src/asset/asset.entity';
 import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { User } from '@src/user/user.entity';
 
@@ -19,13 +19,12 @@ import {
 
 @Injectable()
 export class MintOrderService {
-
   constructor(private dataSource: DataSource) {}
 
   build(user: User, asset: Asset, ogPet: OgPet) {
     const quantities = this.getQuantities(ogPet);
     const mintOrders = [];
-    let position = 0;
+    let position = 1;
     OG_PET_TYPES.forEach((type) => {
       if (quantities[type] == 0) {
         return;
@@ -61,11 +60,17 @@ export class MintOrderService {
     };
   }
 
-  async create(user: User, asset: Asset, ogPet: OgPet) {
+  async create(user: User, asset: Asset, ogPet: OgPet): Promise<number> {
     const mintOrders = this.build(user, asset, ogPet);
     if (mintOrders.length == 0) {
-      return;
+      return 0;
     }
-    await this.dataSource.manager.save(mintOrders);
+    await this.dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(MintOrder)
+      .values(mintOrders)
+      .execute();
+    return mintOrders.length;
   }
 }

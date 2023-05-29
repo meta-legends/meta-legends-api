@@ -17,4 +17,8 @@ export class OgPetService {
   findAll(): Promise<OgPet[] | null> {
     return this.eliOgPetRepository.find();
   }
+
+  findOne(address: string): Promise<OgPet | null> {
+    return this.eliOgPetRepository.findOneBy({ address });
+  }
 }
