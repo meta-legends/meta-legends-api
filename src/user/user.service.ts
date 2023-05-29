@@ -62,4 +62,8 @@ export class UserService {
       console.error(e);
     }
   }
+
+  findOne(wallet: string): Promise<User | null> {
+    return this.userRepository.findOneBy({ wallet });
+  }
 }

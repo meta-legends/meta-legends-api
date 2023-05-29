@@ -12,8 +12,14 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @Column('datetime')
-  lastLogin: string;
+  @Column('boolean', { default: false })
+  isModo: boolean;
+
+  @Column('boolean', { default: false })
+  isAdmin: boolean;
+
+  @Column('datetime', { nullable: true})
+  lastLogin!: string | null;
 
   @Column('datetime')
   createdAt: string;
