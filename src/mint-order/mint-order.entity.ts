@@ -5,7 +5,7 @@ import { Asset } from '@src/mint/asset/asset.entity';
 @Entity()
 export class MintOrder {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number | null;
 
   @ManyToOne(() => Asset, (asset) => asset.mintOrders)
   asset: Asset;
