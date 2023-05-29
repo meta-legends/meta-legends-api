@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 import { User } from '@src/user/user.entity';
 
 @Entity()
@@ -8,10 +14,6 @@ export class OgPet {
 
   @Column('varchar', { length: 63 })
   address: string;
-
-  @OneToOne(() => User, (user) => user.ogPet)
-  @JoinColumn()
-  user: User;
 
   @Column('int')
   council: number;
@@ -33,4 +35,8 @@ export class OgPet {
 
   @Column('int')
   whale: number;
+
+  @OneToOne(() => User, (user) => user.ogPet)
+  @JoinColumn()
+  user: User;
 }

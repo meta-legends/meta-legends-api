@@ -13,7 +13,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { length: 63 })
+  @Column('varchar', { length: 63, unique: true })
   wallet: string;
 
   @Column({ default: true })

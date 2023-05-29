@@ -60,8 +60,8 @@ export class MintOrderService {
     };
   }
 
-  async create(user: User, asset: Asset, ogPet: OgPet): Promise<number> {
-    const mintOrders = this.build(user, asset, ogPet);
+  async create(asset: Asset, ogPet: OgPet): Promise<number> {
+    const mintOrders = this.build(ogPet.user, asset, ogPet);
     if (mintOrders.length == 0) {
       return 0;
     }
