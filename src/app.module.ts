@@ -12,6 +12,7 @@ import { LegendController } from './legend/legend.controller';
 import { RewardController } from './reward/reward.controller';
 import { UserController } from '@src/user/user.controller';
 
+import { AssetService } from '@src/asset/asset.service';
 import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
 import { DatetimeService } from './utils/datetime/datetime.service';
@@ -29,6 +30,7 @@ import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
 import { MoralisService } from './client/moralis/moralis.service';
 
+import { AssetModule } from './asset/asset.module';
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
 import { EligibilityModule } from './eligibility/eligibility.module';
@@ -37,7 +39,7 @@ import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './user/user.module';
 
-import { Asset } from '@src/mint/asset/asset.entity';
+import { Asset } from '@src/asset/asset.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { MintOrder } from '@src/mint-order/mint-order.entity';
@@ -46,7 +48,6 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { MintModule } from './mint/mint.module';
 
 @Module({
   imports: [
@@ -74,7 +75,7 @@ import { MintModule } from './mint/mint.module';
     ClientModule,
     EligibilityModule,
     UserModule,
-    MintModule,
+    AssetModule,
   ],
   controllers: [
     AppController,
@@ -86,6 +87,7 @@ import { MintModule } from './mint/mint.module';
   ],
   providers: [
     AppService,
+    AssetService,
     AlchemyService,
     BadgeService,
     DatetimeService,
