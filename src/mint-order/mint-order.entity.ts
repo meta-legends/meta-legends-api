@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '@src/user/user.entity';
-import { Asset } from '@src/mint/asset/asset.entity';
+import { Asset } from '@src/asset/asset.entity';
 
 @Entity()
 export class MintOrder {
