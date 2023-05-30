@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm/data-source/DataSource';
+import { Repository } from 'typeorm';
 
 import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
 import { Asset } from '@src/asset/asset.entity';
@@ -16,10 +17,15 @@ import {
   ELIGIBILITY_WHALE,
   OG_PET_TYPES,
 } from '../enum/eligibility-mint-og-pet';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class MintOrderService {
-  constructor(private dataSource: DataSource) {}
+  constructor(
+    @InjectRepository(MintOrder)
+    private mintOrderRepository: Repository<MintOrder>,
+    private dataSource: DataSource,
+  ) {}
 
   build(user: User, asset: Asset, ogPet: OgPet) {
     const quantities = this.getQuantities(ogPet);
@@ -72,5 +78,14 @@ export class MintOrderService {
       .values(mintOrders)
       .execute();
     return mintOrders.length;
+  }
+
+  async findByUserAndAsset(
+    user: User,
+    asset: Asset,
+  ): Promise<MintOrder[] | null> {
+    return this.mintOrderRepository.find({
+      where: { user: user, asset: asset },
+    });
   }
 }

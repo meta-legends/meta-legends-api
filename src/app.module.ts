@@ -49,6 +49,8 @@ import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { OgPetUserService } from './command/og-pet-user/og-pet-user.service';
+import { MintOrderController } from './mint-order/mint-order.controller';
+import { MintOrderModule } from './mint-order/mint-order.module';
 
 @Module({
   imports: [
@@ -77,6 +79,7 @@ import { OgPetUserService } from './command/og-pet-user/og-pet-user.service';
     EligibilityModule,
     UserModule,
     AssetModule,
+    MintOrderModule,
   ],
   controllers: [
     AppController,
@@ -85,6 +88,7 @@ import { OgPetUserService } from './command/og-pet-user/og-pet-user.service';
     MintPackageController,
     RewardController,
     UserController,
+    MintOrderController,
   ],
   providers: [
     AppService,
