@@ -10,7 +10,7 @@ import { User } from '@src/user/user.entity';
 @Entity()
 export class OgPet {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number | null;
 
   @Column('varchar', { length: 63 })
   address: string;
@@ -38,5 +38,5 @@ export class OgPet {
 
   @OneToOne(() => User, (user) => user.ogPet)
   @JoinColumn()
-  user: User;
+  user!: User | null;
 }

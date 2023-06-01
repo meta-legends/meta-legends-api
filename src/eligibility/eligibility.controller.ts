@@ -9,6 +9,7 @@ import {
 import { OgPetService } from './og-pet/og-pet.service';
 import { AuthGuard } from '@src/auth/auth.guard';
 import { Request } from 'express';
+import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
 
 @Controller('eligibility')
 export class EligibilityController {
@@ -22,7 +23,7 @@ export class EligibilityController {
       request['user-wallet'],
     );
     if (null == ogPet) {
-      throw new NotFoundException();
+      return this.ogPetService.getEmptyOgPet(request['user-wallet']);
     }
     return ogPet;
   }

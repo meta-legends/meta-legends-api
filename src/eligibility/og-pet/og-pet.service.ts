@@ -28,4 +28,19 @@ export class OgPetService {
       relations: { user: true },
     });
   }
+
+  getEmptyOgPet(address: string): OgPet {
+    return {
+      id: null,
+      address: address,
+      council: 0,
+      guardian: 0,
+      honorary: 0,
+      judge: 0,
+      mint: 0,
+      og: 0,
+      whale: 0,
+      user: null,
+    };
+  }
 }
