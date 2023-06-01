@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { Legend } from './legend.entity';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { AlchemyService } from '../client/alchemy/alchemy.service';
+import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
 
 export const PERK_LABEL_CYBER_WEAPON = 'cyberWeapon';
 export const PERK_LABEL_CYBER_ARMOR = 'cyberArmor';
@@ -47,7 +48,10 @@ export class LegendService {
   async getNftDataFromEtherscan(address: string): Promise<object> {
     const data = {};
     const tokenIds = [];
-    const res = await this.etherscanService.getNFTsByWallet(address);
+    const res = await this.etherscanService.getNFTsByWallet(
+      address,
+      CONTRACT_META_LEGENDS,
+    );
     res.result.map((item) => {
       tokenIds.push(item.tokenID);
       if (data[item.tokenID] == undefined) {
