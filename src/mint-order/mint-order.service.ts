@@ -18,6 +18,7 @@ import {
   OG_PET_TYPES,
 } from '../enum/eligibility-mint-og-pet';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MintOrderPositionUpdateDto } from '@src/mint-order/mint-order-position-update.dto';
 
 @Injectable()
 export class MintOrderService {
@@ -30,7 +31,7 @@ export class MintOrderService {
   build(user: User, asset: Asset, ogPet: OgPet) {
     const quantities = this.getQuantities(ogPet);
     const mintOrders = [];
-    let position = 1;
+    let position = 0;
     OG_PET_TYPES.forEach((type) => {
       if (quantities[type] == 0) {
         return;
@@ -86,6 +87,34 @@ export class MintOrderService {
   ): Promise<MintOrder[] | null> {
     return this.mintOrderRepository.find({
       where: { user: user, asset: asset },
+      order: { position: 'ASC' },
     });
+  }
+
+  async findOneById(id: number): Promise<MintOrder | null> {
+    return this.mintOrderRepository.findOneBy({ id });
+  }
+
+  async updatePosition(
+    mintOrders: MintOrder[],
+    mintOrderPositionUpdateDtos: MintOrderPositionUpdateDto[],
+  ): Promise<MintOrder[]> {
+    let position = 0;
+    const mintOrdersUpdated = [];
+    for await (const mintOrderPositionUpdateDto of mintOrderPositionUpdateDtos) {
+      mintOrders.forEach((mintOrder) => {
+        if (mintOrderPositionUpdateDto.id == mintOrder.id) {
+          mintOrderPositionUpdateDto.position = position;
+          const updateMintOrder = Object.assign(
+            mintOrder,
+            mintOrderPositionUpdateDto,
+          );
+          this.mintOrderRepository.save(updateMintOrder);
+          mintOrdersUpdated.push(updateMintOrder);
+          position++;
+        }
+      });
+    }
+    return mintOrdersUpdated;
   }
 }
