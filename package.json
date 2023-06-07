@@ -19,7 +19,6 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "command-nest": "TS_NODE_PROJECT=./tsconfig.json ts-node -r tsconfig-paths/register ./src/main-cli.ts"
-
   },
   "dependencies": {
     "@moralisweb3/common-evm-utils": "^2.19.0",
@@ -35,6 +34,8 @@
     "@nestjs/typeorm": "^9.0.1",
     "axios": "^1.4.0",
     "cache-manager": "^5.2.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "decimal.js": "^10.4.3",
     "dotenv": "^16.0.3",
     "moment": "^2.29.4",
