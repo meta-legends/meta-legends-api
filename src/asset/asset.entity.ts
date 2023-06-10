@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { MintOrder } from '@src/mint-order/mint-order.entity';
+import { Mint } from '@src/mint/mint.entity';
 
 @Entity()
 export class Asset {
@@ -26,4 +27,7 @@ export class Asset {
 
   @OneToMany(() => MintOrder, (mintOrder) => mintOrder.asset)
   mintOrders: MintOrder[];
+
+  @OneToMany(() => Mint, (mint) => mint.asset)
+  mints: Mint[];
 }

@@ -47,6 +47,7 @@ export class MintOrderService {
           updatedAt: new Date().toISOString(),
           mintedAt: null,
           mintMonitoring: null,
+          mint: null,
         };
         position++;
         mintOrders.push(mintOrder);

@@ -1,7 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '@src/user/user.entity';
 import { Asset } from '@src/asset/asset.entity';
 import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
+import { Mint } from '@src/mint/mint.entity';
 
 @Entity()
 export class MintOrder {
@@ -34,4 +41,7 @@ export class MintOrder {
     (mintMonitoring) => mintMonitoring.mintOrders,
   )
   mintMonitoring!: MintMonitoring | null;
+
+  @OneToOne(() => Mint, (mint) => mint.mintOrder)
+  mint!: Mint | null;
 }

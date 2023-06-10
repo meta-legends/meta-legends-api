@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { Asset } from '@src/asset/asset.entity';
+import { Mint } from '@src/mint/mint.entity';
 
 @Entity()
 export class MintMonitoring {
@@ -27,6 +28,9 @@ export class MintMonitoring {
 
   @OneToMany(() => MintOrder, (mintOrder) => mintOrder.mintMonitoring)
   mintOrders: MintOrder[];
+
+  @OneToMany(() => Mint, (mint) => mint.mintMonitoring)
+  mints: Mint[];
 
   @ManyToOne(() => Asset, (asset) => asset.mintOrders)
   asset: Asset;

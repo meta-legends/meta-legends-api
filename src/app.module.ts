@@ -41,6 +41,7 @@ import { UserModule } from './user/user.module';
 
 import { Asset } from '@src/asset/asset.entity';
 import { Legend } from './legend/legend.entity';
+import { Mint } from '@src/mint/mint.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
@@ -50,9 +51,9 @@ import { User } from '@src/user/user.entity';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { MintOrderController } from './mint-order/mint-order.controller';
 import { MintOrderModule } from './mint-order/mint-order.module';
-import { TestService } from './command/test/test.service';
 import { MintMonitoringModule } from './mint-monitoring/mint-monitoring.module';
 import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
+import { MintModule } from './mint/mint.module';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
       database: process.env.DATABASE_NAME,
       entities: [
         MintPackage,
+        Mint,
         Unstaked,
         Legend,
         OgPet,
@@ -92,6 +94,7 @@ import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
     AssetModule,
     MintOrderModule,
     MintMonitoringModule,
+    MintModule,
   ],
   controllers: [
     AppController,
@@ -123,7 +126,6 @@ import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
     },
     MintOrderService,
     OrderService,
-    TestService,
   ],
 })
 export class AppModule {
