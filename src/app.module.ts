@@ -54,6 +54,7 @@ import { MintOrderModule } from './mint-order/mint-order.module';
 import { MintMonitoringModule } from './mint-monitoring/mint-monitoring.module';
 import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 import { MintModule } from './mint/mint.module';
+import { MetadataService } from './command/metadata/metadata.service';
 
 @Module({
   imports: [
@@ -126,6 +127,7 @@ import { MintModule } from './mint/mint.module';
     },
     MintOrderService,
     OrderService,
+    MetadataService,
   ],
 })
 export class AppModule {
