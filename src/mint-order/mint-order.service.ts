@@ -46,6 +46,7 @@ export class MintOrderService {
           minted: false,
           updatedAt: new Date().toISOString(),
           mintedAt: null,
+          mintMonitoring: null,
         };
         position++;
         mintOrders.push(mintOrder);
@@ -67,6 +68,11 @@ export class MintOrderService {
     };
   }
 
+  /**
+   * Useless but must recode to be generic
+   * @param asset
+   * @param ogPet
+   */
   async create(asset: Asset, ogPet: OgPet): Promise<number> {
     const mintOrders = this.build(ogPet.user, asset, ogPet);
     if (mintOrders.length == 0) {

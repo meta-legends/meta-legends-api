@@ -48,9 +48,11 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { OgPetUserService } from './command/og-pet-user/og-pet-user.service';
 import { MintOrderController } from './mint-order/mint-order.controller';
 import { MintOrderModule } from './mint-order/mint-order.module';
+import { TestService } from './command/test/test.service';
+import { MintMonitoringModule } from './mint-monitoring/mint-monitoring.module';
+import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 
 @Module({
   imports: [
@@ -68,7 +70,16 @@ import { MintOrderModule } from './mint-order/mint-order.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [MintPackage, Unstaked, Legend, OgPet, User, Asset, MintOrder],
+      entities: [
+        MintPackage,
+        Unstaked,
+        Legend,
+        OgPet,
+        User,
+        Asset,
+        MintOrder,
+        MintMonitoring,
+      ],
       synchronize: true,
     }),
     AuthModule,
@@ -80,6 +91,7 @@ import { MintOrderModule } from './mint-order/mint-order.module';
     UserModule,
     AssetModule,
     MintOrderModule,
+    MintMonitoringModule,
   ],
   controllers: [
     AppController,
@@ -111,7 +123,7 @@ import { MintOrderModule } from './mint-order/mint-order.module';
     },
     MintOrderService,
     OrderService,
-    OgPetUserService,
+    TestService,
   ],
 })
 export class AppModule {
