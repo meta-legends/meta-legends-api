@@ -23,8 +23,8 @@ export class MintMonitoring {
   @Column({ type: 'int', nullable: true })
   supply: number;
 
-  @Column('decimal', { precision: 4, scale: 2 })
-  rarity: number;
+  @Column('decimal', { precision: 4, scale: 2, nullable: true })
+  rarity!: number | null;
 
   @OneToMany(() => MintOrder, (mintOrder) => mintOrder.mintMonitoring)
   mintOrders: MintOrder[];
