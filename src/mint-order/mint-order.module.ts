@@ -9,9 +9,10 @@ import { Asset } from '@src/asset/asset.entity';
 import { User } from '@src/user/user.entity';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 import { AssetService } from '@src/asset/asset.service';
+import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MintOrder, User, Asset])],
+  imports: [TypeOrmModule.forFeature([Asset, MintOrder, MintMonitoring, User])],
   exports: [TypeOrmModule],
   providers: [MintOrderService, UserService, AlchemyService, AssetService],
   controllers: [MintOrderController],
