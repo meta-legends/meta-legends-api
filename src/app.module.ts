@@ -56,6 +56,7 @@ import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 import { MintModule } from './mint/mint.module';
 import { MetadataService } from './command/metadata/metadata.service';
 import { TestService } from '@src/command/test/test.service';
+import { PinataService } from '@src/client/pinata/pinata.service';
 
 @Module({
   imports: [
@@ -120,6 +121,7 @@ import { TestService } from '@src/command/test/test.service';
     OgPetService,
     TokenService,
     RewardService,
+    PinataService,
     UnstakedService,
     UserService,
     {
