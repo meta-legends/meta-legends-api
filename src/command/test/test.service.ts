@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
+import { writeFileSync, copyFile } from 'fs';
 import {
   OG_PET_REGULAR_RARITY,
   REG_NAME_PET_BURNER_TIERS_1,
@@ -24,6 +25,7 @@ import {
   REG_NAME_PET_ROUGH_TIERS_2,
   REG_NAME_PET_ROUGH_TIERS_3,
 } from '@src/enum/og-pet-draw';
+import { MintService } from '@src/mint/mint.service';
 
 @Command({
   name: 'test',
@@ -32,7 +34,7 @@ import {
 @Injectable()
 export class TestService extends CommandRunner {
   private static readonly logger = new Logger(TestService.name);
-  constructor() {
+  constructor(private mintService: MintService) {
     super();
   }
 
@@ -63,13 +65,37 @@ export class TestService extends CommandRunner {
     };
     const supply = 1072;
 
-    for (let i = 0; i < supply; i++) {
+    for (let i = 1; i <= supply; i++) {
       const prize = this.suffle(OG_PET_REGULAR_RARITY, result);
       if (prize == null) {
         i--;
         continue;
       }
       result[prize.pet]++;
+      const data = this.mintService.generateMetadata(i, prize.pet);
+      writeFileSync(`./data/metadata/${i}.json`, JSON.stringify(data, null, 2));
+      copyFile(
+        `./data/og-pets/origin/gifs/${prize.gif}`,
+        `./data/gif/${i}.gif`,
+        (err) => {
+          if (err) {
+            console.log('Error Found:', err);
+          } else {
+            console.log('\nGIF of copied_file: ' + prize.pet);
+          }
+        },
+      );
+      copyFile(
+        `./data/og-pets/origin/video/${prize.video}`,
+        `./data/video/${i}.mp4`,
+        (err) => {
+          if (err) {
+            console.log('Error Found:', err);
+          } else {
+            console.log('\nVIDEO of copied_file: ' + prize.pet);
+          }
+        },
+      );
       console.log(i);
     }
 

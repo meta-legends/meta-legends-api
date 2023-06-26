@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 import { Asset } from '@src/asset/asset.entity';
 
@@ -11,7 +11,10 @@ export class MintMonitoringService {
     private mintMonitoringRepository: Repository<MintMonitoring>,
   ) {}
 
-  getByAsset(asset: Asset): Promise<MintMonitoring[] | null> {
-    return this.mintMonitoringRepository.findBy({ asset });
+  getByAssetWithRarity(asset: Asset): Promise<MintMonitoring[] | null> {
+    return this.mintMonitoringRepository.findBy({
+      asset: asset,
+      rarity: Not(IsNull()),
+    });
   }
 }

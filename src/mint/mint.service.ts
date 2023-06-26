@@ -1,15 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { writeFileSync } from 'fs';
-import { Asset } from '@src/asset/asset.entity';
-import { User } from '@src/user/user.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Mint } from '@src/mint/mint.entity';
-import { MintInsertDto } from '@src/mint/mint-insert.dto';
-import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.service';
 
-import { OG_PET_RANDOM_MINT } from '@src/enum/eligibility-mint-og-pet';
-import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
+import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.service';
 import {
   PINATA_URL,
   URI_OG_PETS_GIF,
@@ -19,10 +13,7 @@ import {
   OG_PET_RANDOM_METADATA,
   OG_PET_SPECIFIC_METADATA,
 } from '@src/enum/metadata-attribute';
-import {
-  RuntimeException,
-  UnknownElementException,
-} from '@nestjs/core/errors/exceptions';
+import { UnknownElementException } from '@nestjs/core/errors/exceptions';
 
 @Injectable()
 export class MintService {
@@ -58,38 +49,5 @@ export class MintService {
     }
 
     return OG_PET_RANDOM_METADATA[name.toUpperCase()];
-  }
-
-  async triggerMinted(user: User, asset: Asset) {
-    const mintMonitorings = this.mintMonitoringService.getByAsset(asset);
-  }
-
-  suffle(mintMonitorings: MintMonitoring[]): MintMonitoring | null {
-    if (mintMonitorings.length == 0) {
-      throw new BadRequestException('Data mint monitorings is empty');
-    }
-
-    let totalChances = 0;
-    mintMonitorings.forEach((mintMonitoring) => {
-      totalChances += mintMonitoring.rarity;
-    });
-
-    const random = Math.random() * totalChances;
-    let lucky = 0;
-    for (let i = 0; i < mintMonitorings.length; i++) {
-      const randomMintDraw: MintMonitoring = mintMonitorings[i];
-
-      if (mintMonitorings[randomMintDraw.name] == randomMintDraw.supply) {
-        continue;
-      }
-
-      lucky += randomMintDraw.rarity;
-
-      if (random < lucky) {
-        return randomMintDraw;
-      }
-    }
-
-    return null;
   }
 }

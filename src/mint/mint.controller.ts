@@ -27,12 +27,7 @@ export class MintController {
   @UseGuards(AuthGuard)
   @Header('content-type', 'application/json')
   @Post(':assetCode')
-  async post(
-    @Req() request: Request,
-    @Param('assetCode') assetCode: string,
-  ) {
-    const user: User = await this.userService.findOne(request['user-wallet']);
-    const asset = await this.assetService.findOneByCode(assetCode);
-    return await this.mintService.triggerMinted(user, asset);
+  async post(@Req() request: Request, @Param('assetCode') assetCode: string) {
+    return true;
   }
 }
