@@ -29,4 +29,7 @@ export class Mint {
 
   @ManyToOne(() => MintMonitoring, (mintMonitoring) => mintMonitoring.mints)
   mintMonitoring: MintMonitoring;
+
+  @Column('datetime', { nullable: true })
+  mintedAt!: string | null;
 }

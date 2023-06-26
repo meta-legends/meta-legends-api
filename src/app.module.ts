@@ -51,7 +51,8 @@ import { MintMonitoringModule } from './mint-monitoring/mint-monitoring.module';
 import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 import { MintModule } from './mint/mint.module';
 import { MetadataService } from './command/metadata/metadata.service';
-import { TestService } from '@src/command/test/test.service';
+import { TestService } from './command/test/test.service';
+import { MintService } from '@src/mint/mint.service';
 import { PinataService } from '@src/client/pinata/pinata.service';
 
 @Module({
