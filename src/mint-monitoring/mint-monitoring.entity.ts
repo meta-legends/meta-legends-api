@@ -28,6 +28,6 @@ export class MintMonitoring {
   @OneToMany(() => Mint, (mint) => mint.mintMonitoring)
   mints: Mint[];
 
-  @ManyToOne(() => Asset, (asset) => asset.mintOrders)
+  @ManyToOne(() => Asset, (asset) => asset.mintMonitorings)
   asset: Asset;
 }

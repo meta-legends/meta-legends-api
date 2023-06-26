@@ -8,15 +8,18 @@ import { UserService } from '@src/user/user.service';
 import { AssetService } from '@src/asset/asset.service';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 import { MintController } from './mint.controller';
+import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.service';
+import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Asset, Mint, User])],
+  imports: [TypeOrmModule.forFeature([Asset, Mint, User, MintMonitoring])],
   exports: [TypeOrmModule],
   providers: [
     AssetService,
     AlchemyService,
     MintService,
     UserService,
+    MintMonitoringService,
   ],
   controllers: [MintController],
 })

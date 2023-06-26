@@ -53,6 +53,7 @@ import { MintModule } from './mint/mint.module';
 import { MetadataService } from './command/metadata/metadata.service';
 import { TestService } from './command/test/test.service';
 import { MintService } from '@src/mint/mint.service';
+import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.service';
 
 @Module({
   imports: [
@@ -110,6 +111,7 @@ import { MintService } from '@src/mint/mint.service';
     EtherscanService,
     LegendService,
     MintPackageService,
+    MintMonitoringService,
     MoralisService,
     OgPetService,
     TokenService,

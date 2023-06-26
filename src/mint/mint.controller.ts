@@ -29,12 +29,10 @@ export class MintController {
   @Post(':assetCode')
   async post(
     @Req() request: Request,
-    @Body(new ParseArrayPipe({ items: MintInsertDto }))
-    mintInsertDtos: MintInsertDto[],
     @Param('assetCode') assetCode: string,
   ) {
     const user: User = await this.userService.findOne(request['user-wallet']);
     const asset = await this.assetService.findOneByCode(assetCode);
-    return await this.mintService.triggerMinted(user, asset, mintInsertDtos);
+    return await this.mintService.triggerMinted(user, asset);
   }
 }
