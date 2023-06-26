@@ -23,7 +23,6 @@ import {
   RuntimeException,
   UnknownElementException,
 } from '@nestjs/core/errors/exceptions';
-import { PinataService } from '@src/client/pinata/pinata.service';
 
 @Injectable()
 export class MintService {
@@ -31,7 +30,6 @@ export class MintService {
     @InjectRepository(Mint)
     private mintRepository: Repository<Mint>,
     private mintMonitoringService: MintMonitoringService,
-    private pinataService: PinataService,
   ) {}
 
   generateMetadata(id: number, name: string): object {
