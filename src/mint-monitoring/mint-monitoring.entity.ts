@@ -5,7 +5,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { Asset } from '@src/asset/asset.entity';
 import { Mint } from '@src/mint/mint.entity';
 
@@ -25,9 +24,6 @@ export class MintMonitoring {
 
   @Column('decimal', { precision: 4, scale: 2, nullable: true })
   rarity!: number | null;
-
-  @OneToMany(() => MintOrder, (mintOrder) => mintOrder.mintMonitoring)
-  mintOrders: MintOrder[];
 
   @OneToMany(() => Mint, (mint) => mint.mintMonitoring)
   mints: Mint[];

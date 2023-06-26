@@ -5,7 +5,6 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
 import { Mint } from '@src/mint/mint.entity';
 
@@ -31,9 +30,6 @@ export class User {
 
   @Column('datetime')
   createdAt: string;
-
-  @OneToMany(() => MintOrder, (mintOrder) => mintOrder.user)
-  mintOrders: MintOrder[];
 
   @OneToOne(() => OgPet, (ogPet) => ogPet.user)
   ogPet!: OgPet | null;

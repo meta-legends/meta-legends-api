@@ -19,7 +19,6 @@ import { DatetimeService } from './utils/datetime/datetime.service';
 import { OgPetService } from './eligibility/og-pet/og-pet.service';
 import { OrderService } from './command/order/order.service';
 import { MintPackageService } from './mint-package/mint-package.service';
-import { MintOrderService } from './mint-order/mint-order.service';
 import { LegendService } from './legend/legend.service';
 import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
@@ -43,14 +42,11 @@ import { Asset } from '@src/asset/asset.entity';
 import { Legend } from './legend/legend.entity';
 import { Mint } from '@src/mint/mint.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
-import { MintOrder } from '@src/mint-order/mint-order.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { MintOrderController } from './mint-order/mint-order.controller';
-import { MintOrderModule } from './mint-order/mint-order.module';
 import { MintMonitoringModule } from './mint-monitoring/mint-monitoring.module';
 import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 import { MintModule } from './mint/mint.module';
@@ -82,7 +78,6 @@ import { PinataService } from '@src/client/pinata/pinata.service';
         OgPet,
         User,
         Asset,
-        MintOrder,
         MintMonitoring,
       ],
       synchronize: true,
@@ -95,7 +90,6 @@ import { PinataService } from '@src/client/pinata/pinata.service';
     EligibilityModule,
     UserModule,
     AssetModule,
-    MintOrderModule,
     MintMonitoringModule,
     MintModule,
   ],
@@ -106,7 +100,6 @@ import { PinataService } from '@src/client/pinata/pinata.service';
     MintPackageController,
     RewardController,
     UserController,
-    MintOrderController,
   ],
   providers: [
     AppService,
@@ -128,7 +121,7 @@ import { PinataService } from '@src/client/pinata/pinata.service';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    MintOrderService,
+    MintService,
     OrderService,
     MetadataService,
     TestService,
