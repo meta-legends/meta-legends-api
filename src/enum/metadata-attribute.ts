@@ -24,16 +24,16 @@ import {
   SPECIFIC_NAME_PET_GUARDIAN,
   SPECIFIC_NAME_PET_HONORARY,
   SPECIFIC_NAME_PET_JUDGE,
-  SPECIFIC_NAME_PET_TOP10,
+  SPECIFIC_NAME_PET_WHALE,
   SPECIFIC_PET_FOR_COUNCIL,
   SPECIFIC_PET_FOR_GUARDIAN,
   SPECIFIC_PET_FOR_HONORARY,
   SPECIFIC_PET_FOR_JUDGE,
-  SPECIFIC_PET_FOR_TOP10,
+  SPECIFIC_PET_FOR_WHALE,
 } from '@src/enum/og-pet-draw';
 
 export const OG_PET_SPECIFIC_METADATA = {
-  [SPECIFIC_PET_FOR_GUARDIAN]: [
+  [SPECIFIC_NAME_PET_GUARDIAN]: [
     {
       trait_type: 'Class',
       value: 'Roboter',
@@ -43,7 +43,7 @@ export const OG_PET_SPECIFIC_METADATA = {
       value: SPECIFIC_NAME_PET_GUARDIAN,
     },
   ],
-  [SPECIFIC_PET_FOR_COUNCIL]: [
+  [SPECIFIC_NAME_PET_COUNCIL]: [
     {
       trait_type: 'Class',
       value: 'Matrix Angel',
@@ -53,17 +53,17 @@ export const OG_PET_SPECIFIC_METADATA = {
       value: SPECIFIC_NAME_PET_COUNCIL,
     },
   ],
-  [SPECIFIC_PET_FOR_TOP10]: [
+  [SPECIFIC_NAME_PET_WHALE]: [
     {
       trait_type: 'Class',
       value: 'Celestial',
     },
     {
       trait_type: 'Name',
-      value: SPECIFIC_NAME_PET_TOP10,
+      value: SPECIFIC_NAME_PET_WHALE,
     },
   ],
-  [SPECIFIC_PET_FOR_JUDGE]: [
+  [SPECIFIC_NAME_PET_JUDGE]: [
     {
       trait_type: 'Class',
       value: 'Goldboi',
@@ -73,7 +73,7 @@ export const OG_PET_SPECIFIC_METADATA = {
       value: SPECIFIC_NAME_PET_JUDGE,
     },
   ],
-  [SPECIFIC_PET_FOR_HONORARY]: [
+  [SPECIFIC_NAME_PET_HONORARY]: [
     {
       trait_type: 'Class',
       value: 'Burner',

@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Mint } from '@src/mint/mint.entity';
 
-import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.service';
 import {
   PINATA_URL,
   URI_OG_PETS_GIF,
@@ -20,7 +19,6 @@ export class MintService {
   constructor(
     @InjectRepository(Mint)
     private mintRepository: Repository<Mint>,
-    private mintMonitoringService: MintMonitoringService,
   ) {}
 
   generateMetadata(id: number, name: string): object {
@@ -42,12 +40,10 @@ export class MintService {
       return OG_PET_SPECIFIC_METADATA[name];
     }
 
-    if (!OG_PET_RANDOM_METADATA.hasOwnProperty(name.toUpperCase())) {
-      throw new UnknownElementException(
-        `Unknow OG Pet name ${name.toUpperCase()}`,
-      );
+    if (!OG_PET_RANDOM_METADATA.hasOwnProperty(name)) {
+      throw new UnknownElementException(`Unknow OG Pet name ${name}`);
     }
 
-    return OG_PET_RANDOM_METADATA[name.toUpperCase()];
+    return OG_PET_RANDOM_METADATA[name];
   }
 }
