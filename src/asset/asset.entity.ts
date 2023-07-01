@@ -1,6 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Mint } from '@src/mint/mint.entity';
-import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 
 @Entity()
 export class Asset {
@@ -24,10 +22,4 @@ export class Asset {
 
   @Column({ type: 'datetime', nullable: true })
   openOn!: string | null;
-
-  @OneToMany(() => Mint, (mint) => mint.asset)
-  mints: Mint[];
-
-  @OneToMany(() => MintMonitoring, (mintMonitoring) => mintMonitoring.asset)
-  mintMonitorings: MintMonitoring[];
 }

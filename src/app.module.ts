@@ -40,20 +40,16 @@ import { UserModule } from './user/user.module';
 
 import { Asset } from '@src/asset/asset.entity';
 import { Legend } from './legend/legend.entity';
-import { Mint } from '@src/mint/mint.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from '@src/user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { MintMonitoringModule } from './mint-monitoring/mint-monitoring.module';
-import { MintMonitoring } from '@src/mint-monitoring/mint-monitoring.entity';
 import { MintModule } from './mint/mint.module';
 import { MetadataService } from './command/metadata/metadata.service';
 import { TestService } from './command/test/test.service';
 import { MintService } from '@src/mint/mint.service';
-import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.service';
 
 @Module({
   imports: [
@@ -73,13 +69,11 @@ import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.serv
       database: process.env.DATABASE_NAME,
       entities: [
         MintPackage,
-        Mint,
         Unstaked,
         Legend,
         OgPet,
         User,
         Asset,
-        MintMonitoring,
       ],
       synchronize: true,
     }),
@@ -91,7 +85,6 @@ import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.serv
     EligibilityModule,
     UserModule,
     AssetModule,
-    MintMonitoringModule,
     MintModule,
   ],
   controllers: [
@@ -111,7 +104,6 @@ import { MintMonitoringService } from '@src/mint-monitoring/mint-monitoring.serv
     EtherscanService,
     LegendService,
     MintPackageService,
-    MintMonitoringService,
     MoralisService,
     OgPetService,
     TokenService,

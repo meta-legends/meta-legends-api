@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Mint } from '@src/mint/mint.entity';
 
 import {
   PINATA_URL,
@@ -16,10 +15,7 @@ import { UnknownElementException } from '@nestjs/core/errors/exceptions';
 
 @Injectable()
 export class MintService {
-  constructor(
-    @InjectRepository(Mint)
-    private mintRepository: Repository<Mint>,
-  ) {}
+  constructor() {}
 
   generateMetadata(id: number, name: string): object {
     const pathImage = PINATA_URL + URI_OG_PETS_GIF;

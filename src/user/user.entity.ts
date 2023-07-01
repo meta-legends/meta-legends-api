@@ -2,11 +2,9 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  OneToMany,
   OneToOne,
 } from 'typeorm';
 import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
-import { Mint } from '@src/mint/mint.entity';
 
 @Entity()
 export class User {
@@ -33,7 +31,4 @@ export class User {
 
   @OneToOne(() => OgPet, (ogPet) => ogPet.user)
   ogPet!: OgPet | null;
-
-  @OneToMany(() => Mint, (mint) => mint.user)
-  mints: Mint[];
 }
