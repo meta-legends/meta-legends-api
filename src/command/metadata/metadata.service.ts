@@ -194,7 +194,7 @@ export class MetadataService extends CommandRunner {
       [SPECIFIC_NAME_PET_WHALE]: 0,
     };
 
-    const supplyRandom = 1072;
+    const supplyRandom = 1056;
     for (let i = 1; i <= supplyRandom; i++) {
       const prize = this.suffle(OG_PET_REGULAR_RARITY, countSupply);
       if (prize == null) {
@@ -206,7 +206,7 @@ export class MetadataService extends CommandRunner {
       console.log(i, prize.pet);
     }
 
-    let tokenIdCurrent = 1073;
+    let tokenIdCurrent = 1057;
     OG_PET_SPECIFIC_SUPPLY.forEach((perk) => {
       for (let i = 1; i <= perk['supply']; i++) {
         countSupply[perk.pet]++;
