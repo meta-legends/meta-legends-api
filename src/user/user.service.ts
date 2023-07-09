@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import {
   AlchemyService,
-  getContractsForOwner,
+  GET_CONTRACTS_FOR_OWNER,
   isHolderOfCollection,
 } from '@src/client/alchemy/alchemy.service';
 
@@ -31,7 +31,6 @@ export class UserService {
   @UseInterceptors(CacheInterceptor)
   async cachingHolders() {
     const data = await this.alchemyService.getOwnersForCollectionML();
-    let nbWhale = 0;
     data.ownerAddresses.forEach((dataHolder) => {
       const tokenIds = [];
       dataHolder.tokenBalances.forEach((dataNft) => {
@@ -39,35 +38,13 @@ export class UserService {
         tokenIds.push(tokenId);
       });
       this.cacheManager.set(
-        `holder-${dataHolder.ownerAddress}`,
+        `holder-${dataHolder.ownerAddress.toLowerCase()}`,
         tokenIds,
-        86400000,
+        86400000, // 1 day
       );
-      if (tokenIds.length >= 51) {
-        console.log(dataHolder.ownerAddress + ' ' + tokenIds.length);
-        nbWhale++;
-      }
     });
-    console.log('nb whales: ' + nbWhale);
   }
 
-  async countMLBag(wallet: string) {
-    const params = {
-      owner: wallet,
-    };
-    try {
-      const data = await this.alchemyService.get(getContractsForOwner, params);
-      let count = 0;
-      data['contracts'].forEach((contract) => {
-        if (contract['address'].toLowerCase() == CONTRACT_META_LEGENDS) {
-          count = contract['totalBalance'];
-        }
-      });
-      return count;
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   findOne(wallet: string): Promise<User | null> {
     return this.userRepository.findOneBy({ wallet });
