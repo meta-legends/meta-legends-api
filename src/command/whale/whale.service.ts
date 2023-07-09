@@ -4,7 +4,7 @@ import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 
 @Command({
   name: 'whale-display',
-  description: 'Show all whales holders (51)',
+  description: 'Show all whales holders of ML NFT (51)',
 })
 @Injectable()
 export class WhaleService extends CommandRunner {
