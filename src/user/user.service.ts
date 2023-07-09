@@ -31,6 +31,7 @@ export class UserService {
   @UseInterceptors(CacheInterceptor)
   async cachingHolders() {
     const data = await this.alchemyService.getOwnersForCollectionML();
+    let nbWhale = 0;
     data.ownerAddresses.forEach((dataHolder) => {
       const tokenIds = [];
       dataHolder.tokenBalances.forEach((dataNft) => {
@@ -42,7 +43,12 @@ export class UserService {
         tokenIds,
         86400000,
       );
+      if (tokenIds.length >= 51) {
+        console.log(dataHolder.ownerAddress + ' ' + tokenIds.length);
+        nbWhale++;
+      }
     });
+    console.log('nb whales: ' + nbWhale);
   }
 
   async countMLBag(wallet: string) {
