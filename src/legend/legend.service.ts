@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as moment from 'moment';
 import { Legend } from './legend.entity';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
-import { AlchemyService } from '../client/alchemy/alchemy.service';
+import {
+  AlchemyService,
+  GET_CONTRACTS_FOR_OWNER,
+} from '../client/alchemy/alchemy.service';
 import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 export const PERK_LABEL_CYBER_WEAPON = 'cyberWeapon';
 export const PERK_LABEL_CYBER_ARMOR = 'cyberArmor';
@@ -25,23 +30,53 @@ export const MINPERIOD_HOLD_HEALING_DRONE = 15;
 export class LegendService {
   constructor(
     @InjectRepository(Legend) private legendRepository: Repository<Legend>,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly etherscanService: EtherscanService,
     private readonly alchemyService: AlchemyService,
   ) {}
 
+  async getCountML(wallet: string) {
+    const params = {
+      owner: wallet,
+    };
+    try {
+      const data = await this.alchemyService.get(
+        GET_CONTRACTS_FOR_OWNER,
+        params,
+      );
+      let count = 0;
+      data['contracts'].forEach((contract) => {
+        if (contract['address'].toLowerCase() == CONTRACT_META_LEGENDS) {
+          count = contract['totalBalance'];
+        }
+      });
+      return count;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async getNftDataFromAlchemy(address: string): Promise<[number[], object]> {
-    const res = await this.alchemyService.getNFTsByWallet(address);
-    const result = [];
+    const result = {};
     const tokenIds = [];
-    res.ownedNfts.map((item) => {
-      const object = {};
-      const tokenId = parseInt(item.id.tokenId, 16);
-      object['purchasedOn'] = null;
-      object['media'] = item.media[0];
-      object['tokenId'] = tokenId;
-      tokenIds.push(tokenId);
-      result[tokenId] = object;
-    });
+    const countNFT = await this.getCountML(address);
+    const nbLoop = Math.round(countNFT / 100);
+    let pageKey = '';
+    for (let i = 1; i <= nbLoop; i++) {
+      const res = await this.alchemyService.getNFTsByWallet(address, pageKey);
+      if ('pageKey' in res) {
+        pageKey = res.pageKey;
+      }
+      res.ownedNfts.map((item) => {
+        const object = {};
+        const tokenId = parseInt(item.id.tokenId, 16);
+        object['purchasedOn'] = null;
+        object['media'] = item.media[0];
+        object['tokenId'] = tokenId;
+        tokenIds.push(tokenId);
+        result[tokenId] = object;
+      });
+    }
     return [tokenIds, result];
   }
 
