@@ -50,6 +50,7 @@ import { MintModule } from './mint/mint.module';
 import { MetadataService } from './command/metadata/metadata.service';
 import { TestService } from './command/test/test.service';
 import { MintService } from '@src/mint/mint.service';
+import { WhaleService } from './command/whale/whale.service';
 
 @Module({
   imports: [
@@ -118,6 +119,7 @@ import { MintService } from '@src/mint/mint.service';
     OrderService,
     MetadataService,
     TestService,
+    WhaleService,
   ],
 })
 export class AppModule {
