@@ -60,7 +60,7 @@ export class LegendService {
     const result = {};
     const tokenIds = [];
     const countNFT = await this.getCountML(address);
-    const nbLoop = Math.round(countNFT / 100);
+    const nbLoop = Math.ceil(countNFT / 100);
     let pageKey = '';
     for (let i = 1; i <= nbLoop; i++) {
       const res = await this.alchemyService.getNFTsByWallet(address, pageKey);
