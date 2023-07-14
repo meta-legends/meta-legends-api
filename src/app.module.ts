@@ -51,6 +51,7 @@ import { MetadataService } from './command/metadata/metadata.service';
 import { TestService } from './command/test/test.service';
 import { MintService } from '@src/mint/mint.service';
 import { WhaleService } from './command/whale/whale.service';
+import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligibility.service';
 
 @Module({
   imports: [
@@ -120,6 +121,7 @@ import { WhaleService } from './command/whale/whale.service';
     MetadataService,
     TestService,
     WhaleService,
+    OgpetEligibilityService,
   ],
 })
 export class AppModule {
