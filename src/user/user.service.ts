@@ -11,6 +11,8 @@ import {
 import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import * as moment from 'moment/moment';
+import { timestamp } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -45,8 +47,31 @@ export class UserService {
     });
   }
 
-
   findOne(wallet: string): Promise<User | null> {
     return this.userRepository.findOneBy({ wallet });
+  }
+
+  create(wallet: string): User {
+    const user: User = new User();
+    user.wallet = wallet;
+    const now = moment().format('YYYY-MM-DD HH:mm:ss');
+    user.createdAt = now;
+    user.lastLogin = now;
+    user.isActive = true;
+    user.isModo = false;
+    user.isAdmin = false;
+
+    return user;
+  }
+
+  async upsert(wallet: string) {
+    let user = await this.userRepository.findOneBy({ wallet });
+    if (user == null) {
+      user = this.create(wallet);
+      await this.userRepository.insert(user);
+    } else {
+      user.lastLogin = moment().format('YYYY-MM-DD HH:mm:ss');
+      await this.userRepository.save(user);
+    }
   }
 }
