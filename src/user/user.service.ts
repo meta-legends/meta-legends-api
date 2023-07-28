@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import {
   AlchemyService,
-  GET_CONTRACTS_FOR_OWNER,
   isHolderOfCollection,
 } from '@src/client/alchemy/alchemy.service';
 
@@ -12,7 +11,6 @@ import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import * as moment from 'moment/moment';
-import { timestamp } from 'rxjs';
 
 @Injectable()
 export class UserService {
