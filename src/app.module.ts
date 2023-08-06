@@ -17,7 +17,6 @@ import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
 import { DatetimeService } from './utils/datetime/datetime.service';
 import { OgPetService } from './eligibility/og-pet/og-pet.service';
-import { OrderService } from './command/order/order.service';
 import { MintPackageService } from './mint-package/mint-package.service';
 import { LegendService } from './legend/legend.service';
 import { RewardService } from './reward/reward.service';
@@ -52,6 +51,9 @@ import { TestService } from './command/test/test.service';
 import { MintService } from '@src/mint/mint.service';
 import { WhaleService } from './command/whale/whale.service';
 import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligibility.service';
+import { HoldingRewardModule } from './holding-reward/holding-reward.module';
+import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
+import { HoldingRewardService } from "@src/holding-reward/holding-reward.service";
 
 @Module({
   imports: [
@@ -76,6 +78,7 @@ import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligi
         OgPet,
         User,
         Asset,
+        HoldingReward,
       ],
       synchronize: true,
     }),
@@ -88,6 +91,7 @@ import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligi
     UserModule,
     AssetModule,
     MintModule,
+    HoldingRewardModule,
   ],
   controllers: [
     AppController,
@@ -117,11 +121,11 @@ import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligi
       useClass: CacheInterceptor,
     },
     MintService,
-    OrderService,
     MetadataService,
     TestService,
     WhaleService,
     OgpetEligibilityService,
+    HoldingRewardService,
   ],
 })
 export class AppModule {
