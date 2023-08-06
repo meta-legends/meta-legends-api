@@ -2,13 +2,17 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Legend } from '@src/legend/legend.entity';
 import * as moment from 'moment';
 import { User } from '@src/user/user.entity';
-import { LegendService } from '@src/legend/legend.service';
 import { HOLDING_REWARDS_KEY_VALUE } from '@src/enum/holding-reward';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class HoldingRewardService {
-  constructor(private legendService: LegendService) {}
+  constructor(
+    @InjectRepository(HoldingReward)
+    private holdingRewardRepository: Repository<HoldingReward>,
+  ) {}
 
   isEligible(legend: Legend, duration: number): boolean {
     const now = moment();
@@ -22,11 +26,6 @@ export class HoldingRewardService {
     legends: Legend[],
     holdingRewardCode: string,
   ): Promise<HoldingReward[] | null> {
-    if (HOLDING_REWARDS_KEY_VALUE[holdingRewardCode] == undefined) {
-      throw new BadRequestException(
-        `Unknow holding reward code \'${holdingRewardCode}\'`,
-      );
-    }
     const hRewardSelected = HOLDING_REWARDS_KEY_VALUE[holdingRewardCode];
     const holdingRewards = [];
     legends.map((legend) => {
@@ -40,7 +39,7 @@ export class HoldingRewardService {
       holdingReward.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
       holdingRewards.push(holdingReward);
     });
-
+    await this.holdingRewardRepository.save(holdingRewards);
     return holdingRewards;
   }
 }

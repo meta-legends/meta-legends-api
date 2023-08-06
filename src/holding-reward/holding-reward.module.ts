@@ -8,9 +8,11 @@ import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { Legend } from '@src/legend/legend.entity';
 import { EtherscanService } from '@src/client/etherscan/etherscan.service';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
+import { UserService } from '@src/user/user.service';
+import { User } from '@src/user/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([HoldingReward, Legend])],
+  imports: [TypeOrmModule.forFeature([HoldingReward, Legend, User])],
   exports: [TypeOrmModule],
   controllers: [HoldingRewardController],
   providers: [
@@ -18,6 +20,7 @@ import { AlchemyService } from '@src/client/alchemy/alchemy.service';
     LegendService,
     EtherscanService,
     AlchemyService,
+    UserService,
   ],
 })
 export class HoldingRewardModule {}
