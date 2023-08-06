@@ -21,15 +21,43 @@ export class HoldingRewardService {
     return now.diff(purchasedOn, 'months') >= duration;
   }
 
+  async findByUserAndHoldingRewardCode(
+    user: User,
+    rewardCode: string,
+  ): Promise<HoldingReward[] | null> {
+    return await this.holdingRewardRepository.findBy({
+      user,
+      rewardCode,
+    });
+  }
+
+  async getTokenIdsSavedByCode(user: User, rewardCode: string) {
+    const holdingRewards = await this.findByUserAndHoldingRewardCode(
+      user,
+      rewardCode,
+    );
+
+    const tokenIds = [];
+    holdingRewards.map((holdingReward) => {
+      tokenIds.push(holdingReward.tokenId);
+    });
+
+    return tokenIds;
+  }
+
   async buildNewHoldingRewards(
     user: User,
     legends: Legend[],
     holdingRewardCode: string,
   ): Promise<HoldingReward[] | null> {
+    const tokenIds = await this.getTokenIdsSavedByCode(user, holdingRewardCode);
     const hRewardSelected = HOLDING_REWARDS_KEY_VALUE[holdingRewardCode];
     const holdingRewards = [];
     legends.map((legend) => {
       if (!this.isEligible(legend, hRewardSelected.duration)) {
+        return;
+      }
+      if (tokenIds.includes(legend.tokenId)) {
         return;
       }
       const holdingReward = new HoldingReward();
