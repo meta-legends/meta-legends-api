@@ -53,7 +53,7 @@ import { WhaleService } from './command/whale/whale.service';
 import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligibility.service';
 import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
-import { HoldingRewardService } from "@src/holding-reward/holding-reward.service";
+import { HoldingRewardService } from '@src/holding-reward/holding-reward.service';
 
 @Module({
   imports: [

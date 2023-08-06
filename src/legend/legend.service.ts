@@ -106,6 +106,10 @@ export class LegendService {
     return this.format(nftFromBdd, nftFromAlchemy);
   }
 
+  async getNftsFromBdd(address: string) {
+    return await this.legendRepository.findBy({ address });
+  }
+
   async process(
     address: string,
     tokenIds: number[],

@@ -45,7 +45,7 @@ export class UserService {
     });
   }
 
-  findOne(wallet: string): Promise<User | null> {
+  async findOne(wallet: string): Promise<User | null> {
     return this.userRepository.findOneBy({ wallet });
   }
 
