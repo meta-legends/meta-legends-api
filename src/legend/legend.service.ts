@@ -148,6 +148,26 @@ export class LegendService {
     );
   }
 
+  extractRecentlyTx(address: string, tokenTransactions: object[]): object {
+    if (tokenTransactions.length === 1) {
+      return tokenTransactions[0];
+    }
+
+    let maxTimeStamp = 0;
+    let txSelected = null;
+    tokenTransactions.map((tx) => {
+      if (tx['to'].toLowerCase() !== address) {
+        return;
+      }
+
+      if (tx['timeStamp'] > maxTimeStamp) {
+        txSelected = tx;
+        maxTimeStamp = tx['timeStamp'];
+      }
+    });
+    return txSelected;
+  }
+
   handleAdd(
     address: string,
     nftFromEtherscan: object,
@@ -158,15 +178,12 @@ export class LegendService {
     }
     const newLegends: Legend[] = [];
     toAdd.map((tokenId) => {
-      if (nftFromEtherscan[tokenId].length > 1) {
-        // Todo : handle case if etherscan send multiple data by token id
-        console.log(
-          `handle case if etherscan send multiple data at token id ${tokenId} and wallet ${address}`,
-        );
-        return;
-      }
+      const transaction = this.extractRecentlyTx(
+        address,
+        nftFromEtherscan[tokenId],
+      );
 
-      const timestamp = nftFromEtherscan[tokenId][0]['timeStamp'];
+      const timestamp = transaction['timeStamp'];
       const purchasedOn = moment(timestamp * 1000).format(
         'YYYY-MM-DD HH:mm:ss',
       );
