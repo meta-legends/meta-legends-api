@@ -1,8 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Legend } from '@src/legend/legend.entity';
 import * as moment from 'moment';
 import { User } from '@src/user/user.entity';
-import { HOLDING_REWARDS_KEY_VALUE } from '@src/enum/holding-reward';
+import {
+  HOLDING_REWARDS,
+  HOLDING_REWARDS_KEY_VALUE,
+} from '@src/enum/holding-reward';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -67,7 +70,20 @@ export class HoldingRewardService {
       holdingReward.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
       holdingRewards.push(holdingReward);
     });
-    await this.holdingRewardRepository.save(holdingRewards);
+    //await this.holdingRewardRepository.save(holdingRewards);
+    return holdingRewards;
+  }
+
+  async process(user: User, legends: Legend[]): Promise<object | null> {
+    const holdingRewards = {};
+    for (const data of HOLDING_REWARDS) {
+      const code = data.code;
+      holdingRewards[code] = await this.buildNewHoldingRewards(
+        user,
+        legends,
+        code,
+      );
+    }
     return holdingRewards;
   }
 }
