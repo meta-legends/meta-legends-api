@@ -1,4 +1,4 @@
-import { Controller, Post, Header, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Header, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@src/auth/auth.guard';
 import { Request } from 'express';
 import { LegendService } from '@src/legend/legend.service';
@@ -13,7 +13,6 @@ export class HoldingRewardController {
     private holdingRewardService: HoldingRewardService,
   ) {}
 
-  @UseGuards(AuthGuard)
   @Header('content-type', 'application/json')
   @Post('/estimate')
   async estimate(@Req() request: Request) {
@@ -22,5 +21,13 @@ export class HoldingRewardController {
     );
     const user = await this.userService.findOne(request['user-wallet']);
     return await this.holdingRewardService.process(user, legends);
+  }
+
+  @UseGuards(AuthGuard)
+  @Header('content-type', 'application/json')
+  @Get('')
+  async get(@Req() request: Request) {
+    const user = await this.userService.findOne(request['user-wallet']);
+    return await this.holdingRewardService.findByUser(user);
   }
 }

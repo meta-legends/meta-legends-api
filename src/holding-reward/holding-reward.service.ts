@@ -34,6 +34,23 @@ export class HoldingRewardService {
     });
   }
 
+  async findByUser(user: User): Promise<object> {
+    const holdingRewards = await this.holdingRewardRepository.findBy({
+      user,
+    });
+    const result = {};
+    for (const data of HOLDING_REWARDS) {
+      const holdingRewardData = [];
+      holdingRewards.forEach((holdingReward) => {
+        if (holdingReward.rewardCode === data.code) {
+          holdingRewardData.push(holdingReward);
+        }
+      });
+      result[data.code] = holdingRewardData;
+    }
+    return result;
+  }
+
   async getTokenIdsSavedByCode(user: User, rewardCode: string) {
     const holdingRewards = await this.findByUserAndHoldingRewardCode(
       user,
@@ -70,7 +87,7 @@ export class HoldingRewardService {
       holdingReward.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
       holdingRewards.push(holdingReward);
     });
-    //await this.holdingRewardRepository.save(holdingRewards);
+    await this.holdingRewardRepository.save(holdingRewards);
     return holdingRewards;
   }
 
