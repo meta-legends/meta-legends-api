@@ -13,6 +13,7 @@ export class HoldingRewardController {
     private holdingRewardService: HoldingRewardService,
   ) {}
 
+  @UseGuards(AuthGuard)
   @Header('content-type', 'application/json')
   @Post('/estimate')
   async estimate(@Req() request: Request) {

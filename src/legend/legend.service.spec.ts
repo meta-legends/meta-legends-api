@@ -1,19 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {
-  LegendService,
-  HREWARD_3_CODE,
-  HREWARD_1_CODE,
-  HREWARD_15_CODE,
-  HREWARD_12_CODE,
-  HREWARD_9_CODE,
-  HREWARD_6_CODE,
-} from './legend.service';
+import { LegendService } from './legend.service';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { AlchemyService } from '../client/alchemy/alchemy.service';
 
 import { Legend } from './legend.entity';
+import {
+  HREWARD_1_CODE,
+  HREWARD_3_CODE,
+  HREWARD_6_CODE,
+  HREWARD_9_CODE,
+  HREWARD_12_CODE,
+  HREWARD_15_CODE,
+  HREWARD_18_CODE,
+  HREWARD_21_CODE,
+  HREWARD_24_CODE,
+} from "@src/enum/holding-reward";
 
 describe('LegendService', () => {
   let legendService: LegendService;
