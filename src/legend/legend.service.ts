@@ -11,20 +11,26 @@ import {
 import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-
-export const PERK_LABEL_CYBER_WEAPON = 'cyberWeapon';
-export const PERK_LABEL_CYBER_ARMOR = 'cyberArmor';
-export const PERK_LABEL_ROUGH_PETS = 'roughPet';
-export const PERK_LABEL_ROBOTER_WEAPON = 'roboterWeapon';
-export const PERK_LABEL_MATRIX_ANGEL_VEHICLE = 'matrixAngelVehicle';
-export const PERK_LABEL_HEALING_DRONE = 'healingDrone';
-
-export const MINPERIOD_HOLD_CYBER_WEAPON = 1;
-export const MINPERIOD_HOLD_CYBER_ARMOR = 2;
-export const MINPERIOD_HOLD_ROUGH_PETS = 5;
-export const MINPERIOD_HOLD_ROBOTER_WEAPON = 8;
-export const MINPERIOD_HOLD_MA_VEHICLE = 11;
-export const MINPERIOD_HOLD_HEALING_DRONE = 15;
+import {
+  HREWARD_1_CODE,
+  HREWARD_1_DURATION,
+  HREWARD_3_CODE,
+  HREWARD_3_DURATION,
+  HREWARD_6_CODE,
+  HREWARD_6_DURATION,
+  HREWARD_9_CODE,
+  HREWARD_9_DURATION,
+  HREWARD_12_CODE,
+  HREWARD_12_DURATION,
+  HREWARD_15_CODE,
+  HREWARD_15_DURATION,
+  HREWARD_18_CODE,
+  HREWARD_18_DURATION,
+  HREWARD_21_CODE,
+  HREWARD_21_DURATION,
+  HREWARD_24_CODE,
+  HREWARD_24_DURATION,
+} from '@src/enum/holding-reward';
 
 @Injectable()
 export class LegendService {
@@ -247,12 +253,15 @@ export class LegendService {
     );
 
     return {
-      [PERK_LABEL_CYBER_WEAPON]: MINPERIOD_HOLD_CYBER_WEAPON <= months,
-      [PERK_LABEL_CYBER_ARMOR]: MINPERIOD_HOLD_CYBER_ARMOR <= months,
-      [PERK_LABEL_ROUGH_PETS]: MINPERIOD_HOLD_ROUGH_PETS <= months,
-      [PERK_LABEL_ROBOTER_WEAPON]: MINPERIOD_HOLD_ROBOTER_WEAPON <= months,
-      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: MINPERIOD_HOLD_MA_VEHICLE <= months,
-      [PERK_LABEL_HEALING_DRONE]: MINPERIOD_HOLD_HEALING_DRONE <= months,
+      [HREWARD_1_CODE]: HREWARD_1_DURATION <= months,
+      [HREWARD_3_CODE]: HREWARD_3_DURATION <= months,
+      [HREWARD_6_CODE]: HREWARD_6_DURATION <= months,
+      [HREWARD_9_CODE]: HREWARD_9_DURATION <= months,
+      [HREWARD_12_CODE]: HREWARD_12_DURATION <= months,
+      [HREWARD_15_CODE]: HREWARD_15_DURATION <= months,
+      [HREWARD_18_CODE]: HREWARD_18_DURATION <= months,
+      [HREWARD_21_CODE]: HREWARD_21_DURATION <= months,
+      [HREWARD_24_CODE]: HREWARD_24_DURATION <= months,
     };
   }
 }

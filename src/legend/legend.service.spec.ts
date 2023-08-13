@@ -3,12 +3,12 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
   LegendService,
-  PERK_LABEL_CYBER_ARMOR,
-  PERK_LABEL_CYBER_WEAPON,
-  PERK_LABEL_HEALING_DRONE,
-  PERK_LABEL_MATRIX_ANGEL_VEHICLE,
-  PERK_LABEL_ROBOTER_WEAPON,
-  PERK_LABEL_ROUGH_PETS,
+  HREWARD_3_CODE,
+  HREWARD_1_CODE,
+  HREWARD_15_CODE,
+  HREWARD_12_CODE,
+  HREWARD_9_CODE,
+  HREWARD_6_CODE,
 } from './legend.service';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { AlchemyService } from '../client/alchemy/alchemy.service';
@@ -249,12 +249,12 @@ describe('LegendService', () => {
 
   it('should be define holding rewards', () => {
     const expected = {
-      [PERK_LABEL_CYBER_WEAPON]: false,
-      [PERK_LABEL_CYBER_ARMOR]: false,
-      [PERK_LABEL_ROUGH_PETS]: false,
-      [PERK_LABEL_ROBOTER_WEAPON]: false,
-      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: false,
-      [PERK_LABEL_HEALING_DRONE]: false,
+      [HREWARD_1_CODE]: false,
+      [HREWARD_3_CODE]: false,
+      [HREWARD_6_CODE]: false,
+      [HREWARD_9_CODE]: false,
+      [HREWARD_12_CODE]: false,
+      [HREWARD_15_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
@@ -270,12 +270,12 @@ describe('LegendService', () => {
     ).toEqual(expected);
 
     const expected2 = {
-      [PERK_LABEL_CYBER_WEAPON]: true,
-      [PERK_LABEL_CYBER_ARMOR]: false,
-      [PERK_LABEL_ROUGH_PETS]: false,
-      [PERK_LABEL_ROBOTER_WEAPON]: false,
-      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: false,
-      [PERK_LABEL_HEALING_DRONE]: false,
+      [HREWARD_1_CODE]: true,
+      [HREWARD_3_CODE]: false,
+      [HREWARD_6_CODE]: false,
+      [HREWARD_9_CODE]: false,
+      [HREWARD_12_CODE]: false,
+      [HREWARD_15_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
@@ -285,12 +285,12 @@ describe('LegendService', () => {
     ).toEqual(expected2);
 
     const expected3 = {
-      [PERK_LABEL_CYBER_WEAPON]: true,
-      [PERK_LABEL_CYBER_ARMOR]: true,
-      [PERK_LABEL_ROUGH_PETS]: true,
-      [PERK_LABEL_ROBOTER_WEAPON]: true,
-      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: false,
-      [PERK_LABEL_HEALING_DRONE]: false,
+      [HREWARD_1_CODE]: true,
+      [HREWARD_3_CODE]: true,
+      [HREWARD_6_CODE]: true,
+      [HREWARD_9_CODE]: true,
+      [HREWARD_12_CODE]: false,
+      [HREWARD_15_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
@@ -300,12 +300,12 @@ describe('LegendService', () => {
     ).toEqual(expected3);
 
     const expected4 = {
-      [PERK_LABEL_CYBER_WEAPON]: true,
-      [PERK_LABEL_CYBER_ARMOR]: true,
-      [PERK_LABEL_ROUGH_PETS]: true,
-      [PERK_LABEL_ROBOTER_WEAPON]: true,
-      [PERK_LABEL_MATRIX_ANGEL_VEHICLE]: true,
-      [PERK_LABEL_HEALING_DRONE]: true,
+      [HREWARD_1_CODE]: true,
+      [HREWARD_3_CODE]: true,
+      [HREWARD_6_CODE]: true,
+      [HREWARD_9_CODE]: true,
+      [HREWARD_12_CODE]: true,
+      [HREWARD_15_CODE]: true,
     };
     expect(
       legendService.defineHoldingRewards(
