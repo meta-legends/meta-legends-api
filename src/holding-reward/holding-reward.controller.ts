@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Header, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@src/auth/auth.guard';
 import { Request } from 'express';
-import { LegendService } from '@src/legend/legend.service';
-import { UserService } from '@src/user/user.service';
+import { LegendService } from '../legend/legend.service';
+import { UserService } from '../user/user.service';
 import { HoldingRewardService } from '@src/holding-reward/holding-reward.service';
 
 @Controller('holding-rewards')

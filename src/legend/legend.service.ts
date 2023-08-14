@@ -8,7 +8,7 @@ import {
   AlchemyService,
   GET_CONTRACTS_FOR_OWNER,
 } from '../client/alchemy/alchemy.service';
-import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
+import { CONTRACT_META_LEGENDS } from '../enum/contract';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import {
@@ -30,7 +30,7 @@ import {
   HREWARD_21_DURATION,
   HREWARD_24_CODE,
   HREWARD_24_DURATION,
-} from '@src/enum/holding-reward';
+} from '../enum/holding-reward';
 
 @Injectable()
 export class LegendService {

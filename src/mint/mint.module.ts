@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Asset } from '@src/asset/asset.entity';
-import { User } from '@src/user/user.entity';
+import { Asset } from '../asset/asset.entity';
+import { User } from '../user/user.entity';
 import { MintService } from './mint.service';
-import { UserService } from '@src/user/user.service';
-import { AssetService } from '@src/asset/asset.service';
+import { UserService } from '../user/user.service';
+import { AssetService } from '../asset/asset.service';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 
 @Module({

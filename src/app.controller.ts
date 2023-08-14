@@ -4,7 +4,7 @@ import { Cache } from 'cache-manager';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from './auth/auth.guard';
 import { LegendService } from './legend/legend.service';
-import { UserService } from '@src/user/user.service';
+import { UserService } from '../user/user.service';
 
 @Controller()
 export class AppController {

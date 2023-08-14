@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
+import { CONTRACT_META_LEGENDS } from '../../enum/contract';
 
 export const isHolderOfCollection = 'isHolderOfCollection';
 export const GET_CONTRACTS_FOR_OWNER = 'getContractsForOwner';

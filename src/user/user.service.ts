@@ -7,7 +7,7 @@ import {
   isHolderOfCollection,
 } from '@src/client/alchemy/alchemy.service';
 
-import { CONTRACT_META_LEGENDS } from '@src/enum/contract';
+import { CONTRACT_META_LEGENDS } from '../enum/contract';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import * as moment from 'moment/moment';

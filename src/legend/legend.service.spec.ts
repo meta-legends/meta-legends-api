@@ -16,7 +16,7 @@ import {
   HREWARD_18_CODE,
   HREWARD_21_CODE,
   HREWARD_24_CODE,
-} from "@src/enum/holding-reward";
+} from '../enum/holding-reward';
 
 describe('LegendService', () => {
   let legendService: LegendService;

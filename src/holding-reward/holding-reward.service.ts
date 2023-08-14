@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Legend } from '@src/legend/legend.entity';
+import { Legend } from '../legend/legend.entity';
 import * as moment from 'moment';
-import { User } from '@src/user/user.entity';
+import { User } from '../user/user.entity';
 import {
   HOLDING_REWARDS,
   HOLDING_REWARDS_KEY_VALUE,
-} from '@src/enum/holding-reward';
+} from '../enum/holding-reward';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -73,11 +73,15 @@ export class HoldingRewardService {
     const tokenIds = await this.getTokenIdsSavedByCode(user, holdingRewardCode);
     const hRewardSelected = HOLDING_REWARDS_KEY_VALUE[holdingRewardCode];
     const holdingRewards = [];
+    const tokenIdsHandle = [];
     legends.map((legend) => {
       if (!this.isEligible(legend, hRewardSelected.duration)) {
         return;
       }
-      if (tokenIds.includes(legend.tokenId)) {
+      if (
+        tokenIds.includes(legend.tokenId) ||
+        tokenIdsHandle.includes(legend.tokenId)
+      ) {
         return;
       }
       const holdingReward = new HoldingReward();
@@ -85,6 +89,7 @@ export class HoldingRewardService {
       holdingReward.tokenId = legend.tokenId;
       holdingReward.user = user;
       holdingReward.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+      tokenIdsHandle.push(legend.tokenId);
       holdingRewards.push(holdingReward);
     });
     await this.holdingRewardRepository.save(holdingRewards);
