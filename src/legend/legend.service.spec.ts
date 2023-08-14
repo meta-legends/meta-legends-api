@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+
 import { LegendService } from './legend.service';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { AlchemyService } from '../client/alchemy/alchemy.service';
-
 import { Legend } from './legend.entity';
 import {
   HREWARD_1_CODE,
@@ -28,6 +29,7 @@ describe('LegendService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         LegendService,
+        { provide: CACHE_MANAGER, useValue: {} },
         {
           provide: getRepositoryToken(Legend),
           useClass: Repository,
@@ -258,6 +260,9 @@ describe('LegendService', () => {
       [HREWARD_9_CODE]: false,
       [HREWARD_12_CODE]: false,
       [HREWARD_15_CODE]: false,
+      [HREWARD_18_CODE]: false,
+      [HREWARD_21_CODE]: false,
+      [HREWARD_24_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
@@ -279,6 +284,9 @@ describe('LegendService', () => {
       [HREWARD_9_CODE]: false,
       [HREWARD_12_CODE]: false,
       [HREWARD_15_CODE]: false,
+      [HREWARD_18_CODE]: false,
+      [HREWARD_21_CODE]: false,
+      [HREWARD_24_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
@@ -291,9 +299,12 @@ describe('LegendService', () => {
       [HREWARD_1_CODE]: true,
       [HREWARD_3_CODE]: true,
       [HREWARD_6_CODE]: true,
-      [HREWARD_9_CODE]: true,
+      [HREWARD_9_CODE]: false,
       [HREWARD_12_CODE]: false,
       [HREWARD_15_CODE]: false,
+      [HREWARD_18_CODE]: false,
+      [HREWARD_21_CODE]: false,
+      [HREWARD_24_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
@@ -309,6 +320,9 @@ describe('LegendService', () => {
       [HREWARD_9_CODE]: true,
       [HREWARD_12_CODE]: true,
       [HREWARD_15_CODE]: true,
+      [HREWARD_18_CODE]: false,
+      [HREWARD_21_CODE]: false,
+      [HREWARD_24_CODE]: false,
     };
     expect(
       legendService.defineHoldingRewards(
