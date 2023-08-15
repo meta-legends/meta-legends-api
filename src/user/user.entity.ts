@@ -5,8 +5,8 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm';
-import { OgPet } from '@src/eligibility/og-pet/og-pet.entity';
-import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
+import { OgPet } from '../eligibility/og-pet/og-pet.entity';
+import { HoldingReward } from '../holding-reward/holding-reward.entity';
 
 @Entity()
 export class User {

@@ -6,7 +6,7 @@ import {
   HOLDING_REWARDS,
   HOLDING_REWARDS_KEY_VALUE,
 } from '../enum/holding-reward';
-import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
+import { HoldingReward } from './holding-reward.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
