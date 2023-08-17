@@ -34,16 +34,16 @@ export class AlchemyService {
   }
 
   async getNFTsByWallet(wallet: string, pageKey = '') {
-    const data = {
+    const params = {
       'contractAddresses[]': CONTRACT_META_LEGENDS,
       owner: wallet,
       withMetadata: true,
     };
 
     if (pageKey != '') {
-      data['pageKey'] = pageKey;
+      params['pageKey'] = pageKey;
     }
 
-    return this.get(GET_NFTS, data);
+    return this.get(GET_NFTS, params);
   }
 }

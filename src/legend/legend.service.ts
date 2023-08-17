@@ -41,48 +41,30 @@ export class LegendService {
     private readonly alchemyService: AlchemyService,
   ) {}
 
-  async getCountML(wallet: string) {
-    const params = {
-      owner: wallet,
-    };
-    try {
-      const data = await this.alchemyService.get(
-        GET_CONTRACTS_FOR_OWNER,
-        params,
-      );
-      let count = 0;
-      data['contracts'].forEach((contract) => {
-        if (contract['address'].toLowerCase() == CONTRACT_META_LEGENDS) {
-          count = contract['totalBalance'];
-        }
-      });
-      return count;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   async getNftDataFromAlchemy(address: string): Promise<[number[], object]> {
     const result = {};
     const tokenIds = [];
-    const countNFT = await this.getCountML(address);
-    const nbLoop = Math.ceil(countNFT / 100);
-    let pageKey = '';
-    for (let i = 1; i <= nbLoop; i++) {
-      const res = await this.alchemyService.getNFTsByWallet(address, pageKey);
-      if ('pageKey' in res) {
-        pageKey = res.pageKey;
-      }
-      res.ownedNfts.map((item) => {
-        const object = {};
-        const tokenId = parseInt(item.id.tokenId, 16);
-        object['purchasedOn'] = null;
-        object['media'] = item.media[0];
-        object['tokenId'] = tokenId;
-        tokenIds.push(tokenId);
-        result[tokenId] = object;
-      });
+    let items;
+    const res = await this.alchemyService.getNFTsByWallet(address);
+    if ('pageKey' in res) {
+      const res2 = await this.alchemyService.getNFTsByWallet(
+        address,
+        res['pageKey'],
+      );
+      items = [...res.ownedNfts, ...res2.ownedNfts];
+    } else {
+      items = res.ownedNfts;
     }
+    items.map((item) => {
+      const object = {};
+      const tokenId = parseInt(item.id.tokenId, 16);
+      object['purchasedOn'] = null;
+      object['media'] = item.media[0];
+      object['tokenId'] = tokenId;
+      tokenIds.push(tokenId);
+      result[tokenId] = object;
+    });
+
     return [tokenIds, result];
   }
 

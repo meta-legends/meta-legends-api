@@ -44,7 +44,9 @@ export class AppController {
   @Get('/hello2')
   async getHello2() {
     return await this.legendService.getNftDataFromAlchemy(
-      '0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd',
+      //'0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd',
+      '0xeabce3a39ae018021b17cf7ba1b454ed1bd52c94', // lakshmi
+      //'0x5af5b3f842fbda3783c3fced36ae88e8a893848a', // pcw84
     );
   }
 

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
 
-import { UserService } from '../user/user.service';
+import { UserService } from '../user.service';
 
 @Command({
   name: 'caching-each-user',
