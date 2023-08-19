@@ -8,13 +8,15 @@ import {
 } from '../enum/holding-reward';
 import { HoldingReward } from './holding-reward.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
+import { DataSource } from 'typeorm/data-source/DataSource';
 
 @Injectable()
 export class HoldingRewardService {
   constructor(
     @InjectRepository(HoldingReward)
     private holdingRewardRepository: Repository<HoldingReward>,
+    private dataSource: DataSource,
   ) {}
 
   isEligible(legend: Legend, duration: number): boolean {
@@ -107,5 +109,15 @@ export class HoldingRewardService {
       );
     }
     return holdingRewards;
+  }
+
+  async getUsersMadeRecentEstimate(rewardCode: string, createdAt: string) {
+    return this.dataSource.getRepository(HoldingReward).find({
+      relations: { user: true },
+      where: {
+        rewardCode: rewardCode,
+        createdAt: MoreThanOrEqual(createdAt),
+      },
+    });
   }
 }

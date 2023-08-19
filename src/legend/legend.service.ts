@@ -4,10 +4,7 @@ import { Repository } from 'typeorm';
 import * as moment from 'moment';
 import { Legend } from './legend.entity';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
-import {
-  AlchemyService,
-  GET_CONTRACTS_FOR_OWNER,
-} from '../client/alchemy/alchemy.service';
+import { AlchemyService } from '../client/alchemy/alchemy.service';
 import { CONTRACT_META_LEGENDS } from '../enum/contract';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';

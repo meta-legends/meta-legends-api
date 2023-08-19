@@ -3,7 +3,6 @@ import axios from 'axios';
 import { CONTRACT_META_LEGENDS } from '../../enum/contract';
 
 export const isHolderOfCollection = 'isHolderOfCollection';
-export const GET_CONTRACTS_FOR_OWNER = 'getContractsForOwner';
 export const GET_OWNERS_FOR_COLLECTION = 'getOwnersForCollection';
 export const GET_NFTS = 'getNFTs';
 
