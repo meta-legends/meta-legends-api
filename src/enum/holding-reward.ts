@@ -18,99 +18,99 @@ export const HREWARD_18_CODE = 'ml-network-pass';
 export const HREWARD_21_CODE = 'particles-cosmetic-effect';
 export const HREWARD_24_CODE = 'shadow-gem';
 
-export const HREWARD_1_DURATION = 1;
-export const HREWARD_3_DURATION = 3;
-export const HREWARD_6_DURATION = 6;
-export const HREWARD_9_DURATION = 9;
-export const HREWARD_12_DURATION = 12;
-export const HREWARD_15_DURATION = 15;
-export const HREWARD_18_DURATION = 18;
-export const HREWARD_21_DURATION = 21;
-export const HREWARD_24_DURATION = 24;
+export const HREWARD_1_PERIOD = 1;
+export const HREWARD_3_PERIOD = 3;
+export const HREWARD_6_PERIOD = 6;
+export const HREWARD_9_PERIOD = 9;
+export const HREWARD_12_PERIOD = 12;
+export const HREWARD_15_PERIOD = 15;
+export const HREWARD_18_PERIOD = 18;
+export const HREWARD_21_PERIOD = 21;
+export const HREWARD_24_PERIOD = 24;
 
 export const HOLDING_REWARDS_KEY_VALUE = {
   [HREWARD_1_CODE]: {
     name: HREWARD_1_NAME,
-    duration: HREWARD_1_DURATION,
+    period: HREWARD_1_PERIOD,
   },
   [HREWARD_3_CODE]: {
     name: HREWARD_3_NAME,
-    duration: HREWARD_3_DURATION,
+    period: HREWARD_3_PERIOD,
   },
   [HREWARD_6_CODE]: {
     name: HREWARD_6_NAME,
-    duration: HREWARD_6_DURATION,
+    period: HREWARD_6_PERIOD,
   },
   [HREWARD_9_CODE]: {
     name: HREWARD_9_NAME,
-    duration: HREWARD_9_DURATION,
+    period: HREWARD_9_PERIOD,
   },
   [HREWARD_12_CODE]: {
     name: HREWARD_12_NAME,
-    duration: HREWARD_12_DURATION,
+    period: HREWARD_12_PERIOD,
   },
   [HREWARD_15_CODE]: {
     name: HREWARD_15_NAME,
-    duration: HREWARD_15_DURATION,
+    period: HREWARD_15_PERIOD,
   },
   [HREWARD_18_CODE]: {
     name: HREWARD_18_NAME,
-    duration: HREWARD_18_DURATION,
+    period: HREWARD_18_PERIOD,
   },
   [HREWARD_21_CODE]: {
     name: HREWARD_21_NAME,
-    duration: HREWARD_21_DURATION,
+    period: HREWARD_21_PERIOD,
   },
   [HREWARD_24_CODE]: {
     name: HREWARD_24_NAME,
-    duration: HREWARD_24_DURATION,
+    period: HREWARD_24_PERIOD,
   },
 };
 
 export const HOLDING_REWARDS = [
   {
     name: HREWARD_1_NAME,
-    duration: HREWARD_1_DURATION,
+    period: HREWARD_1_PERIOD,
     code: HREWARD_1_CODE,
   },
   {
     name: HREWARD_3_NAME,
-    duration: HREWARD_3_DURATION,
+    period: HREWARD_3_PERIOD,
     code: HREWARD_3_CODE,
   },
   {
     name: HREWARD_6_NAME,
-    duration: HREWARD_6_DURATION,
+    period: HREWARD_6_PERIOD,
     code: HREWARD_6_CODE,
   },
   {
     name: HREWARD_9_NAME,
-    duration: HREWARD_9_DURATION,
+    period: HREWARD_9_PERIOD,
     code: HREWARD_9_CODE,
   },
   {
     name: HREWARD_12_NAME,
-    duration: HREWARD_12_DURATION,
+    period: HREWARD_12_PERIOD,
     code: HREWARD_12_CODE,
   },
   {
     name: HREWARD_15_NAME,
-    duration: HREWARD_15_DURATION,
+    period: HREWARD_15_PERIOD,
     code: HREWARD_15_CODE,
   },
   {
     name: HREWARD_18_NAME,
-    duration: HREWARD_18_DURATION,
+    period: HREWARD_18_PERIOD,
     code: HREWARD_18_CODE,
   },
   {
     name: HREWARD_21_NAME,
-    duration: HREWARD_21_DURATION,
+    period: HREWARD_21_PERIOD,
     code: HREWARD_21_CODE,
   },
   {
     name: HREWARD_24_NAME,
-    duration: HREWARD_24_DURATION,
+    period: HREWARD_24_PERIOD,
     code: HREWARD_24_CODE,
   },
 ];

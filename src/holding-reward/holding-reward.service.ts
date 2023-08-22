@@ -19,11 +19,11 @@ export class HoldingRewardService {
     private dataSource: DataSource,
   ) {}
 
-  isEligible(legend: Legend, duration: number): boolean {
+  isEligible(legend: Legend, period: number): boolean {
     const now = moment();
     const purchasedOn = moment(legend.purchasedOn);
 
-    return now.diff(purchasedOn, 'months') >= duration;
+    return now.diff(purchasedOn, 'months') >= period;
   }
 
   async findByUserAndHoldingRewardCode(
@@ -77,7 +77,7 @@ export class HoldingRewardService {
     const holdingRewards = [];
     const tokenIdsHandle = [];
     legends.map((legend) => {
-      if (!this.isEligible(legend, hRewardSelected.duration)) {
+      if (!this.isEligible(legend, hRewardSelected.period)) {
         return;
       }
       if (
