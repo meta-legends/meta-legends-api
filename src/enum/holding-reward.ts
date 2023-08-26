@@ -114,3 +114,51 @@ export const HOLDING_REWARDS = [
     code: HREWARD_24_CODE,
   },
 ];
+
+export const HOLDING_REWARD_METADATA = {
+  [HREWARD_1_CODE]: {
+    class: 'Cyber',
+    item: 'Weapon',
+    period: `${HREWARD_1_PERIOD} month`,
+  },
+  [HREWARD_3_CODE]: {
+    class: 'Cyber',
+    item: 'Armor',
+    period: `${HREWARD_3_PERIOD} months`,
+  },
+  [HREWARD_6_CODE]: {
+    class: 'Rough',
+    item: 'Pet',
+    period: `${HREWARD_6_PERIOD} months`,
+  },
+  [HREWARD_9_CODE]: {
+    class: 'Roboter',
+    item: 'Weapon',
+    period: `${HREWARD_9_PERIOD} months`,
+  },
+  [HREWARD_12_CODE]: {
+    class: 'Matrix-Angel',
+    item: 'Car',
+    period: `${HREWARD_12_PERIOD} months`,
+  },
+  [HREWARD_15_CODE]: {
+    class: 'N/A',
+    item: 'Healing Drone',
+    period: `${HREWARD_15_PERIOD} months`,
+  },
+  [HREWARD_18_CODE]: {
+    class: 'N/A',
+    item: 'ML Network Pass',
+    period: `${HREWARD_18_PERIOD} months`,
+  },
+  [HREWARD_21_CODE]: {
+    class: 'N/A',
+    item: 'Particles Cosmetic Effect',
+    period: `${HREWARD_21_PERIOD} months`,
+  },
+  [HREWARD_24_CODE]: {
+    class: 'N/A',
+    item: 'Shadow Gem',
+    period: `${HREWARD_24_PERIOD} months`,
+  },
+};

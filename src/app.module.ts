@@ -54,7 +54,9 @@ import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligi
 import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
+
 import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
+import { MetadataService as HoldingRewardMetadataCommand } from './command/holding-reward/metadata/metadata.service';
 
 @Module({
   imports: [
@@ -128,6 +130,7 @@ import { HoldingRewardService as HoldingRewardCommand } from './command/holding-
     OgpetEligibilityService,
     HoldingRewardService,
     HoldingRewardCommand,
+    HoldingRewardMetadataCommand,
   ],
 })
 export class AppModule {
