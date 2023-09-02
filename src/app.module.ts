@@ -57,6 +57,8 @@ import { HoldingRewardService } from './holding-reward/holding-reward.service';
 
 import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
 import { MetadataService as HoldingRewardMetadataCommand } from './command/holding-reward/metadata/metadata.service';
+import { EstimateService } from './command/holding-reward/estimate/estimate.service';
+import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 
 @Module({
   imports: [
@@ -131,6 +133,8 @@ import { MetadataService as HoldingRewardMetadataCommand } from './command/holdi
     HoldingRewardService,
     HoldingRewardCommand,
     HoldingRewardMetadataCommand,
+    EstimateService,
+    AfkHolderService,
   ],
 })
 export class AppModule {

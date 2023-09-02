@@ -1,4 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as moment from 'moment';
@@ -28,9 +33,11 @@ import {
   HREWARD_24_CODE,
   HREWARD_24_PERIOD,
 } from '../enum/holding-reward';
+import { RuntimeException } from '@nestjs/core/errors/exceptions';
 
 @Injectable()
 export class LegendService {
+  private static readonly logger = new Logger(LegendService.name);
   constructor(
     @InjectRepository(Legend) private legendRepository: Repository<Legend>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
@@ -42,27 +49,31 @@ export class LegendService {
     const result = {};
     const tokenIds = [];
     let items;
-    const res = await this.alchemyService.getNFTsByWallet(address);
-    if ('pageKey' in res) {
-      const res2 = await this.alchemyService.getNFTsByWallet(
-        address,
-        res['pageKey'],
-      );
-      items = [...res.ownedNfts, ...res2.ownedNfts];
-    } else {
-      items = res.ownedNfts;
+    try {
+      const res = await this.alchemyService.getNFTsByWallet(address);
+      if ('pageKey' in res) {
+        const res2 = await this.alchemyService.getNFTsByWallet(
+          address,
+          res['pageKey'],
+        );
+        items = [...res.ownedNfts, ...res2.ownedNfts];
+      } else {
+        items = res.ownedNfts;
+      }
+      items.map((item) => {
+        const object = {};
+        const tokenId = parseInt(item.id.tokenId, 16);
+        object['purchasedOn'] = null;
+        object['media'] = item.media[0];
+        object['tokenId'] = tokenId;
+        tokenIds.push(tokenId);
+        result[tokenId] = object;
+      });
+      return [tokenIds, result];
+    } catch {
+      LegendService.logger.error(`[Service] getNftDataFromAlchemy ${address}`);
+      throw new RuntimeException();
     }
-    items.map((item) => {
-      const object = {};
-      const tokenId = parseInt(item.id.tokenId, 16);
-      object['purchasedOn'] = null;
-      object['media'] = item.media[0];
-      object['tokenId'] = tokenId;
-      tokenIds.push(tokenId);
-      result[tokenId] = object;
-    });
-
-    return [tokenIds, result];
   }
 
   async getNftDataFromEtherscan(address: string): Promise<object> {
@@ -242,5 +253,9 @@ export class LegendService {
       [HREWARD_21_CODE]: HREWARD_21_PERIOD <= months,
       [HREWARD_24_CODE]: HREWARD_24_PERIOD <= months,
     };
+  }
+
+  async findAll(): Promise<Legend[]> {
+    return await this.legendRepository.find();
   }
 }
