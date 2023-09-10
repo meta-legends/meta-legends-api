@@ -1,0 +1,10 @@
+{
+  "name": "Cyber Weapon",
+  "description": "This NFT represents an holding reward whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends",
+  "image": "https://metalegends.mypinata.cloud/ipfs/QmWpskk3QApuTEHG7fUKhV1AcvrCwjkLf6xSxuJnavp7AV/gif/cyber-weapon.gif",
+  "animation_url": "https://metalegends.mypinata.cloud/ipfs/QmWpskk3QApuTEHG7fUKhV1AcvrCwjkLf6xSxuJnavp7AV/mp4/cyber-weapon.mp4",
+  "attributes": {
+    "class": "Cyber",
+    "item": "Weapon"
+  }
+}
