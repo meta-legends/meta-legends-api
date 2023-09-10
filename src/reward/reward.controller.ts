@@ -48,12 +48,6 @@ export class RewardController {
     }
 
     const response = await this.alchemyService.getNFTsByWallet(wallet);
-    // await this.cacheManager.set(
-    //   'client-alchemy-getNFTsByWallet-' + wallet,
-    //   response,
-    //   3600000,
-    // );
-
     const mintPackages: MintPackage[] | null =
       await this.mintPackageService.getByMintWallet(wallet);
 

@@ -40,7 +40,6 @@ export class LegendService {
   private static readonly logger = new Logger(LegendService.name);
   constructor(
     @InjectRepository(Legend) private legendRepository: Repository<Legend>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly etherscanService: EtherscanService,
     private readonly alchemyService: AlchemyService,
   ) {}
