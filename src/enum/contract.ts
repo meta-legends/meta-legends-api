@@ -2,4 +2,9 @@ export const CONTRACT_META_LEGENDS =
   '0xf9c362cdd6eeba080dd87845e88512aa0a18c615';
 export const CONTRACT_COUNCIL_STONE =
   '0x688c91412f079cd6c9aeaa637b75dadd86febeef';
-export const CONTRACT_OG_PETS = '0xfc634bfc0f00a2d3dcc93ceb4558da9de840fdbc';
+
+export const CONTRACT_PERK_OG_PETS =
+  '0xfc634bfc0f00a2d3dcc93ceb4558da9de840fdbc';
+export const CONTRACT_PERK_ARMOR = '0xe091774b4a6d0990d0ba7d9478de6e00f7175f7f';
+
+export const CONTRACT_LZ_REWARDS = '0xEB386a02352e0C0aC2520EB3039325703c443F70';

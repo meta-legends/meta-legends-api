@@ -59,6 +59,7 @@ import { HoldingRewardService as HoldingRewardCommand } from './command/holding-
 import { MetadataService as HoldingRewardMetadataCommand } from './command/holding-reward/metadata/metadata.service';
 import { EstimateService } from './command/holding-reward/estimate/estimate.service';
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
+import { CollectionsModule } from './collections/collections.module';
 
 @Module({
   imports: [
@@ -97,6 +98,7 @@ import { AfkHolderService } from './command/afk-holder/afk-holder.service';
     AssetModule,
     MintModule,
     HoldingRewardModule,
+    CollectionsModule,
   ],
   controllers: [
     AppController,
