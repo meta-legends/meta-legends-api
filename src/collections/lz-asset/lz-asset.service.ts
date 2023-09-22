@@ -31,7 +31,6 @@ export class LzAssetService {
         balance: asset.balance,
       };
       result.push(data);
-      console.log(asset);
     });
     return result;
   }

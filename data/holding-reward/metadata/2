@@ -1,0 +1,16 @@
+{
+   "name":"Cyber Armor",
+   "description":"This NFT represents an holding reward whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends",
+   "image":"https://metalegends.mypinata.cloud/ipfs/QmSXoqJz9XTbG1MboKzKZ7M7FN1WLkfp1BNzG5qEszQUTL/gif/cyber-armor.gif",
+   "animation_url":"https://metalegends.mypinata.cloud/ipfs/QmSXoqJz9XTbG1MboKzKZ7M7FN1WLkfp1BNzG5qEszQUTL/mp4/cyber-armor.mp4",
+   "attributes":[
+      {
+         "trait_type":"Class",
+         "value":"Cyber"
+      },
+      {
+         "trait_type":"Item",
+         "value":"Armor"
+      }
+   ]
+}
