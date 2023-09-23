@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AlchemyService, GET_NFTS } from '@src/client/alchemy/alchemy.service';
-import { CONTRACT_PERK_OG_PETS } from '@src/enum/contract';
+import { CONTRACT_PERK_PETS } from '@src/enum/contract';
 
 @Injectable()
 export class PerkOgPetService {
@@ -9,7 +9,7 @@ export class PerkOgPetService {
 
   async getNfts(address: string) {
     const params = {
-      'contractAddresses[]': CONTRACT_PERK_OG_PETS,
+      'contractAddresses[]': CONTRACT_PERK_PETS,
       owner: address,
       withMetadata: true,
     };
