@@ -8,10 +8,24 @@ import { CouncilStoneService } from './council-stone/council-stone.service';
 import { CouncilStoneController } from './council-stone/council-stone.controller';
 import { HonoraryController } from './honorary/honorary.controller';
 import { HonoraryService } from './honorary/honorary.service';
+import { WeaponSkinService } from './weapon-skin/weapon-skin.service';
+import { WeaponSkinController } from './weapon-skin/weapon-skin.controller';
 
 @Module({
-  // imports: [AlchemyService],
-  controllers: [PerkArmorController, PerkOgPetController, CouncilStoneController, HonoraryController],
-  providers: [PerkArmorService, AlchemyService, PerkOgPetService, CouncilStoneService, HonoraryService],
+  controllers: [
+    PerkArmorController,
+    PerkOgPetController,
+    CouncilStoneController,
+    HonoraryController,
+    WeaponSkinController,
+  ],
+  providers: [
+    PerkArmorService,
+    AlchemyService,
+    PerkOgPetService,
+    CouncilStoneService,
+    HonoraryService,
+    WeaponSkinService,
+  ],
 })
 export class CollectionsModule {}
