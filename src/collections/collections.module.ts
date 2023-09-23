@@ -10,6 +10,8 @@ import { HonoraryController } from './honorary/honorary.controller';
 import { HonoraryService } from './honorary/honorary.service';
 import { WeaponSkinService } from './weapon-skin/weapon-skin.service';
 import { WeaponSkinController } from './weapon-skin/weapon-skin.controller';
+import { LzAssetController } from './lz-asset/lz-asset.controller';
+import { LzAssetService } from './lz-asset/lz-asset.service';
 
 @Module({
   controllers: [
@@ -18,6 +20,7 @@ import { WeaponSkinController } from './weapon-skin/weapon-skin.controller';
     CouncilStoneController,
     HonoraryController,
     WeaponSkinController,
+    LzAssetController,
   ],
   providers: [
     PerkArmorService,
@@ -26,6 +29,7 @@ import { WeaponSkinController } from './weapon-skin/weapon-skin.controller';
     CouncilStoneService,
     HonoraryService,
     WeaponSkinService,
+    LzAssetService,
   ],
 })
 export class CollectionsModule {}

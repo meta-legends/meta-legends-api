@@ -1,5 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { AlchemyService, GET_NFTS, NETWORK_ETH } from "@src/client/alchemy/alchemy.service";
+import {
+  AlchemyService,
+  GET_NFTS,
+  NETWORK_ETH,
+} from '@src/client/alchemy/alchemy.service';
 import { CONTRACT_HONORARY } from '@src/enum/contract';
 
 @Injectable()
@@ -13,7 +17,11 @@ export class HonoraryService {
       owner: address,
       withMetadata: true,
     };
-    const response = await this.alchemyService.get(GET_NFTS, params, NETWORK_ETH);
+    const response = await this.alchemyService.get(
+      GET_NFTS,
+      params,
+      NETWORK_ETH,
+    );
     const result = [];
     response.ownedNfts.map((honorary) => {
       if (honorary.title.includes('Meta Legends Honorary')) {
