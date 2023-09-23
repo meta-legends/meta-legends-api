@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import {
   AlchemyService,
-  isHolderOfCollection,
-} from '@src/client/alchemy/alchemy.service';
+  isHolderOfCollection, NETWORK_ETH
+} from "@src/client/alchemy/alchemy.service";
 
 import { CONTRACT_META_LEGENDS } from '../enum/contract';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
@@ -25,7 +25,7 @@ export class UserService {
       wallet: wallet,
       contractAddress: CONTRACT_META_LEGENDS,
     };
-    return this.alchemyService.get(isHolderOfCollection, params);
+    return this.alchemyService.get(isHolderOfCollection, params, NETWORK_ETH);
   }
 
   @UseInterceptors(CacheInterceptor)

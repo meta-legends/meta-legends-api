@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { AlchemyService, GET_NFTS } from '@src/client/alchemy/alchemy.service';
+import { AlchemyService, GET_NFTS, NETWORK_ETH } from "@src/client/alchemy/alchemy.service";
 import { CONTRACT_WEAPON_SKIN } from '@src/enum/contract';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class WeaponSkinService {
       owner: address,
       withMetadata: true,
     };
-    const response = await this.alchemyService.get(GET_NFTS, params);
+    const response = await this.alchemyService.get(GET_NFTS, params, NETWORK_ETH);
     const result = [];
     response.ownedNfts.map((honorary) => {
       if (honorary.title.includes('Meta Life Universal Weapon Skin')) {

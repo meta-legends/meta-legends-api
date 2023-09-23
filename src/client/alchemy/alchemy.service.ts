@@ -1,16 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { CONTRACT_META_LEGENDS } from '../../enum/contract';
+import { RuntimeException } from '@nestjs/core/errors/exceptions';
 
 export const isHolderOfCollection = 'isHolderOfCollection';
 export const GET_OWNERS_FOR_COLLECTION = 'getOwnersForCollection';
 export const GET_NFTS = 'getNFTs';
 
+export const NETWORK_ETH = 'eth-mainnet';
+export const NETWORK_POLYGON = 'polygon-mainnet';
+export const NETWORKS = [NETWORK_ETH, NETWORK_POLYGON];
+
 @Injectable()
 export class AlchemyService {
-  async get(method: string, data) {
+  buildUrl(network: string): string {
+    if (!NETWORKS.includes(network)) {
+      console.log(`Unknow network ${network}`);
+      new RuntimeException(`Unknow network ${network}`);
+    }
+    return `https://${network}.g.alchemy.com`;
+  }
+
+  async get(method: string, data, network: string) {
     const params = new URLSearchParams(data);
-    const alchemyUrl = process.env.ALCHEMY_URL;
+    const alchemyUrl = this.buildUrl(network);
     const alchemyApiKey = process.env.ALCHEMY_API_KEY;
     const url = `${alchemyUrl}/nft/v2/${alchemyApiKey}/${method}?${params.toString()}`;
     try {
@@ -29,7 +42,7 @@ export class AlchemyService {
     data['contractAddress'] = CONTRACT_META_LEGENDS;
     data['withTokenBalances'] = true;
 
-    return this.get(GET_OWNERS_FOR_COLLECTION, data);
+    return this.get(GET_OWNERS_FOR_COLLECTION, data, NETWORK_ETH);
   }
 
   async getNFTsByWallet(wallet: string, pageKey = '') {
@@ -43,6 +56,6 @@ export class AlchemyService {
       params['pageKey'] = pageKey;
     }
 
-    return this.get(GET_NFTS, params);
+    return this.get(GET_NFTS, params, NETWORK_ETH);
   }
 }
