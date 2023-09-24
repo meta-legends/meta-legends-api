@@ -16,6 +16,15 @@ export class User {
   @Column('varchar', { length: 63, unique: true })
   wallet: string;
 
+  @Column('varchar', { default: null })
+  firstname!: string | null;
+
+  @Column('varchar', { default: null })
+  lastname!: string | null;
+
+  @Column('varchar', { default: null })
+  designation!: string | null;
+
   @Column('varchar', { unique: true, default: null })
   username!: string | null;
 
