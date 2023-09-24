@@ -26,7 +26,7 @@ export class LzAssetService {
     response.ownedNfts.map((asset) => {
       const data = {
         tokenId: parseInt(asset.id.tokenId, 16),
-        image: asset.metadata.image,
+        image: asset.media[0].gateway,
         name: asset.title,
         balance: asset.balance,
       };
