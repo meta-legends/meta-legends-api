@@ -19,6 +19,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       PMA_HOST: mariadb
+      UPLOAD_LIMIT: 300M
 
   backend:
     build: .
