@@ -16,6 +16,18 @@ export class User {
   @Column('varchar', { length: 63, unique: true })
   wallet: string;
 
+  @Column('varchar', { unique: true, default: null })
+  username!: string | null;
+
+  @Column('varchar', { unique: true, default: null })
+  email!: string | null;
+
+  @Column('varchar', { default: null })
+  bio!: string | null;
+
+  @Column('varchar', { default: null })
+  profilePicture!: string | null;
+
   @Column({ default: true })
   isActive: boolean;
 
@@ -27,6 +39,15 @@ export class User {
 
   @Column('datetime', { nullable: true })
   lastLogin!: string | null;
+
+  @Column('varchar', { unique: true, default: null })
+  linkedin!: string | null;
+
+  @Column('varchar', { unique: true, default: null })
+  twitter!: string | null;
+
+  @Column('varchar', { unique: true, default: null })
+  discord!: string | null;
 
   @Column('datetime')
   createdAt: string;
