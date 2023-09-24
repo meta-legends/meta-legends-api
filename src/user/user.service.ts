@@ -4,8 +4,9 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import {
   AlchemyService,
-  isHolderOfCollection, NETWORK_ETH
-} from "@src/client/alchemy/alchemy.service";
+  isHolderOfCollection,
+  NETWORK_ETH,
+} from '@src/client/alchemy/alchemy.service';
 
 import { CONTRACT_META_LEGENDS } from '../enum/contract';
 import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
@@ -25,7 +26,11 @@ export class UserService {
       wallet: wallet,
       contractAddress: CONTRACT_META_LEGENDS,
     };
-    return this.alchemyService.get(isHolderOfCollection, params, NETWORK_ETH);
+    return await this.alchemyService.get(
+      isHolderOfCollection,
+      params,
+      NETWORK_ETH,
+    );
   }
 
   @UseInterceptors(CacheInterceptor)
@@ -62,14 +67,15 @@ export class UserService {
     return user;
   }
 
-  async upsert(wallet: string) {
-    let user = await this.userRepository.findOneBy({ wallet });
+  async upsert(wallet: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ wallet });
     if (user == null) {
-      user = this.create(wallet);
+      const user = await this.create(wallet);
       await this.userRepository.insert(user);
-    } else {
-      user.lastLogin = moment().format('YYYY-MM-DD HH:mm:ss');
-      await this.userRepository.save(user);
+      return user;
     }
+    user.lastLogin = moment().format('YYYY-MM-DD HH:mm:ss');
+    await this.userRepository.save(user);
+    return user;
   }
 }

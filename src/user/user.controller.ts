@@ -8,7 +8,7 @@ export class UserController {
   @Header('content-type', 'application/json')
   @Get(':wallet/is-holder')
   async isHolder(@Param('wallet') wallet: string) {
-    return this.userService.isHolder(wallet.toLowerCase());
+    return await this.userService.isHolder(wallet.toLowerCase());
   }
 
   @Header('content-type', 'application/json')
