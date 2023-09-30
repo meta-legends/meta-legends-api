@@ -2,6 +2,7 @@ import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { UserUpdateDto } from './user-update.dto';
 import {
   AlchemyService,
   isHolderOfCollection,
@@ -54,6 +55,10 @@ export class UserService {
     return this.userRepository.findOneBy({ wallet });
   }
 
+  async findOneById(id: number): Promise<User | null> {
+    return this.userRepository.findOneBy({ id });
+  }
+
   create(wallet: string): User {
     const user: User = new User();
     user.wallet = wallet;
@@ -77,5 +82,11 @@ export class UserService {
     user.lastLogin = moment().format('YYYY-MM-DD HH:mm:ss');
     await this.userRepository.save(user);
     return user;
+  }
+
+  async update(user: User, userUpdateDto: UserUpdateDto): Promise<User> {
+    const updatedUser = Object.assign(user, userUpdateDto);
+
+    return this.userRepository.save(updatedUser);
   }
 }
