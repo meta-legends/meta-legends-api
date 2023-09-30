@@ -30,6 +30,7 @@ export class HonoraryService {
           tokenId: parseInt(str[1]),
           image: honorary.media[0].thumbnail,
           name: honorary.title,
+          media: honorary.media[0],
         };
         result.push(data);
       }

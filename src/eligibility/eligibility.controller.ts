@@ -2,14 +2,12 @@ import {
   Controller,
   Get,
   Header,
-  NotFoundException,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { OgPetService } from './og-pet/og-pet.service';
 import { AuthGuard } from '@src/auth/auth.guard';
 import { Request } from 'express';
-import { OgPet } from '../eligibility/og-pet/og-pet.entity';
 
 @Controller('eligibility')
 export class EligibilityController {
