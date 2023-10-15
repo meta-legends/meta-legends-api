@@ -60,6 +60,8 @@ import { MetadataService as HoldingRewardMetadataCommand } from './command/holdi
 import { EstimateService } from './command/holding-reward/estimate/estimate.service';
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { CollectionsModule } from './collections/collections.module';
+import { HealingDroneService } from './command/metadata/healing-drone/healing-drone.service';
+import { OgPetService } from './command/metadata/og-pet/og-pet.service';
 
 @Module({
   imports: [
@@ -137,6 +139,7 @@ import { CollectionsModule } from './collections/collections.module';
     HoldingRewardMetadataCommand,
     EstimateService,
     AfkHolderService,
+    HealingDroneService,
   ],
 })
 export class AppModule {

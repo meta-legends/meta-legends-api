@@ -1,7 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { PINATA_URL } from '@src/enum/pinata-uri';
-import { HOLDING_REWARD_METADATA, HOLDING_REWARDS_KEY_VALUE } from "@src/enum/holding-reward";
+import {
+  HOLDING_REWARD_METADATA,
+  HOLDING_REWARDS_KEY_VALUE,
+} from '@src/enum/holding-reward';
 import { writeFileSync } from 'fs';
 
 interface BasicCommandOptions {
