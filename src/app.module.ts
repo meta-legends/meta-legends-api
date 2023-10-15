@@ -61,7 +61,7 @@ import { EstimateService } from './command/holding-reward/estimate/estimate.serv
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { CollectionsModule } from './collections/collections.module';
 import { HealingDroneService } from './command/metadata/healing-drone/healing-drone.service';
-import { OgPetService } from './command/metadata/og-pet/og-pet.service';
+import { OgPetMetadataService } from './command/metadata/og-pet/og-pet-metadata.service';
 
 @Module({
   imports: [
@@ -121,6 +121,7 @@ import { OgPetService } from './command/metadata/og-pet/og-pet.service';
     MintPackageService,
     MoralisService,
     OgPetService,
+    OgPetMetadataService,
     TokenService,
     RewardService,
     UnstakedService,

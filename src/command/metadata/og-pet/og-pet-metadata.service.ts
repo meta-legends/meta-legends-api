@@ -40,14 +40,14 @@ import { MintService } from '@src/mint/mint.service';
   description: 'Build metadata and media files',
 })
 @Injectable()
-export class OgPetService extends CommandRunner {
-  private static readonly logger = new Logger(OgPetService.name);
+export class OgPetMetadataService extends CommandRunner {
+  private static readonly logger = new Logger(OgPetMetadataService.name);
   constructor(private mintService: MintService) {
     super();
   }
 
   async run() {
-    OgPetService.logger.log('[Command] OgPetService');
+    OgPetMetadataService.logger.log('[Command] OgPetMetadataService');
     // BUILD csv list
     // this.buildList();
 
