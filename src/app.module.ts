@@ -62,6 +62,7 @@ import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { CollectionsModule } from './collections/collections.module';
 import { HealingDroneService } from './command/metadata/healing-drone/healing-drone.service';
 import { OgPetMetadataService } from './command/metadata/og-pet/og-pet-metadata.service';
+import { MetadataService } from './metadata/metadata.service';
 
 @Module({
   imports: [
