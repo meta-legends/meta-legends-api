@@ -12,6 +12,8 @@ import { WeaponSkinService } from './weapon-skin/weapon-skin.service';
 import { WeaponSkinController } from './weapon-skin/weapon-skin.controller';
 import { LzAssetController } from './lz-asset/lz-asset.controller';
 import { LzAssetService } from './lz-asset/lz-asset.service';
+import { HealingDroneService } from './healing-drone/healing-drone.service';
+import { HealingDroneController } from './healing-drone/healing-drone.controller';
 
 @Module({
   controllers: [
@@ -21,6 +23,7 @@ import { LzAssetService } from './lz-asset/lz-asset.service';
     HonoraryController,
     WeaponSkinController,
     LzAssetController,
+    HealingDroneController,
   ],
   providers: [
     PerkArmorService,
@@ -30,6 +33,7 @@ import { LzAssetService } from './lz-asset/lz-asset.service';
     HonoraryService,
     WeaponSkinService,
     LzAssetService,
+    HealingDroneService,
   ],
 })
 export class CollectionsModule {}
