@@ -56,8 +56,9 @@ import { HoldingRewardService as HoldingRewardCommand } from './command/holding-
 import { EstimateService } from './command/holding-reward/estimate/estimate.service';
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { CollectionsModule } from './collections/collections.module';
-import { HealingDroneService } from './command/metadata/healing-drone/healing-drone.service';
+import { HealingDroneService as HealingDroneServiceCommand } from './command/metadata/healing-drone/healing-drone.service';
 import { MetadataService } from './metadata/metadata.service';
+import { HealingDroneService } from '@src/collections/healing-drone/healing-drone.service';
 
 @Module({
   imports: [
@@ -133,6 +134,7 @@ import { MetadataService } from './metadata/metadata.service';
     EstimateService,
     AfkHolderService,
     HealingDroneService,
+    HealingDroneServiceCommand,
   ],
 })
 export class AppModule {
