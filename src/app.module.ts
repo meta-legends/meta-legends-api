@@ -45,10 +45,7 @@ import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from './user/user.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
-import { MintModule } from './mint/mint.module';
-import { MetadataService } from './command/metadata/metadata.service';
 import { TestService } from './command/test/test.service';
-import { MintService } from '@src/mint/mint.service';
 import { WhaleService } from './command/whale/whale.service';
 import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligibility.service';
 import { HoldingRewardModule } from './holding-reward/holding-reward.module';
@@ -56,12 +53,10 @@ import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
 
 import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
-import { MetadataService as HoldingRewardMetadataCommand } from './command/holding-reward/metadata/metadata.service';
 import { EstimateService } from './command/holding-reward/estimate/estimate.service';
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { CollectionsModule } from './collections/collections.module';
 import { HealingDroneService } from './command/metadata/healing-drone/healing-drone.service';
-import { OgPetMetadataService } from './command/metadata/og-pet/og-pet-metadata.service';
 import { MetadataService } from './metadata/metadata.service';
 
 @Module({
@@ -99,7 +94,6 @@ import { MetadataService } from './metadata/metadata.service';
     EligibilityModule,
     UserModule,
     AssetModule,
-    MintModule,
     HoldingRewardModule,
     CollectionsModule,
   ],
@@ -122,7 +116,6 @@ import { MetadataService } from './metadata/metadata.service';
     MintPackageService,
     MoralisService,
     OgPetService,
-    OgPetMetadataService,
     TokenService,
     RewardService,
     UnstakedService,
@@ -131,14 +124,12 @@ import { MetadataService } from './metadata/metadata.service';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    MintService,
     MetadataService,
     TestService,
     WhaleService,
     OgpetEligibilityService,
     HoldingRewardService,
     HoldingRewardCommand,
-    HoldingRewardMetadataCommand,
     EstimateService,
     AfkHolderService,
     HealingDroneService,
