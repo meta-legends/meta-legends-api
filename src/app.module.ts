@@ -47,13 +47,11 @@ import { User } from './user/user.entity';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { TestService } from './command/test/test.service';
 import { WhaleService } from './command/whale/whale.service';
-import { OgpetEligibilityService } from './command/ogpet-eligibility/ogpet-eligibility.service';
 import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
 
 import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
-import { EstimateService } from './command/holding-reward/estimate/estimate.service';
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { CollectionsModule } from './collections/collections.module';
 import { HealingDroneService as HealingDroneServiceCommand } from './command/metadata/healing-drone/healing-drone.service';
@@ -128,10 +126,8 @@ import { HealingDroneService } from '@src/collections/healing-drone/healing-dron
     MetadataService,
     TestService,
     WhaleService,
-    OgpetEligibilityService,
     HoldingRewardService,
     HoldingRewardCommand,
-    EstimateService,
     AfkHolderService,
     HealingDroneService,
     HealingDroneServiceCommand,
