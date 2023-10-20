@@ -6,6 +6,19 @@ import * as moment from 'moment';
 interface BasicCommandOptions {
   string?: string;
 }
+// npm run command-nest holding-rewards-build-list cyber-weapon 2023-08-01
+// npm run command-nest holding-rewards-build-list cyber-armor 2023-08-01
+// npm run command-nest holding-rewards-build-list rough-pet 2023-08-01
+// npm run command-nest holding-rewards-build-list roboter-weapon 2023-08-01
+// npm run command-nest holding-rewards-build-list matrix-angel-car 2023-08-01
+
+// TODO : 22/10/2023
+// npm run command-nest holding-rewards-build-list cyber-weapon 2023-10-20
+// npm run command-nest holding-rewards-build-list cyber-armor 2023-10-20
+// npm run command-nest holding-rewards-build-list rough-pet 2023-10-20
+// npm run command-nest holding-rewards-build-list roboter-weapon 2023-10-20
+// npm run command-nest holding-rewards-build-list matrix-angel-car 2023-10-20
+// npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-08-01
 
 @Command({
   name: 'holding-rewards-build-list',
@@ -26,42 +39,42 @@ export class HoldingRewardService extends CommandRunner {
     const limit = 200;
     const rewardCode = passedParam[0];
     const lastUpsertAt = passedParam[1];
-    const now = moment().format('YYYYMMDDHHmmss');
-    const userQuandities = {};
+
+    const userQuantities = {};
     const wallets = [];
-    const holdingRewards =
-      await this.holdingRewardManager.getUsersMadeRecentEstimate(
+    const newHoldingRewards =
+      await this.holdingRewardManager.getRewardsByRecentEstimate(
         rewardCode,
         lastUpsertAt,
       );
-    holdingRewards.forEach((holdingReward) => {
-      if (holdingReward.user.wallet in userQuandities) {
-        userQuandities[holdingReward.user.wallet]++;
+
+    newHoldingRewards.forEach((holdingReward) => {
+      if (holdingReward.user.wallet in userQuantities) {
+        userQuantities[holdingReward.user.wallet]++;
       } else {
-        userQuandities[holdingReward.user.wallet] = 1;
+        userQuantities[holdingReward.user.wallet] = 1;
         wallets.push(holdingReward.user.wallet);
       }
     });
 
+    const now = moment().format('YYYYMMDDHHmmss');
     const filepath = `./data/holding-reward/${now}_${rewardCode}.txt`;
     const listWallet = [];
     const listQuantity = [];
-
     const rows = [];
 
     let index = 0;
     wallets.forEach((wallet) => {
-      if (index != 0 && index % limit == 0) {
+      if ((index != 0 && index % limit == 0) || wallets.length - 1 == index) {
         rows.push(listWallet.join(','));
         rows.push(listQuantity.join(','));
         listWallet.length = 0;
         listQuantity.length = 0;
       }
       listWallet.push(wallet);
-      listQuantity.push(userQuandities[wallet]);
+      listQuantity.push(userQuantities[wallet]);
       index++;
     });
-
     writeFile(filepath, rows.join('\n'), (err) => {
       if (err) {
         console.log('Error Found:', err);

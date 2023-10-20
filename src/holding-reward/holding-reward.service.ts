@@ -8,7 +8,7 @@ import {
 } from '../enum/holding-reward';
 import { HoldingReward } from './holding-reward.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MoreThanOrEqual, Repository } from 'typeorm';
+import { In, MoreThanOrEqual, LessThan, MoreThan, Repository } from 'typeorm';
 import { DataSource } from 'typeorm/data-source/DataSource';
 
 @Injectable()
@@ -112,12 +112,48 @@ export class HoldingRewardService {
   }
 
   async getUsersMadeRecentEstimate(rewardCode: string, createdAt: string) {
-    return this.dataSource.getRepository(HoldingReward).find({
+    return await this.dataSource.getRepository(HoldingReward).find({
       relations: { user: true },
       where: {
         rewardCode: rewardCode,
         createdAt: MoreThanOrEqual(createdAt),
       },
     });
+  }
+
+  async getByRewardCodeAndUsers(
+    rewardCode: string,
+    userIds: number[],
+  ): Promise<HoldingReward[]> {
+    return await this.dataSource.getRepository(HoldingReward).find({
+      relations: { user: true },
+      where: {
+        rewardCode: rewardCode,
+        user: {
+          id: In(userIds),
+        },
+      },
+    });
+  }
+
+  async getRewardsByRecentEstimate(rewardCode: string, lastUpsertAt: string) {
+    const newHoldingRewards = await this.getUsersMadeRecentEstimate(
+      rewardCode,
+      lastUpsertAt,
+    );
+    console.log(newHoldingRewards.length);
+    const userIds = [];
+    const users = [];
+    newHoldingRewards.map((holdingReward) => {
+      if (userIds.includes(holdingReward.user.id)) {
+        return;
+      }
+      userIds.push(holdingReward.user.id);
+      users.push(holdingReward.user);
+    });
+    if (userIds.length === 0) {
+      return [];
+    }
+    return await this.getByRewardCodeAndUsers(rewardCode, userIds);
   }
 }

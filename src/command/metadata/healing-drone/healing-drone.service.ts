@@ -16,6 +16,9 @@ import {
 import { MetadataService } from '@src/metadata/metadata.service';
 import { Collection } from '@src/collections/collection.model';
 
+// - construction du fichier csv tenant compte de la rareté des assets
+// - construction des fichiers JSON en fonction du fichier CSV
+
 // npm run command-nest metadata-healing-drone
 @Command({
   name: 'metadata-healing-drone',
