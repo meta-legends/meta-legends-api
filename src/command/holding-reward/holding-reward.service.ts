@@ -18,7 +18,8 @@ interface BasicCommandOptions {
 // npm run command-nest holding-rewards-build-list rough-pet 2023-10-20
 // npm run command-nest holding-rewards-build-list roboter-weapon 2023-10-20
 // npm run command-nest holding-rewards-build-list matrix-angel-car 2023-10-20
-// npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-08-01
+// npm run command-nest holding-rewards-build-list healing-drone 2023-10-20
+// npm run command-nest holding-rewards-build-list ml-network-pass 2023-10-20
 
 @Command({
   name: 'holding-rewards-build-list',
