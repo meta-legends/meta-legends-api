@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Eligibility } from '@src/eligibility/eligibility.entity';
 
 @Entity()
 export class Asset {
@@ -22,4 +23,7 @@ export class Asset {
 
   @Column({ type: 'datetime', nullable: true })
   openOn!: string | null;
+
+  @OneToMany(() => Eligibility, (eligibility) => eligibility.asset)
+  eligibility: Eligibility[];
 }

@@ -38,6 +38,7 @@ import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './user/user.module';
 
 import { Asset } from './asset/asset.entity';
+import { Eligibility } from './eligibility/eligibility.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
@@ -75,13 +76,14 @@ import { HealingDroneService } from '@src/collections/healing-drone/healing-dron
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       entities: [
-        MintPackage,
-        Unstaked,
-        Legend,
-        OgPet,
-        User,
         Asset,
+        Eligibility,
         HoldingReward,
+        Legend,
+        MintPackage,
+        OgPet,
+        Unstaked,
+        User,
       ],
       synchronize: true,
     }),

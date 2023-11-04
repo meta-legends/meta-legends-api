@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { OgPet } from '../eligibility/og-pet/og-pet.entity';
 import { HoldingReward } from '../holding-reward/holding-reward.entity';
+import { Eligibility } from '@src/eligibility/eligibility.entity';
 
 @Entity()
 export class User {
@@ -63,6 +64,9 @@ export class User {
 
   @OneToOne(() => OgPet, (ogPet) => ogPet.user)
   ogPet!: OgPet | null;
+
+  @OneToMany(() => Eligibility, (eligibility) => eligibility.user)
+  eligibility: Eligibility[];
 
   @OneToMany(() => HoldingReward, (holdingReward) => holdingReward.user)
   holdingRewards: HoldingReward[];
