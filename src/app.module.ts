@@ -12,18 +12,6 @@ import { LegendController } from './legend/legend.controller';
 import { RewardController } from './reward/reward.controller';
 import { UserController } from './user/user.controller';
 
-import { AssetService } from './asset/asset.service';
-import { AppService } from './app.service';
-import { BadgeService } from './reward/badge/badge.service';
-import { DatetimeService } from './utils/datetime/datetime.service';
-import { OgPetService } from './eligibility/og-pet/og-pet.service';
-import { MintPackageService } from './mint-package/mint-package.service';
-import { LegendService } from './legend/legend.service';
-import { RewardService } from './reward/reward.service';
-import { TokenService } from './reward/token/token.service';
-import { UnstakedService } from './reward/unstaked/unstaked.service';
-import { UserService } from './user/user.service';
-
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
 import { MoralisService } from './client/moralis/moralis.service';
@@ -31,6 +19,7 @@ import { MoralisService } from './client/moralis/moralis.service';
 import { AssetModule } from './asset/asset.module';
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
+import { CollectionsModule } from './collections/collections.module';
 import { EligibilityModule } from './eligibility/eligibility.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
@@ -52,13 +41,26 @@ import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
 
-import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
-import { CollectionsModule } from './collections/collections.module';
+import { EligibilityVehicleService } from './command/eligibility-vehicle/eligibility-vehicle.service';
 import { HealingDroneService as HealingDroneServiceCommand } from './command/metadata/healing-drone/healing-drone.service';
-import { MetadataService } from './metadata/metadata.service';
-import { HealingDroneService } from '@src/collections/healing-drone/healing-drone.service';
+import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
+
+import { AssetService } from './asset/asset.service';
+import { AppService } from './app.service';
+import { BadgeService } from './reward/badge/badge.service';
+import { DatetimeService } from './utils/datetime/datetime.service';
+import { EligibilityService } from '@src/eligibility/eligibility.service';
 import { FileService } from './file/file.service';
+import { HealingDroneService } from '@src/collections/healing-drone/healing-drone.service';
+import { LegendService } from './legend/legend.service';
+import { MetadataService } from './metadata/metadata.service';
+import { MintPackageService } from './mint-package/mint-package.service';
+import { OgPetService } from './eligibility/og-pet/og-pet.service';
+import { RewardService } from './reward/reward.service';
+import { TokenService } from './reward/token/token.service';
+import { UnstakedService } from './reward/unstaked/unstaked.service';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -113,6 +115,7 @@ import { FileService } from './file/file.service';
     AlchemyService,
     BadgeService,
     DatetimeService,
+    EligibilityService,
     EtherscanService,
     LegendService,
     MintPackageService,
@@ -135,6 +138,7 @@ import { FileService } from './file/file.service';
     HealingDroneService,
     HealingDroneServiceCommand,
     FileService,
+    EligibilityVehicleService,
   ],
 })
 export class AppModule {
