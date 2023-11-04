@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { CONTRACT_META_LEGENDS } from '../../enum/contract';
+import { CONTRACT_COUNCIL_STONE, CONTRACT_HONORARY, CONTRACT_META_LEGENDS } from "../../enum/contract";
 import { RuntimeException } from '@nestjs/core/errors/exceptions';
 
 export const isHolderOfCollection = 'isHolderOfCollection';
 export const GET_OWNERS_FOR_COLLECTION = 'getOwnersForCollection';
+export const GET_OWNERS_FOR_TOKEN = 'getOwnersForToken';
+
+export const GET_NFTS_FOR_COLLECTION = 'getNFTsForCollection';
 export const GET_NFTS = 'getNFTs';
 
 export const NETWORK_ETH = 'eth-mainnet';
@@ -38,11 +41,27 @@ export class AlchemyService {
    * Get all holders of ML with their tokens
    */
   async getOwnersForCollectionML() {
-    const data = {};
-    data['contractAddress'] = CONTRACT_META_LEGENDS;
-    data['withTokenBalances'] = true;
+    const params = {};
+    params['contractAddress'] = CONTRACT_META_LEGENDS;
+    params['withTokenBalances'] = true;
 
-    return this.get(GET_OWNERS_FOR_COLLECTION, data, NETWORK_ETH);
+    return this.get(GET_OWNERS_FOR_COLLECTION, params, NETWORK_ETH);
+  }
+
+  async getOwnersForCollectionHonorary() {
+    const params = {};
+    params['collectionSlug'] = 'ml-honorary';
+    params['withMetadata'] = true;
+
+    return this.get(GET_NFTS_FOR_COLLECTION, params, NETWORK_ETH);
+  }
+
+  async getOwnersForCollectionCouncil() {
+    const params = {};
+    params['contractAddress'] = CONTRACT_COUNCIL_STONE;
+    params['withTokenBalances'] = true;
+
+    return this.get(GET_OWNERS_FOR_COLLECTION, params, NETWORK_ETH);
   }
 
   async getNFTsByWallet(wallet: string, pageKey = '') {
