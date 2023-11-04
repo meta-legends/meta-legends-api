@@ -58,6 +58,7 @@ import { CollectionsModule } from './collections/collections.module';
 import { HealingDroneService as HealingDroneServiceCommand } from './command/metadata/healing-drone/healing-drone.service';
 import { MetadataService } from './metadata/metadata.service';
 import { HealingDroneService } from '@src/collections/healing-drone/healing-drone.service';
+import { FileService } from './file/file.service';
 
 @Module({
   imports: [
@@ -133,6 +134,7 @@ import { HealingDroneService } from '@src/collections/healing-drone/healing-dron
     AfkHolderService,
     HealingDroneService,
     HealingDroneServiceCommand,
+    FileService,
   ],
 })
 export class AppModule {
