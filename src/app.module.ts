@@ -16,7 +16,6 @@ import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
 import { MoralisService } from './client/moralis/moralis.service';
 
-import { AssetModule } from './asset/asset.module';
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
 import { CollectionsModule } from './collections/collections.module';
@@ -26,8 +25,6 @@ import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './user/user.module';
 
-import { Asset } from './asset/asset.entity';
-import { Eligibility } from './eligibility/eligibility.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
@@ -46,7 +43,6 @@ import { EligibilityVehicleService } from './command/eligibility-vehicle/eligibi
 import { HealingDroneService as HealingDroneServiceCommand } from './command/metadata/healing-drone/healing-drone.service';
 import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
 
-import { AssetService } from './asset/asset.service';
 import { AppService } from './app.service';
 import { BadgeService } from './reward/badge/badge.service';
 import { DatetimeService } from './utils/datetime/datetime.service';
@@ -78,16 +74,7 @@ import { UserService } from './user/user.service';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [
-        Asset,
-        Eligibility,
-        HoldingReward,
-        Legend,
-        MintPackage,
-        OgPet,
-        Unstaked,
-        User,
-      ],
+      entities: [HoldingReward, Legend, MintPackage, OgPet, Unstaked, User],
       synchronize: true,
     }),
     AuthModule,
@@ -97,7 +84,6 @@ import { UserService } from './user/user.service';
     ClientModule,
     EligibilityModule,
     UserModule,
-    AssetModule,
     HoldingRewardModule,
     CollectionsModule,
   ],
@@ -111,7 +97,6 @@ import { UserService } from './user/user.service';
   ],
   providers: [
     AppService,
-    AssetService,
     AlchemyService,
     BadgeService,
     DatetimeService,
