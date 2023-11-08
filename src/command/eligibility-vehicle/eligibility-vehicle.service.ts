@@ -2,6 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
 import { EligibilityService } from '@src/eligibility/eligibility.service';
 import { MintPackageService } from '@src/mint-package/mint-package.service';
+import { FileService } from '@src/file/file.service';
+import * as moment from 'moment/moment';
 
 // npm run command-nest build-eligibility-vehicle
 @Command({
@@ -15,6 +17,7 @@ export class EligibilityVehicleService extends CommandRunner {
   constructor(
     private eligibilityService: EligibilityService,
     private mintPackage: MintPackageService,
+    private fileService: FileService,
   ) {
     super();
   }
@@ -59,5 +62,29 @@ export class EligibilityVehicleService extends CommandRunner {
     console.log(
       `NB NFT Perks : ${countPerks} (${Object.keys(listPerks).length} wallets)`,
     );
+    const now = moment().format('YYYYMMDDHHmmss');
+    const allLists = [
+      {
+        filepath: `data/vehicle/${now}_listWhales`,
+        data: listWhales,
+      },
+      {
+        filepath: `data/vehicle/${now}_listHonoraries`,
+        data: listHonoraries,
+      },
+      {
+        filepath: `data/vehicle/${now}_listCouncils`,
+        data: listCouncils,
+      },
+      {
+        filepath: `data/vehicle/${now}_listPerks`,
+        data: listPerks,
+      },
+    ];
+
+    allLists.forEach((list) => {
+      this.fileService.buildListEligibility(list['data'], list['filepath']);
+      this.fileService.buildCsv(list['data'], list['filepath']);
+    });
   }
 }
