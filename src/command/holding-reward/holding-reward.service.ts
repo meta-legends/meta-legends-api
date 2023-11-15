@@ -37,6 +37,15 @@ npm run command-nest holding-rewards-build-list matrix-angel-car 2023-10-30
 npm run command-nest holding-rewards-build-list healing-drone 2023-10-30
 npm run command-nest holding-rewards-build-list ml-network-pass 2023-10-30
 npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-10-30
+
+npm run command-nest holding-rewards-build-list cyber-weapon 2023-11-06
+npm run command-nest holding-rewards-build-list cyber-armor 2023-11-06
+npm run command-nest holding-rewards-build-list rough-pet 2023-11-06
+npm run command-nest holding-rewards-build-list roboter-weapon 2023-11-06
+npm run command-nest holding-rewards-build-list matrix-angel-car 2023-11-06
+npm run command-nest holding-rewards-build-list healing-drone 2023-11-06
+npm run command-nest holding-rewards-build-list ml-network-pass 2023-11-06
+npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-11-06
 */
 @Command({
   name: 'holding-rewards-build-list',
