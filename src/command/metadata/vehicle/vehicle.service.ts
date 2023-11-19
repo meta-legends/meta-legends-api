@@ -9,7 +9,6 @@ import {
   VEHICLE_DESCRIPTION,
   VEHICLE_FILE_DRAWING,
   VEHICLE_METADATA,
-  VEHICLE_METADATA_SPECIFIC,
   VEHICLE_NAME,
   VEHICLE_SUPPLY,
   VEHICLE_SUPPLY_DETAIL,
@@ -45,7 +44,6 @@ export class VehicleService extends CommandRunner {
       supplyDetail: VEHICLE_SUPPLY_DETAIL,
       supplyDetailSpecific: null,
       metadata: VEHICLE_METADATA,
-      metadataSpecific: VEHICLE_METADATA_SPECIFIC,
     };
     // Step 1
     // await this.metadataService.buildDrawingList(vehicleCollection);

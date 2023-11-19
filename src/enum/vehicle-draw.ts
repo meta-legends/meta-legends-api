@@ -180,9 +180,6 @@ export const VEHICLE_METADATA = {
       value: VEHICLE_ROUGH_REG_NAME,
     },
   ],
-};
-
-export const VEHICLE_METADATA_SPECIFIC = {
   [VEHICLE_COUNCIL_CODE]: [
     {
       trait_type: 'Class',

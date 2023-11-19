@@ -10,5 +10,4 @@ export class Collection {
   supplyDetail: Array<object>;
   supplyDetailSpecific?: Array<object> | null;
   metadata: object;
-  metadataSpecific: object;
 }

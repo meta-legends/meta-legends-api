@@ -44,7 +44,6 @@ export class HealingDroneService extends CommandRunner {
       supply: HEALING_DRONE_SUPPLY,
       supplyDetail: HEALING_DRONE_SUPPLY_DETAIL,
       metadata: HEALING_DRONE_METADATA,
-      metadataSpecific: {},
     };
     // STEP 1: BUILD csv list and check supply per item
     // await this.metadataService.buildDrawingList(healingDroneCollection);
