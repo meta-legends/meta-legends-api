@@ -58,7 +58,7 @@ export class MetadataService {
     for (let i = 0; i < rafflePrize.length; i++) {
       const lot = rafflePrize[i];
 
-      if (result[lot.pet] == lot.supply) {
+      if (result[lot.code] == lot.supply) {
         continue;
       }
 
@@ -74,7 +74,6 @@ export class MetadataService {
 
   buildDrawingList(collection: Collection) {
     const result = [];
-
     const countSupply = {};
 
     for (let i = 1; i <= collection.supply; i++) {
@@ -83,7 +82,11 @@ export class MetadataService {
         i--;
         continue;
       }
-      countSupply[prize.code]++;
+      if (countSupply.hasOwnProperty(prize.code)) {
+        countSupply[prize.code]++;
+      } else {
+        countSupply[prize.code] = 1;
+      }
       result.push(prize.code);
       console.log(i, prize.code);
     }
@@ -92,6 +95,7 @@ export class MetadataService {
     Object.keys(countSupply).forEach((key) => {
       sum += countSupply[key];
     });
+    console.log(countSupply);
 
     writeFile(`./${collection.fileDrawing}`, result.join('\n'), (err) => {
       if (err) {
