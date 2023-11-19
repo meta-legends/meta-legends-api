@@ -39,6 +39,10 @@ export const VEHICLE_COUNCIL_REG_NAME = 'Roboter HoverTank Council';
 export const VEHICLE_COUNCIL_CODE = 'roboter-hovertank-council';
 export const VEHICLE_COUNCIL_SUPPLY = 250;
 
+export const VEHICLE_HONORARY_REG_NAME = 'Burner Speed Tank Honorary';
+export const VEHICLE_HONORARY_CODE = 'burner-speed-tank-honorary';
+export const VEHICLE_HONORARY_SUPPLY = 66;
+
 export const VEHICLE_WHALE_REG_NAME = 'Celestial Speedster Whale';
 export const VEHICLE_WHALE_CODE = 'celestial-speedster-whale';
 export const VEHICLE_WHALE_SUPPLY = 31;
@@ -55,8 +59,8 @@ export const VEHICLE_NAME = 'OG Vehicle';
 export const VEHICLE_CODE = 'og-vehicle';
 export const VEHICLE_FILE_DRAWING = `${VEHICLE_CODE}.csv`;
 export const VEHICLE_DESCRIPTION =
-  'This NFT represents a OG Vehicle whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends';
-export const VEHICLE_CID = 'QmRCfpMUMTDyeWK15jnGn5bdyQsYCs5Dmgwd7JGBH9tyS7';
+  'This NFT represents an OG Vehicle whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends';
+export const VEHICLE_CID = 'QmfEaKN1rSCdFQYV4jDPApjWhcLykUMA5hT9nJGxrZbLHQ';
 export const VEHICLE_URL_IMAGE = `${PINATA_URL}/${VEHICLE_CID}/gif`;
 export const VEHICLE_URL_ANIMATION = `${PINATA_URL}/${VEHICLE_CID}/mp4`;
 export const VEHICLE_SUPPLY = 821;
@@ -217,6 +221,16 @@ export const VEHICLE_METADATA_SPECIFIC = {
     {
       trait_type: 'Name',
       value: VEHICLE_WHALE_REG_NAME,
+    },
+  ],
+  [VEHICLE_HONORARY_CODE]: [
+    {
+      trait_type: 'Class',
+      value: 'Burner',
+    },
+    {
+      trait_type: 'Name',
+      value: VEHICLE_HONORARY_REG_NAME,
     },
   ],
 };

@@ -47,7 +47,9 @@ export class VehicleService extends CommandRunner {
       metadata: VEHICLE_METADATA,
       metadataSpecific: VEHICLE_METADATA_SPECIFIC,
     };
-
-    await this.metadataService.buildDrawingList(vehicleCollection);
+    // Step 1
+    // await this.metadataService.buildDrawingList(vehicleCollection);
+    // Step 2
+    await this.metadataService.buildMetadata(vehicleCollection);
   }
 }
