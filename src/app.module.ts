@@ -20,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
 import { CollectionsModule } from './collections/collections.module';
 import { EligibilityModule } from './eligibility/eligibility.module';
+import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
 import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
@@ -34,9 +35,9 @@ import { User } from './user/user.entity';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { TestService } from './command/test/test.service';
 import { WhaleService } from './command/whale/whale.service';
-import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
+import { VehicleService } from './command/metadata/vehicle/vehicle.service';
 
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { EligibilityVehicleService } from './command/eligibility-vehicle/eligibility-vehicle.service';
@@ -124,6 +125,7 @@ import { UserService } from './user/user.service';
     HealingDroneServiceCommand,
     FileService,
     EligibilityVehicleService,
+    VehicleService,
   ],
 })
 export class AppModule {

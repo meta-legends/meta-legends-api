@@ -8,5 +8,7 @@ export class Collection {
   urlAnimation!: string | null;
   supply: number;
   supplyDetail: Array<object>;
+  supplyDetailSpecific?: Array<object> | null;
   metadata: object;
+  metadataSpecific: object;
 }
