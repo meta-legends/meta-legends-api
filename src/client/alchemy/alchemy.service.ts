@@ -12,6 +12,7 @@ export const GET_NFTS = 'getNFTs';
 
 export const NETWORK_ETH = 'eth-mainnet';
 export const NETWORK_POLYGON = 'polygon-mainnet';
+export const NETWORK_SEPOLIA = 'eth-sepolia';
 export const NETWORKS = [NETWORK_ETH, NETWORK_POLYGON];
 
 @Injectable()
