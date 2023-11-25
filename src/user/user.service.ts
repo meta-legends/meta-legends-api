@@ -1,4 +1,9 @@
-import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UseInterceptors,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -85,8 +90,17 @@ export class UserService {
   }
 
   async update(user: User, userUpdateDto: UserUpdateDto): Promise<User> {
+    if (user.username !== userUpdateDto.username) {
+      const user = await this.userRepository.findOneBy({
+        username: userUpdateDto.username,
+      });
+      if (user !== null) {
+        throw new BadRequestException(
+          `Username '${userUpdateDto.username}' already exist`,
+        );
+      }
+    }
     const updatedUser = Object.assign(user, userUpdateDto);
-
     return this.userRepository.save(updatedUser);
   }
 }

@@ -8,7 +8,11 @@ import {
   Body,
   NotFoundException,
   UseGuards,
-} from '@nestjs/common';
+  HttpException,
+  HttpStatus,
+  ValidationPipe,
+  UsePipes, ClassSerializerInterceptor, UseInterceptors
+} from "@nestjs/common";
 import { UserService } from '../user/user.service';
 import { UserUpdateDto } from '../user/user-update.dto';
 import { AuthGuard } from '@src/auth/auth.guard';
@@ -30,7 +34,9 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Header('content-type', 'application/json')
+  @UsePipes(new ValidationPipe({ transform: true }))
   @Patch(':id')
   async update(@Param('id') id: number, @Body() userUpdateDto: UserUpdateDto) {
     const user = await this.userService.findOneById(id);
@@ -39,6 +45,19 @@ export class UserController {
       throw new NotFoundException(`User with id ${id} not found`);
     }
 
-    return this.userService.update(user, userUpdateDto);
+    try {
+      return this.userService.update(user, userUpdateDto);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'This is a custom message',
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: error,
+        },
+      );
+    }
   }
 }

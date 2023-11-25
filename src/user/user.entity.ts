@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { OgPet } from '../eligibility/og-pet/og-pet.entity';
 import { HoldingReward } from '../holding-reward/holding-reward.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -37,15 +38,19 @@ export class User {
   @Column('varchar', { default: null })
   profilePicture!: string | null;
 
+  @Exclude()
   @Column({ default: true })
   isActive: boolean;
 
+  @Exclude()
   @Column('boolean', { default: false })
   isModo: boolean;
 
+  @Exclude()
   @Column('boolean', { default: false })
   isAdmin: boolean;
 
+  @Exclude()
   @Column('datetime', { nullable: true })
   lastLogin!: string | null;
 
@@ -58,6 +63,7 @@ export class User {
   @Column('varchar', { unique: true, default: null })
   discord!: string | null;
 
+  @Exclude()
   @Column('datetime')
   createdAt: string;
 
