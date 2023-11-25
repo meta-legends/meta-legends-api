@@ -3,50 +3,11 @@ import { Command, CommandRunner, Option } from 'nest-commander';
 import { HoldingRewardService as HoldingRewardManager } from '../../holding-reward/holding-reward.service';
 import { writeFile } from 'fs';
 import * as moment from 'moment';
+import { HOLDING_REWARDS } from '@src/enum/holding-reward';
 interface BasicCommandOptions {
   string?: string;
 }
-// npm run command-nest holding-rewards-build-list cyber-weapon 2023-08-01
-// npm run command-nest holding-rewards-build-list cyber-armor 2023-08-01
-// npm run command-nest holding-rewards-build-list rough-pet 2023-08-01
-// npm run command-nest holding-rewards-build-list roboter-weapon 2023-08-01
-// npm run command-nest holding-rewards-build-list matrix-angel-car 2023-08-01
-
-// npm run command-nest holding-rewards-build-list cyber-weapon 2023-10-20
-// npm run command-nest holding-rewards-build-list cyber-armor 2023-10-20
-// npm run command-nest holding-rewards-build-list rough-pet 2023-10-20
-// npm run command-nest holding-rewards-build-list roboter-weapon 2023-10-20
-// npm run command-nest holding-rewards-build-list matrix-angel-car 2023-10-20
-// npm run command-nest holding-rewards-build-list healing-drone 2023-10-20
-// npm run command-nest holding-rewards-build-list ml-network-pass 2023-10-20
-
-// npm run command-nest holding-rewards-build-list cyber-weapon 2023-10-22
-// npm run command-nest holding-rewards-build-list cyber-armor 2023-10-22
-// npm run command-nest holding-rewards-build-list rough-pet 2023-10-22
-// npm run command-nest holding-rewards-build-list roboter-weapon 2023-10-22
-// npm run command-nest holding-rewards-build-list matrix-angel-car 2023-10-22
-// npm run command-nest holding-rewards-build-list healing-drone 2023-10-22
-// npm run command-nest holding-rewards-build-list ml-network-pass 2023-10-22
-// npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-08-01
 /*
-npm run command-nest holding-rewards-build-list cyber-weapon 2023-10-30
-npm run command-nest holding-rewards-build-list cyber-armor 2023-10-30
-npm run command-nest holding-rewards-build-list rough-pet 2023-10-30
-npm run command-nest holding-rewards-build-list roboter-weapon 2023-10-30
-npm run command-nest holding-rewards-build-list matrix-angel-car 2023-10-30
-npm run command-nest holding-rewards-build-list healing-drone 2023-10-30
-npm run command-nest holding-rewards-build-list ml-network-pass 2023-10-30
-npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-10-30
-
-npm run command-nest holding-rewards-build-list cyber-weapon 2023-11-06
-npm run command-nest holding-rewards-build-list cyber-armor 2023-11-06
-npm run command-nest holding-rewards-build-list rough-pet 2023-11-06
-npm run command-nest holding-rewards-build-list roboter-weapon 2023-11-06
-npm run command-nest holding-rewards-build-list matrix-angel-car 2023-11-06
-npm run command-nest holding-rewards-build-list healing-drone 2023-11-06
-npm run command-nest holding-rewards-build-list ml-network-pass 2023-11-06
-npm run command-nest holding-rewards-build-list particles-cosmetic-effect 2023-11-06
-
 npm run command-nest holding-rewards-build-list cyber-weapon 2023-11-15
 npm run command-nest holding-rewards-build-list cyber-armor 2023-11-15
 npm run command-nest holding-rewards-build-list rough-pet 2023-11-15
@@ -72,52 +33,54 @@ export class HoldingRewardService extends CommandRunner {
     options?: BasicCommandOptions,
   ): Promise<void> {
     HoldingRewardService.logger.log('[Command] HoldingRewardService');
+
     const limit = 200;
-    const rewardCode = passedParam[0];
-    const lastUpsertAt = passedParam[1];
+    const lastUpsertAt = passedParam[0];
+    for (const holdingReward of HOLDING_REWARDS) {
+      const rewardCode = holdingReward.code;
+      const userQuantities = {};
+      const wallets = [];
+      const newHoldingRewards =
+        await this.holdingRewardManager.getRewardsByRecentEstimate(
+          rewardCode,
+          lastUpsertAt,
+        );
 
-    const userQuantities = {};
-    const wallets = [];
-    const newHoldingRewards =
-      await this.holdingRewardManager.getRewardsByRecentEstimate(
-        rewardCode,
-        lastUpsertAt,
-      );
+      newHoldingRewards.forEach((holdingReward) => {
+        if (holdingReward.user.wallet in userQuantities) {
+          userQuantities[holdingReward.user.wallet]++;
+        } else {
+          userQuantities[holdingReward.user.wallet] = 1;
+          wallets.push(holdingReward.user.wallet);
+        }
+      });
 
-    newHoldingRewards.forEach((holdingReward) => {
-      if (holdingReward.user.wallet in userQuantities) {
-        userQuantities[holdingReward.user.wallet]++;
-      } else {
-        userQuantities[holdingReward.user.wallet] = 1;
-        wallets.push(holdingReward.user.wallet);
-      }
-    });
+      const now = moment().format('YYYYMMDDHHmmss');
+      const filepath = `./data/holding-reward/${now}_${rewardCode}.txt`;
+      const listWallet = [];
+      const listQuantity = [];
+      const rows = [];
 
-    const now = moment().format('YYYYMMDDHHmmss');
-    const filepath = `./data/holding-reward/${now}_${rewardCode}.txt`;
-    const listWallet = [];
-    const listQuantity = [];
-    const rows = [];
-
-    let index = 0;
-    wallets.forEach((wallet) => {
-      if ((index != 0 && index % limit == 0) || wallets.length - 1 == index) {
-        rows.push(listWallet.join(','));
-        rows.push(listQuantity.join(','));
-        listWallet.length = 0;
-        listQuantity.length = 0;
-      }
-      listWallet.push(wallet);
-      listQuantity.push(userQuantities[wallet]);
-      index++;
-    });
-    writeFile(filepath, rows.join('\n'), (err) => {
-      if (err) {
-        console.log('Error Found:', err);
-      } else {
-        console.log('\nList ok');
-      }
-    });
+      let index = 0;
+      wallets.forEach((wallet) => {
+        if ((index != 0 && index % limit == 0) || wallets.length - 1 == index) {
+          rows.push(listWallet.join(','));
+          rows.push(listQuantity.join(','));
+          listWallet.length = 0;
+          listQuantity.length = 0;
+        }
+        listWallet.push(wallet);
+        listQuantity.push(userQuantities[wallet]);
+        index++;
+      });
+      writeFile(filepath, rows.join('\n'), (err) => {
+        if (err) {
+          console.log('Error Found:', err);
+        } else {
+          console.log('\nList ok');
+        }
+      });
+    }
   }
 
   @Option({
