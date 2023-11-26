@@ -28,6 +28,7 @@ export class UserController {
   }
 
   @Header('content-type', 'application/json')
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post(':wallet')
   async upsert(@Param('wallet') wallet: string) {
     return this.userService.upsert(wallet.toLowerCase());

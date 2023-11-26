@@ -8,15 +8,18 @@ export class UserUpdateDto {
   firstname: string;
 
   @IsOptional()
+  wallet: string;
+
+  @IsOptional()
   lastname: string;
 
   @IsOptional()
   designation: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   username: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEmail()
   email: string;
 

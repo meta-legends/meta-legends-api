@@ -14,6 +14,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Exclude()
   @Column('varchar', { length: 63, unique: true })
   wallet: string;
 
