@@ -14,16 +14,14 @@ export class VehicleService {
 
   async getNfts(address: string) {
     const params = {
-      // 'contractAddresses[]': CONTRACT_VEHICLE.mainnet,
-      'contractAddresses[]': CONTRACT_VEHICLE.testnet,
+      'contractAddresses[]': CONTRACT_VEHICLE,
       owner: address,
       withMetadata: true,
     };
     const response = await this.alchemyService.get(
       GET_NFTS,
       params,
-      // NETWORK_ETH,
-      NETWORK_SEPOLIA,
+      NETWORK_ETH,
     );
     const result = [];
     response.ownedNfts.map((stone) => {
