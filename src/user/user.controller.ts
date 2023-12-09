@@ -11,8 +11,10 @@ import {
   HttpException,
   HttpStatus,
   ValidationPipe,
-  UsePipes, ClassSerializerInterceptor, UseInterceptors
-} from "@nestjs/common";
+  UsePipes,
+  ClassSerializerInterceptor,
+  UseInterceptors,
+} from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { UserUpdateDto } from '../user/user-update.dto';
 import { AuthGuard } from '@src/auth/auth.guard';
@@ -60,5 +62,21 @@ export class UserController {
         },
       );
     }
+  }
+
+  @UseGuards(AuthGuard)
+  @Header('content-type', 'application/json')
+  @Get('/username/:username/is-available')
+  async usernameIsAvailable(@Param('username') username) {
+    const isAvailable = await this.userService.usernameIsAvailable(username);
+    return { isAvailable: isAvailable };
+  }
+
+  @UseGuards(AuthGuard)
+  @Header('content-type', 'application/json')
+  @Get('/email/:email/is-available')
+  async emailIsAvailable(@Param('email') email) {
+    const isAvailable = await this.userService.emailIsAvailable(email);
+    return { isAvailable: isAvailable };
   }
 }

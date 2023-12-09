@@ -43,7 +43,6 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @Exclude()
   @Column('boolean', { default: false })
   isModo: boolean;
 

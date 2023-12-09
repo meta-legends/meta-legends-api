@@ -103,4 +103,20 @@ export class UserService {
     const updatedUser = Object.assign(user, userUpdateDto);
     return this.userRepository.save(updatedUser);
   }
+
+  async usernameIsAvailable(username: string): Promise<boolean> {
+    const user = await this.userRepository.findOneBy({ username });
+    if (user !== null) {
+      return false;
+    }
+    return true;
+  }
+
+  async emailIsAvailable(email: string): Promise<boolean> {
+    const user = await this.userRepository.findOneBy({ email });
+    if (user !== null) {
+      return false;
+    }
+    return true;
+  }
 }
