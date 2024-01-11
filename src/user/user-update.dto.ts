@@ -17,6 +17,9 @@ export class UserUpdateDto {
   designation: string;
 
   @IsOptional()
+  web3Profil: string;
+
+  @IsOptional()
   username: string;
 
   @IsOptional()
@@ -37,4 +40,7 @@ export class UserUpdateDto {
 
   @IsOptional()
   discord: string;
+
+  @IsOptional()
+  instagram: string;
 }

@@ -39,6 +39,9 @@ export class User {
   @Column('varchar', { default: null })
   profilePicture!: string | null;
 
+  @Column('varchar', { default: null })
+  web3Profil: string | null;
+
   @Exclude()
   @Column({ default: true })
   isActive: boolean;
@@ -62,6 +65,9 @@ export class User {
 
   @Column('varchar', { unique: true, default: null })
   discord!: string | null;
+
+  @Column('varchar', { unique: true, default: null })
+  instagram!: string | null;
 
   @Exclude()
   @Column('datetime')
