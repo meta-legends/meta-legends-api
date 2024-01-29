@@ -25,7 +25,7 @@ export class MetadataService {
         console.log(err);
       } else {
         const result = data.split('\n');
-        let id = 1;
+        let id = 0;
         result.forEach((code) => {
           const data = this.generate(collection, id, code);
           writeFileSync(

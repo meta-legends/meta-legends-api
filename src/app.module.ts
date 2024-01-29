@@ -58,6 +58,7 @@ import { RewardService } from './reward/reward.service';
 import { TokenService } from './reward/token/token.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { UserService } from './user/user.service';
+import { ResidenceService } from './command/metadata/residence/residence.service';
 
 @Module({
   imports: [
@@ -126,6 +127,7 @@ import { UserService } from './user/user.service';
     FileService,
     EligibilityVehicleService,
     VehicleService,
+    ResidenceService,
   ],
 })
 export class AppModule {
