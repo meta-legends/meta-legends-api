@@ -42,7 +42,6 @@ export class VehicleService extends CommandRunner {
       urlAnimation: VEHICLE_URL_ANIMATION,
       supply: VEHICLE_SUPPLY,
       supplyDetail: VEHICLE_SUPPLY_DETAIL,
-      supplyDetailSpecific: null,
       metadata: VEHICLE_METADATA,
     };
     // Step 1
