@@ -16,6 +16,8 @@ import { HealingDroneService } from './healing-drone/healing-drone.service';
 import { HealingDroneController } from './healing-drone/healing-drone.controller';
 import { VehicleService } from './vehicle/vehicle.service';
 import { VehicleController } from './vehicle/vehicle.controller';
+import { PerkOgResidenceController } from './perk-og-residence/perk-og-residence.controller';
+import { PerkOgResidenceService } from './perk-og-residence/perk-og-residence.service';
 
 @Module({
   controllers: [
@@ -27,6 +29,7 @@ import { VehicleController } from './vehicle/vehicle.controller';
     LzAssetController,
     HealingDroneController,
     VehicleController,
+    PerkOgResidenceController,
   ],
   providers: [
     PerkArmorService,
@@ -38,6 +41,7 @@ import { VehicleController } from './vehicle/vehicle.controller';
     LzAssetService,
     HealingDroneService,
     VehicleService,
+    PerkOgResidenceService,
   ],
 })
 export class CollectionsModule {}

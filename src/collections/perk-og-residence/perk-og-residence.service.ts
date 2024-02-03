@@ -4,16 +4,16 @@ import {
   GET_NFTS,
   NETWORK_ETH,
 } from '@src/client/alchemy/alchemy.service';
-import { CONTRACT_VEHICLE } from '@src/enum/contract';
+import { CONTRACT_PERK_RESIDENCE } from '@src/enum/contract';
 
 @Injectable()
-export class VehicleService {
-  private static readonly logger = new Logger(VehicleService.name);
+export class PerkOgResidenceService {
+  private static readonly logger = new Logger(PerkOgResidenceService.name);
   constructor(private readonly alchemyService: AlchemyService) {}
 
   async getNfts(address: string) {
     const params = {
-      'contractAddresses[]': CONTRACT_VEHICLE,
+      'contractAddresses[]': CONTRACT_PERK_RESIDENCE,
       owner: address,
       withMetadata: true,
     };
@@ -23,11 +23,11 @@ export class VehicleService {
       NETWORK_ETH,
     );
     const result = [];
-    response.ownedNfts.map((stone) => {
+    response.ownedNfts.map((residence) => {
       const data = {
-        tokenId: parseInt(stone.id.tokenId, 16),
-        image: stone.metadata.image,
-        name: stone.title,
+        tokenId: parseInt(residence.id.tokenId, 16),
+        image: residence.metadata.image,
+        name: residence.title,
       };
       result.push(data);
     });

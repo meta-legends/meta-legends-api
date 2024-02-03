@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { CONTRACT_COUNCIL_STONE, CONTRACT_HONORARY, CONTRACT_META_LEGENDS } from "../../enum/contract";
+import {
+  CONTRACT_COUNCIL_STONE,
+  CONTRACT_HONORARY,
+  CONTRACT_META_LEGENDS,
+} from '../../enum/contract';
 import { RuntimeException } from '@nestjs/core/errors/exceptions';
 
 export const isHolderOfCollection = 'isHolderOfCollection';
@@ -13,7 +17,7 @@ export const GET_NFTS = 'getNFTs';
 export const NETWORK_ETH = 'eth-mainnet';
 export const NETWORK_POLYGON = 'polygon-mainnet';
 export const NETWORK_SEPOLIA = 'eth-sepolia';
-export const NETWORKS = [NETWORK_ETH, NETWORK_POLYGON];
+export const NETWORKS = [NETWORK_ETH, NETWORK_POLYGON, NETWORK_SEPOLIA];
 
 @Injectable()
 export class AlchemyService {
