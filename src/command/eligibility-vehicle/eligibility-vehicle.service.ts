@@ -54,7 +54,7 @@ export class EligibilityVehicleService extends CommandRunner {
       } wallets)`,
     );
 
-    const listPerks = await this.mintPackage.getListPerkVehicle();
+    const listPerks = await this.mintPackage.getListPerk(1.5);
     let countPerks = 0;
     Object.keys(listPerks).forEach((wallet) => {
       countPerks += listPerks[wallet];

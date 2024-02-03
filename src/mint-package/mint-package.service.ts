@@ -30,13 +30,13 @@ export class MintPackageService {
     return this.mintPackageRepository.save(updatedMintPackage);
   }
 
-  async getListPerkVehicle() {
+  async getListPerk(unitMintPrice: number, withOg = false) {
     const mintPackages = await this.mintPackageRepository
       .createQueryBuilder('mintPackage')
-      .where('pricePaidEth >= nbTokens * 1.5')
+      .where(`pricePaidEth >= nbTokens * ${unitMintPrice}`)
       .execute();
 
-    const result = this.getOGs();
+    const result = withOg ? this.getOGs() : {};
     console.log(`nb mintPackages ${mintPackages.length}`);
     mintPackages.forEach((mintPackage) => {
       const wallet = mintPackage.mintPackage_mintWallet;
