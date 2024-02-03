@@ -59,6 +59,7 @@ import { TokenService } from './reward/token/token.service';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { UserService } from './user/user.service';
 import { ResidenceService } from './command/metadata/residence/residence.service';
+import { EligibilityResidenceService } from './command/eligibility-residence/eligibility-residence.service';
 
 @Module({
   imports: [
@@ -128,6 +129,7 @@ import { ResidenceService } from './command/metadata/residence/residence.service
     EligibilityVehicleService,
     VehicleService,
     ResidenceService,
+    EligibilityResidenceService,
   ],
 })
 export class AppModule {
