@@ -60,6 +60,7 @@ import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { UserService } from './user/user.service';
 import { ResidenceService } from './command/metadata/residence/residence.service';
 import { EligibilityResidenceService } from './command/eligibility-residence/eligibility-residence.service';
+import { HolderController } from './holder/holder.controller';
 
 @Module({
   imports: [
@@ -97,6 +98,7 @@ import { EligibilityResidenceService } from './command/eligibility-residence/eli
     MintPackageController,
     RewardController,
     UserController,
+    HolderController,
   ],
   providers: [
     AppService,

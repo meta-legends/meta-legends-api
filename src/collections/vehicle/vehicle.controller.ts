@@ -25,17 +25,12 @@ export class VehicleController {
   @Get('')
   async get(@Req() request: Request): Promise<unknown | object[]> {
     const address = request['user-wallet'];
-    // const cache = await this.cacheManager.get('vehicle-get-' + address);
-    // if (cache != null) {
-    //   return cache;
-    // }
-    // const result = await this.healingDroneService.getNfts(address);
-    // await this.cacheManager.set(
-    //   'vehicle-get-' + address,
-    //   result,
-    //   3600000,
-    // );
-    // return result;
-    return await this.vehicleService.getNfts(address);
+    const cache = await this.cacheManager.get('vehicle-get-' + address);
+    if (cache != null) {
+      return cache;
+    }
+    const result = await this.vehicleService.getNfts(address);
+    await this.cacheManager.set('vehicle-get-' + address, result, 3600000);
+    return result;
   }
 }
