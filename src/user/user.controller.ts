@@ -36,6 +36,13 @@ export class UserController {
     return this.userService.upsert(wallet.toLowerCase());
   }
 
+  @Header('content-type', 'application/json')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(':wallet')
+  async get(@Param('wallet') wallet: string) {
+    return this.userService.findOne(wallet.toLowerCase());
+  }
+
   @UseGuards(AuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Header('content-type', 'application/json')
