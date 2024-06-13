@@ -37,7 +37,7 @@ import { TestService } from './command/test/test.service';
 import { WhaleService } from './command/whale/whale.service';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
-import { VehicleService } from './command/metadata/vehicle/vehicle.service';
+import { VehicleService as VehicleServiceCommand } from './command/metadata/vehicle/vehicle.service';
 
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { EligibilityVehicleService } from './command/eligibility-vehicle/eligibility-vehicle.service';
@@ -60,6 +60,14 @@ import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { UserService } from './user/user.service';
 import { ResidenceService } from './command/metadata/residence/residence.service';
 import { EligibilityResidenceService } from './command/eligibility-residence/eligibility-residence.service';
+import { HolderController } from './holder/holder.controller';
+import { CouncilStoneService } from '@src/collections/council-stone/council-stone.service';
+import { HonoraryService } from '@src/collections/honorary/honorary.service';
+import { WeaponSkinService } from '@src/collections/weapon-skin/weapon-skin.service';
+import { PerkOgPetService } from '@src/collections/perk-og-pet/perk-og-pet.service';
+import { PerkArmorService } from '@src/collections/perk-armor/perk-armor.service';
+import { PerkOgResidenceService } from '@src/collections/perk-og-residence/perk-og-residence.service';
+import { VehicleService } from '@src/collections/vehicle/vehicle.service';
 
 @Module({
   imports: [
@@ -97,39 +105,47 @@ import { EligibilityResidenceService } from './command/eligibility-residence/eli
     MintPackageController,
     RewardController,
     UserController,
+    HolderController,
   ],
   providers: [
-    AppService,
+    AfkHolderService,
     AlchemyService,
+    AppService,
     BadgeService,
+    CouncilStoneService,
     DatetimeService,
     EligibilityService,
     EtherscanService,
+    EligibilityVehicleService,
+    EligibilityResidenceService,
+    FileService,
+    HonoraryService,
+    HoldingRewardService,
+    HoldingRewardCommand,
+    HealingDroneService,
+    HealingDroneServiceCommand,
     LegendService,
     MintPackageService,
     MoralisService,
+    MetadataService,
     OgPetService,
-    TokenService,
+    PerkOgPetService,
+    PerkArmorService,
+    PerkOgResidenceService,
     RewardService,
+    ResidenceService,
+    TokenService,
+    TestService,
     UnstakedService,
     UserService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    MetadataService,
-    TestService,
-    WhaleService,
-    HoldingRewardService,
-    HoldingRewardCommand,
-    AfkHolderService,
-    HealingDroneService,
-    HealingDroneServiceCommand,
-    FileService,
-    EligibilityVehicleService,
     VehicleService,
-    ResidenceService,
-    EligibilityResidenceService,
+    VehicleServiceCommand,
+    WhaleService,
+    WeaponSkinService,
   ],
 })
 export class AppModule {
