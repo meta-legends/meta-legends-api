@@ -44,27 +44,48 @@ export const URL_FILES_ARMOR = {
 };
 
 export const URL_FILES_PET = {
-  chickenox: '',
-  arachir: '',
-  rektor: '',
-  squirrex: '',
-  'x-fang': '',
-  'c-hound': '',
-  ariox: '',
-  domenox: '',
-  xepirox: '',
-  nisus: '',
-  arrius: '',
-  famuza: '',
-  pronghar: '',
-  rhinozor: '',
-  hrektion: '',
-  enforcer: '',
-  destructor: '',
-  mantis: '',
-  spirig: '',
-  dragnor: '',
-  falcoz: '',
+  chickenox:
+    'https://www.dropbox.com/scl/fo/qw8nwgtscxikqkastc70n/AHaqTkHyHB-WHg9cr1VxGOo?rlkey=sxu19pj8al2uim2t1je5rebkw&st=5s3f3gaq&dl=0',
+  arachir:
+    'https://www.dropbox.com/scl/fo/7uo1t764ogcgwzo2i4055/AFhtTmvQIQ0nEKi8HixkM9c?rlkey=7f7wn7o77cdt60qmrh16zpat7&st=f1na648s&dl=0',
+  rektor:
+    'https://www.dropbox.com/scl/fo/107hlngb6xhe2rc2vs5fa/AKSdgnVXGX7SJO27-LMzBKE?rlkey=tyqhvtbju7zmhyyap7owoqlgb&st=nvtvexy8&dl=0',
+  squirrex:
+    'https://www.dropbox.com/scl/fo/o4dim5t3en75zdwj2mxjs/AE_ZEcZdU5aoZll6oWxulio?rlkey=dzlp2ohvr6dtw1wba7pwj2u2z&st=du7z5v5p&dl=0',
+  'x-fang':
+    'https://www.dropbox.com/scl/fo/0rvcqp4pf401f9l3y5v7x/ANg5Zzy8hYEnW5h4gP4k54w?rlkey=qhi3b68kgge5ioe7jyvucvu4y&st=1we4wvv3&dl=0',
+  'c-hound':
+    'https://www.dropbox.com/scl/fo/bh5tsjej4yut7pheiuy1v/AG4LWnJ5Pdp2m1BZrU624uM?rlkey=1avnr2l9homopcutebvaj26vm&st=rzl8ssax&dl=0',
+  ariox:
+    'https://www.dropbox.com/scl/fo/cz8wv5rnzyz3o0dfsjk8b/ABjYzTNmebp2D4RZNhVWuoY?rlkey=7rzi5ako7m4x9mipewlm29pqf&st=39d1fmt2&dl=0',
+  domenox:
+    'https://www.dropbox.com/scl/fo/e27sl9720qg7y386sw2ld/AO-eXlfrdOKKspqoqYo4mMc?rlkey=4tscr6nbai9uetw0u7uld334i&st=l7xlbcmc&dl=0',
+  xepirox:
+    'https://www.dropbox.com/scl/fo/k4yrorpn6whoxmke76ccv/AKDofP7ynglK4Jo2VUQQ2gs?rlkey=6lyad5zn4g0fsa95v51nchq44&st=rrgjcple&dl=0',
+  nisus:
+    'https://www.dropbox.com/scl/fo/hpck31cpyxk18l66kijw4/AMzfIg1mNbB79YU2-nvD_20?rlkey=st38tbhkbklxruea2wleyfypi&st=jc33rnue&dl=0',
+  arrius:
+    'https://www.dropbox.com/scl/fo/t5zezbdv77ggt6tvbpyfb/AJ67JVnSK2VxQq1rfnyjv6I?rlkey=gtc913vxi215dbi1lc5rlckdf&st=yxyc74lu&dl=0',
+  famuza:
+    'https://www.dropbox.com/scl/fo/ftbkx9n04jsi6yg9dpq3u/ADAcTf9JGPSseTC509j57uc?rlkey=j6n2me6b1dhtpi3565jbp4pj4&st=6ypxvs4e&dl=0',
+  pronghar:
+    'https://www.dropbox.com/scl/fo/jvaf5ixikt9jviwova84w/AKWrBFUQNTY6k7Cw6TbQ11Y?rlkey=o3zyuic9aw8rlyuomi0wj31l8&st=000tt73i&dl=0',
+  rhinozor:
+    'https://www.dropbox.com/scl/fo/ydiro8rorxafdpq07sk15/AKRF2eF3pvCJ4pGNYpx2eoI?rlkey=3pac9oufwvfkm12mc94voabsv&st=z6g4nod7&dl=0',
+  hrektion:
+    'https://www.dropbox.com/scl/fo/nqvch0hizqo0ud8va891t/AGlQFjZxj3j5zqQrEgmdFic?rlkey=64or4tj2lqjuri29vn8vpw5rt&st=w20bfxh6&dl=0',
+  enforcer:
+    'https://www.dropbox.com/scl/fo/jblbfpf9p0e7iojlztiqb/AE0IlBbtaTcXoU7_a4VzerM?rlkey=bhl9a0r09g556go4c0ykumzcf&st=rn01kvk0&dl=0',
+  destructor:
+    'https://www.dropbox.com/scl/fo/47fyhc2r34w9qjae2lcxj/ALiYpsNSomssIcua6maEt0U?rlkey=1ttm5d4zwprbf6efqvsplm82j&st=myqyjrzn&dl=0',
+  mantis:
+    'https://www.dropbox.com/scl/fo/z1wczntiys664ajw287ju/ACBbDaV9WCK-UoHArxKqeI0?rlkey=3jyiywegi1joh2csaigth7cah&st=emxx3v8g&dl=0',
+  spirig:
+    'https://www.dropbox.com/scl/fo/bc2xsjuzd34m1m1ptgbnp/ADAV-ZWJ42Dl0z0yMQalwDM?rlkey=bgrpeugf09nyes9ikzebjgg14&st=8c37r54w&dl=0',
+  dragnor:
+    'https://www.dropbox.com/scl/fo/9fcc3sn6t6f97u6bm5dq6/ANCxO4NFKzkqYN6yU-3pZz4?rlkey=9rrs6dbsosbt4ykqofjlpyls6&st=v5xqheyw&dl=0',
+  falcoz:
+    'https://www.dropbox.com/scl/fo/vw1e20gbmaw0dt440v365/AAUqB5Zg8zNhSVd0h-6sSIc?rlkey=e2krix0szpkvtvlzciiabaztw&st=zuti7ifi&dl=0',
 };
 
 export const URL_FILES_VEHICLE = {
