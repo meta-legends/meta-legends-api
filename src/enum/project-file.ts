@@ -89,16 +89,16 @@ export const URL_FILES_PET = {
 };
 
 export const URL_FILES_VEHICLE = {
-  speedster: '',
-  'speed tank': '',
-  hovertank: '',
-  tank: '',
-  'racing car': '',
-  bike: '',
-  buggy: '',
-  'hovertank council': '',
-  'speed tank honorary': '',
-  'speedster whale': '',
-  'tank guardian': '',
-  'bike judge': '',
+  speedster:
+    'https://www.dropbox.com/scl/fo/i4w1jzt8awift4ovdp2w6/AMSIEw41V3HMwYqRz-taxsE?rlkey=0x81pk5td03eu1pnijqllacol&st=5xkkze99&dl=0',
+  'speed tank':
+    'https://www.dropbox.com/scl/fo/0jk8wuunoqpr0u7iyxe4y/AD72ZvhPuJiqQEYvroXJHkk?rlkey=cpkpql15pawu3cjrm2uf3nmi4&st=tt4t1eqd&dl=0',
+  hovertank:
+    'https://www.dropbox.com/scl/fo/wcm9378kpq7sftglbutnl/AKjnl1aqz5QUDujzlW819JI?rlkey=l8tmvnu8ahcak6y0sf8oseelg&st=bte0e0bk&dl=0',
+  tank: 'https://www.dropbox.com/scl/fo/4e0j7ud30ycmxhpxy73b2/ALXlXJouibhiOjcyfH0sWmU?rlkey=bt6gsetijr9vqc0rddev4bjv6&st=ove9ae9s&dl=0',
+  'racing car':
+    'https://www.dropbox.com/scl/fo/0h2ojar09lv68yvum6ta6/ACC21fv7GervjmFy59YQTM0?rlkey=ufwc8tfi7d9xujdeana3pba19&st=8hggp49t&dl=0',
+  bike: 'https://www.dropbox.com/scl/fo/ijxj4d3d3eylklofz5l8e/ADcDc7ozkri2sBD7HQgSWqQ?rlkey=bky6k3ivc9a36sgcufon427cn&st=6937dlo4&dl=0',
+  buggy:
+    'https://www.dropbox.com/scl/fo/m6etc3qao4130moqw8wcl/AFzIekl0jtBTGCDezBo8vDs?rlkey=x8u0y34i2ki1bhv6w8fldng27&st=mizbkgei&dl=0',
 };

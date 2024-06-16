@@ -5,6 +5,7 @@ import {
   NETWORK_ETH,
 } from '@src/client/alchemy/alchemy.service';
 import { CONTRACT_VEHICLE } from '@src/enum/contract';
+import { URL_FILES_VEHICLE } from '@src/enum/project-file';
 
 @Injectable()
 export class VehicleService {
@@ -23,14 +24,32 @@ export class VehicleService {
       NETWORK_ETH,
     );
     const result = [];
-    response.ownedNfts.map((stone) => {
+    response.ownedNfts.map((vehicle) => {
+      const vehicleName = this.buildName(
+        vehicle.metadata.attributes,
+      ).toLowerCase();
       const data = {
-        tokenId: parseInt(stone.id.tokenId, 16),
-        image: stone.metadata.image,
-        name: stone.title,
+        tokenId: parseInt(vehicle.id.tokenId, 16),
+        image: vehicle.metadata.image,
+        name: this.buildName(vehicle.metadata.attributes),
+        animation: vehicle.metadata.animation_url,
+        projectFileUrl:
+          URL_FILES_VEHICLE[vehicleName] !== undefined
+            ? URL_FILES_VEHICLE[vehicleName]
+            : '',
       };
       result.push(data);
     });
     return result;
+  }
+
+  buildName(attributes: object[]): string {
+    let name;
+    attributes.forEach((attribute) => {
+      if (attribute['trait_type'] === 'Name') {
+        name = attribute['value'];
+      }
+    });
+    return name;
   }
 }
