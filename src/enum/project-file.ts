@@ -102,3 +102,20 @@ export const URL_FILES_VEHICLE = {
   buggy:
     'https://www.dropbox.com/scl/fo/m6etc3qao4130moqw8wcl/AFzIekl0jtBTGCDezBo8vDs?rlkey=x8u0y34i2ki1bhv6w8fldng27&st=mizbkgei&dl=0',
 };
+
+export const URL_FILES_DRONE = {
+  rough:
+    'https://www.dropbox.com/scl/fi/gv2y80ro2imrgzwoboj7y/Rough-Drone-Arlind-Braka.spp?rlkey=e02in3f805rkqycyiix2815nn&st=rgl7a4oo&dl=0',
+  cyber:
+    'https://www.dropbox.com/scl/fi/2gg5gwopgopbem0txu6iw/Cyber-Drone-Arlind-Braka.spp?rlkey=jf0pw9mhpau4jl1tu192gmvgx&st=nxa09010&dl=0',
+  'matrix-angel':
+    'https://www.dropbox.com/scl/fi/n36d56el67zbz6sz1ad19/Matrix-Drone-Arlind-Braka.spp?rlkey=i5yxl0pg3xy31o04tc9vnee7z&st=6muacooz&dl=0',
+  goldboi:
+    'https://www.dropbox.com/scl/fi/1ou3fmmqzsbj49ghqx4pv/Goldboi-Drone-Arlind-Braka.spp?rlkey=5iry54rd3jb5szetmy43quh7u&st=eo1xbenb&dl=0',
+  roboter:
+    'https://www.dropbox.com/scl/fi/eytmurr4u99om205p41ol/Roboter-Drone-Arlind-Braka.spp?rlkey=68kweegdccgfjklmjgj5o9fq0&st=bdz3ti8h&dl=0',
+  burner:
+    'https://www.dropbox.com/scl/fi/e9nma9kmh3h699yll23z8/Burner-Drone-Arlind-Braka.spp?rlkey=wa6xl3j0zhmbzf0ewosqcvc9w&st=khd99ixt&dl=0',
+  celestial:
+    'https://www.dropbox.com/scl/fi/a2g36rbselzqlmd20l3t8/celestial-vehicle-Arlind-Braka.spp?rlkey=x2ox563b86llkvjcars35sslp&st=c1iwqeh8&dl=0',
+};

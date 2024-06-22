@@ -28,7 +28,7 @@ export class HonoraryService {
         const str = honorary.title.split('#');
         const data = {
           tokenId: parseInt(str[1]),
-          image: honorary.media[0].thumbnail,
+          image: honorary.media[0].gateway,
           name: honorary.title,
           media: honorary.media[0],
         };

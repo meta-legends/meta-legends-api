@@ -5,6 +5,7 @@ import {
   NETWORK_POLYGON,
 } from '@src/client/alchemy/alchemy.service';
 import { CONTRACT_HEALING_DRONE } from '@src/enum/contract';
+import {URL_FILES_DRONE} from "@src/enum/project-file";
 
 @Injectable()
 export class HealingDroneService {
@@ -24,10 +25,16 @@ export class HealingDroneService {
     );
     const result = [];
     response.ownedNfts.map((drone) => {
+      const droneName = this.buildName(drone.metadata.attributes).toLowerCase();
       const data = {
         tokenId: parseInt(drone.id.tokenId, 16),
         image: drone.metadata.image,
-        name: this.buildName(drone.metadata.attributes),
+        name: `${this.buildName(drone.metadata.attributes)} drone`,
+        animation: drone.metadata.animation_url,
+        projectFileUrl:
+          URL_FILES_DRONE[droneName] !== undefined
+            ? URL_FILES_DRONE[droneName]
+            : '',
       };
       result.push(data);
     });
@@ -41,6 +48,6 @@ export class HealingDroneService {
         name = attribute['value'];
       }
     });
-    return `${name} drone`;
+    return name;
   }
 }

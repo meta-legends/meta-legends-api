@@ -20,7 +20,7 @@ export class WeaponSkinService {
         const str = honorary.title.split('#');
         const data = {
           tokenId: parseInt(str[1]),
-          image: honorary.media[0].thumbnail,
+          image: honorary.media[0].gateway,
           name: honorary.title,
         };
         result.push(data);
