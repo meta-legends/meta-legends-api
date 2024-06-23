@@ -19,8 +19,11 @@ export class HoldingRewardService {
     private dataSource: DataSource,
   ) {}
 
-  isEligible(legend: Legend, period: number): boolean {
+  isEligible(legend: Legend, period: number, isEnd = false): boolean {
     const now = moment();
+    if (isEnd) {
+      const now = moment(1719784799);
+    }
     const purchasedOn = moment(legend.purchasedOn);
 
     return now.diff(purchasedOn, 'months') >= period;
@@ -71,13 +74,14 @@ export class HoldingRewardService {
     user: User,
     legends: Legend[],
     holdingRewardCode: string,
+    isEnd: boolean = false,
   ): Promise<HoldingReward[] | null> {
     const tokenIds = await this.getTokenIdsSavedByCode(user, holdingRewardCode);
     const hRewardSelected = HOLDING_REWARDS_KEY_VALUE[holdingRewardCode];
     const holdingRewards = [];
     const tokenIdsHandle = [];
     legends.map((legend) => {
-      if (!this.isEligible(legend, hRewardSelected.period)) {
+      if (!this.isEligible(legend, hRewardSelected.period, isEnd)) {
         return;
       }
       if (
@@ -98,7 +102,11 @@ export class HoldingRewardService {
     return holdingRewards;
   }
 
-  async process(user: User, legends: Legend[]): Promise<object | null> {
+  async process(
+    user: User,
+    legends: Legend[],
+    isEnd: boolean = false,
+  ): Promise<object | null> {
     const holdingRewards = {};
     for (const data of HOLDING_REWARDS) {
       const code = data.code;
@@ -106,6 +114,7 @@ export class HoldingRewardService {
         user,
         legends,
         code,
+        isEnd,
       );
     }
     return holdingRewards;
@@ -155,5 +164,11 @@ export class HoldingRewardService {
       return [];
     }
     return await this.getByRewardCodeAndUsers(rewardCode, userIds);
+  }
+
+  async getAll() {
+    return await this.dataSource.getRepository(HoldingReward).find({
+      relations: { user: true },
+    });
   }
 }

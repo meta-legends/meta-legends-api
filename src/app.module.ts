@@ -68,6 +68,7 @@ import { PerkOgPetService } from '@src/collections/perk-og-pet/perk-og-pet.servi
 import { PerkArmorService } from '@src/collections/perk-armor/perk-armor.service';
 import { PerkOgResidenceService } from '@src/collections/perk-og-residence/perk-og-residence.service';
 import { VehicleService } from '@src/collections/vehicle/vehicle.service';
+import { HoldingRewardEndService } from './command/holding-reward-end/holding-reward-end.service';
 
 @Module({
   imports: [
@@ -146,6 +147,7 @@ import { VehicleService } from '@src/collections/vehicle/vehicle.service';
     VehicleServiceCommand,
     WhaleService,
     WeaponSkinService,
+    HoldingRewardEndService,
   ],
 })
 export class AppModule {
