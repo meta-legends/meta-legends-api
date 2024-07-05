@@ -225,10 +225,6 @@ export class LegendService {
         tokenId: legend.tokenId,
         purchasedOn: legend.purchasedOn,
         media: nftFromApi[legend.tokenId].media,
-        holdingRewards: this.defineHoldingRewards(
-          new Date(legend.purchasedOn),
-          new Date(),
-        ),
       };
       result.push(obj);
     });

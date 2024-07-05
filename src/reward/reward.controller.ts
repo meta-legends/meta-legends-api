@@ -46,18 +46,17 @@ export class RewardController {
     if (rewards != null) {
       return rewards;
     }
-
-    const response = await this.alchemyService.getNFTsByWallet(wallet);
+    const legends = await this.legendService.getNfts(wallet);
     const mintPackages: MintPackage[] | null =
       await this.mintPackageService.getByMintWallet(wallet);
 
     const value = {
       wallet: wallet,
       rewards: {
-        badge: this.badgeService.getRewardBadge(response.totalCount),
+        badge: this.badgeService.getRewardBadge(legends.length),
         token: await this.tokenService.getRewardToken(mintPackages),
         unstaked: await this.unstakedService.findOneByWallet(wallet),
-        legend: await this.legendService.getNfts(wallet),
+        legend: legends,
       },
     };
     await this.cacheManager.set('reward-estimate-' + wallet, value, 3600000);
