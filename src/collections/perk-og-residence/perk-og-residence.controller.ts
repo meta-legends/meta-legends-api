@@ -24,17 +24,12 @@ export class PerkOgResidenceController {
   @Get('')
   async get(@Req() request: Request): Promise<unknown | object[]> {
     const address = request['user-wallet'];
-    // const cache = await this.cacheManager.get('residence-get-' + address);
-    // if (cache != null) {
-    //   return cache;
-    // }
-    // const result = await this.healingDroneService.getNfts(address);
-    // await this.cacheManager.set(
-    //   'residence-get-' + address,
-    //   result,
-    //   3600000,
-    // );
-    // return result;
-    return await this.residenceService.getNfts(address);
+    const cache = await this.cacheManager.get('residence-get-' + address);
+    if (cache != null) {
+      return cache;
+    }
+    const result = await this.residenceService.getNfts(address);
+    await this.cacheManager.set('residence-get-' + address, result, 3600000);
+    return result;
   }
 }
