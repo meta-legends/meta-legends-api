@@ -26,6 +26,7 @@ import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './user/user.module';
 
+import { Achievement } from './achievement/achievement.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
@@ -69,6 +70,7 @@ import { PerkArmorService } from '@src/collections/perk-armor/perk-armor.service
 import { PerkOgResidenceService } from '@src/collections/perk-og-residence/perk-og-residence.service';
 import { VehicleService } from '@src/collections/vehicle/vehicle.service';
 import { HoldingRewardEndService } from './command/holding-reward-end/holding-reward-end.service';
+import { AchievementService } from './achievement/achievement.service';
 
 @Module({
   imports: [
@@ -86,7 +88,15 @@ import { HoldingRewardEndService } from './command/holding-reward-end/holding-re
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [HoldingReward, Legend, MintPackage, OgPet, Unstaked, User],
+      entities: [
+        Achievement,
+        HoldingReward,
+        Legend,
+        MintPackage,
+        OgPet,
+        Unstaked,
+        User,
+      ],
       synchronize: true,
     }),
     AuthModule,
@@ -112,6 +122,7 @@ import { HoldingRewardEndService } from './command/holding-reward-end/holding-re
     AfkHolderService,
     AlchemyService,
     AppService,
+    AchievementService,
     BadgeService,
     CouncilStoneService,
     DatetimeService,
