@@ -70,6 +70,7 @@ import { PerkArmorService } from '@src/collections/perk-armor/perk-armor.service
 import { PerkOgResidenceService } from '@src/collections/perk-og-residence/perk-og-residence.service';
 import { VehicleService } from '@src/collections/vehicle/vehicle.service';
 import { HoldingRewardEndService } from './command/holding-reward-end/holding-reward-end.service';
+import { BadgeRewardService } from './command/badge-reward/badge-reward.service';
 import { AchievementService } from './achievement/achievement.service';
 
 @Module({
@@ -123,6 +124,7 @@ import { AchievementService } from './achievement/achievement.service';
     AlchemyService,
     AppService,
     AchievementService,
+    BadgeRewardService,
     BadgeService,
     CouncilStoneService,
     DatetimeService,
