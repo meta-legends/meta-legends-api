@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 
 @Entity()
 export class Achievement {
@@ -13,4 +14,10 @@ export class Achievement {
 
   @Column('varchar', { length: 255 })
   description: string;
+
+  @OneToMany(
+    () => UserAchievement,
+    (userAchievement) => userAchievement.achievement,
+  )
+  userAchievements: UserAchievement[];
 }

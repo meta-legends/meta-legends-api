@@ -72,6 +72,8 @@ import { VehicleService } from '@src/collections/vehicle/vehicle.service';
 import { HoldingRewardEndService } from './command/holding-reward-end/holding-reward-end.service';
 import { BadgeRewardService } from './command/badge-reward/badge-reward.service';
 import { AchievementService } from './achievement/achievement.service';
+import { UserAchievementService } from './user-achievement/user-achievement.service';
+import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 
 @Module({
   imports: [
@@ -97,6 +99,7 @@ import { AchievementService } from './achievement/achievement.service';
         OgPet,
         Unstaked,
         User,
+        UserAchievement,
       ],
       synchronize: true,
     }),
@@ -161,6 +164,7 @@ import { AchievementService } from './achievement/achievement.service';
     WhaleService,
     WeaponSkinService,
     HoldingRewardEndService,
+    UserAchievementService,
   ],
 })
 export class AppModule {
