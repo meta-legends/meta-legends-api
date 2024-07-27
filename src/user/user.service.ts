@@ -15,7 +15,7 @@ import {
 } from '@src/client/alchemy/alchemy.service';
 
 import { CONTRACT_META_LEGENDS } from '../enum/contract';
-import { CACHE_MANAGER, CacheInterceptor } from '@nestjs/cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import * as moment from 'moment/moment';
 
@@ -37,23 +37,6 @@ export class UserService {
       params,
       NETWORK_ETH,
     );
-  }
-
-  @UseInterceptors(CacheInterceptor)
-  async cachingHolders() {
-    const data = await this.alchemyService.getOwnersForCollectionML();
-    data.ownerAddresses.forEach((dataHolder) => {
-      const tokenIds = [];
-      dataHolder.tokenBalances.forEach((dataNft) => {
-        const tokenId = parseInt(dataNft.tokenId, 16);
-        tokenIds.push(tokenId);
-      });
-      this.cacheManager.set(
-        `holder-${dataHolder.ownerAddress.toLowerCase()}`,
-        tokenIds,
-        86400000, // 1 day
-      );
-    });
   }
 
   async findOne(wallet: string): Promise<User | null> {
