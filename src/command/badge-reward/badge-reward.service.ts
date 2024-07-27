@@ -1,6 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
+import * as moment from 'moment';
+import { FileService } from '@src/file/file.service';
 // npm run command-nest badge-reward-snapshot
 @Command({
   name: 'badge-reward-snapshot',
@@ -10,32 +12,24 @@ import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 export class BadgeRewardService extends CommandRunner {
   private static readonly logger = new Logger(BadgeRewardService.name);
 
-  constructor(private alchemyService: AlchemyService) {
+  constructor(
+    private alchemyService: AlchemyService,
+    private fileService: FileService,
+  ) {
     super();
   }
 
   async run() {
     BadgeRewardService.logger.log('[Command] BadgeRewardService');
     const data = await this.alchemyService.getOwnersForCollectionML();
-    // let nbHolders = 0;
-    let holders = {};
+    const holders = {};
     data.ownerAddresses.forEach((dataHolder) => {
-
-      // const tokenIds = [];
-      //
-      // dataHolder.tokenBalances.forEach((dataNft) => {
-      //   const tokenId = parseInt(dataNft.tokenId, 16);
-      //   tokenIds.push(tokenId);
-      // });
-      // if (tokenIds.length >= 51) {
       holders[dataHolder.ownerAddress] = dataHolder.tokenBalances.length;
-      // console.log(
-      //   `${dataHolder.ownerAddress} (${dataHolder.tokenBalances.length})`,
-      // );
-      //   nbHolders++;
-      // }
     });
-    console.log(holders);
+    const now = moment().format('YYYYMMDDHHmmss');
+    const filepath = `data/${now}_badge-rewards`;
+
+    this.fileService.buildCsv(holders, filepath);
     console.log('nb Holders: ' + data.ownerAddresses.length);
   }
 }
