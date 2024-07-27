@@ -18,10 +18,14 @@ import {
 import { UserService } from '../user/user.service';
 import { UserUpdateDto } from '../user/user-update.dto';
 import { AuthGuard } from '@src/auth/auth.guard';
+import {UserAchievementService} from "@src/user-achievement/user-achievement.service";
 
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private userAchievementService: UserAchievementService,
+  ) {}
 
   @Header('content-type', 'application/json')
   @Get(':wallet/is-holder')
@@ -40,7 +44,11 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':wallet')
   async get(@Param('wallet') wallet: string) {
-    return this.userService.findOne(wallet.toLowerCase());
+    const user = await this.userService.findOne(wallet.toLowerCase());
+    user['achievements'] = await this.userAchievementService.getAchievements(
+      user,
+    );
+    return user;
   }
 
   @UseGuards(AuthGuard)
