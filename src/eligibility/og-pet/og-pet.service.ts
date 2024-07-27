@@ -16,19 +16,6 @@ export class OgPetService {
     return this.eliOgPetRepository.findOneBy({ address });
   }
 
-  findAll(): Promise<OgPet[] | null> {
-    return this.dataSource.getRepository(OgPet).find({
-      relations: { user: true },
-    });
-  }
-
-  findOne(address: string): Promise<OgPet | null> {
-    return this.dataSource.getRepository(OgPet).findOne({
-      where: { address: address },
-      relations: { user: true },
-    });
-  }
-
   getEmptyOgPet(address: string): OgPet {
     return {
       id: null,
