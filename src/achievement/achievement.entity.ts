@@ -12,7 +12,7 @@ export class Achievement {
   @Column('varchar', { length: 63 })
   name: string;
 
-  @Column('varchar', { length: 255 })
+  @Column('varchar', { length: 255, nullable: true })
   description: string;
 
   @OneToMany(
