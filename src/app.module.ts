@@ -38,11 +38,9 @@ import { TestService } from './command/test/test.service';
 import { WhaleService } from './command/whale/whale.service';
 import { HoldingReward } from '@src/holding-reward/holding-reward.entity';
 import { HoldingRewardService } from './holding-reward/holding-reward.service';
-import { VehicleService as VehicleServiceCommand } from './command/metadata/vehicle/vehicle.service';
 
 import { AfkHolderService } from './command/afk-holder/afk-holder.service';
 import { EligibilityVehicleService } from './command/eligibility-vehicle/eligibility-vehicle.service';
-import { HealingDroneService as HealingDroneServiceCommand } from './command/metadata/healing-drone/healing-drone.service';
 import { HoldingRewardService as HoldingRewardCommand } from './command/holding-reward/holding-reward.service';
 
 import { AppService } from './app.service';
@@ -140,7 +138,6 @@ import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
     HoldingRewardService,
     HoldingRewardCommand,
     HealingDroneService,
-    HealingDroneServiceCommand,
     LegendService,
     MintPackageService,
     MoralisService,
@@ -160,7 +157,6 @@ import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
       useClass: CacheInterceptor,
     },
     VehicleService,
-    VehicleServiceCommand,
     WhaleService,
     WeaponSkinService,
     HoldingRewardEndService,
