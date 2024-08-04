@@ -14,7 +14,6 @@ import { UserController } from './user/user.controller';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
-import { MoralisService } from './client/moralis/moralis.service';
 
 import { AuthModule } from './auth/auth.module';
 import { ClientModule } from './client/client.module';
@@ -140,7 +139,6 @@ import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
     HealingDroneService,
     LegendService,
     MintPackageService,
-    MoralisService,
     MetadataService,
     OgPetService,
     PerkOgPetService,
