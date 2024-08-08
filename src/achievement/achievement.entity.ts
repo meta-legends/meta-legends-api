@@ -10,6 +10,9 @@ export class Achievement {
   category: string;
 
   @Column('varchar', { length: 63 })
+  code: string;
+
+  @Column('varchar', { length: 63 })
   name: string;
 
   @Column('varchar', { length: 255, nullable: true })
