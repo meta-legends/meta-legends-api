@@ -13,7 +13,7 @@ export class Achievement {
   code: string;
 
   @Column('varchar', { length: 63 })
-  name: string;
+  label: string;
 
   @Column('varchar', { length: 255, nullable: true })
   description: string;

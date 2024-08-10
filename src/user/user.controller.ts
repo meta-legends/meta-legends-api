@@ -18,7 +18,7 @@ import {
 import { UserService } from '../user/user.service';
 import { UserUpdateDto } from '../user/user-update.dto';
 import { AuthGuard } from '@src/auth/auth.guard';
-import {UserAchievementService} from "@src/user-achievement/user-achievement.service";
+import { UserAchievementService } from '@src/user-achievement/user-achievement.service';
 
 @Controller('users')
 export class UserController {
@@ -37,7 +37,11 @@ export class UserController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post(':wallet')
   async upsert(@Param('wallet') wallet: string) {
-    return this.userService.upsert(wallet.toLowerCase());
+    const user = await this.userService.upsert(wallet.toLowerCase());
+    user['achievements'] = await this.userAchievementService.getAchievements(
+      user,
+    );
+    return user;
   }
 
   @Header('content-type', 'application/json')

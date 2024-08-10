@@ -5,14 +5,8 @@ import { Repository } from 'typeorm';
 
 import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 import { User } from '@src/user/user.entity';
-import { UserService } from '@src/user/user.service';
 import { Achievement } from '@src/achievement/achievement.entity';
-
-// 📷 (3 to 5) Legend investor : Rough Armor
-// 📷(6 to 10) Virtual conservative : Goldboi Weapon
-// 📷(11 to 21) Legendary Holder : Cyber Pet
-// 📷(21 to 50) Legend Museum : Goldboi Vehicle (The on in preview )
-// 📷(51+) Legend Whale : Celestial Sniper
+import * as moment from "moment";
 
 @Injectable()
 export class UserAchievementService {
@@ -38,19 +32,15 @@ export class UserAchievementService {
     achievementsSortByCode,
     nbNftHold,
   ) {
+    // 📷 (1 to 2) holder
+    // 📷 (3 to 5) Legend investor : Rough Armor
+    // 📷(6 to 10) Virtual conservative : Goldboi Weapon
+    // 📷(11 to 20) Legendary Holder : Cyber Pet
+    // 📷(21 to 50) Legend Museum : Goldboi Vehicle (The on in preview )
     const userAchievements = [];
-    console.log(achievementsSortByCode);
-    if (nbNftHold === 1) {
-      const achievement = this.createUserAchievement(
-        user,
-        achievementsSortByCode['holder'],
-      );
-      userAchievements.push(achievement);
-      return userAchievements;
-    }
 
     let rest = nbNftHold;
-    if (rest > 51) {
+    if (rest >= 51) {
       const nbWhaleBadge = Math.floor(rest / 51);
       for (let i = 0; i < nbWhaleBadge; i++) {
         const achievement = this.createUserAchievement(
@@ -62,24 +52,52 @@ export class UserAchievementService {
       }
     }
 
-    const badges = {
-      'legend-museum': 20,
-      'legendary-holder': 10,
-      'virtual-conservative': 5,
-      'legend-investor': 2,
-    };
+    if (rest == 0) {
+      return userAchievements;
+    }
 
-    Object.keys(badges).forEach((badgeLabel) => {
-      if (rest > badges[badgeLabel]) {
-        const achievement = this.createUserAchievement(
-          user,
-          achievementsSortByCode[badgeLabel],
-        );
-        userAchievements.push(achievement);
-      }
-    });
+    if (rest <= 2) {
+      const achievement = this.createUserAchievement(
+        user,
+        achievementsSortByCode['holder'],
+      );
+      userAchievements.push(achievement);
+      return userAchievements;
+    }
 
-    // this.userAchievementRepository.save(userAchievements);
+    if (rest <= 5) {
+      const achievement = this.createUserAchievement(
+        user,
+        achievementsSortByCode['legend-investor'],
+      );
+      userAchievements.push(achievement);
+      return userAchievements;
+    }
+    if (rest <= 10) {
+      const achievement = this.createUserAchievement(
+        user,
+        achievementsSortByCode['virtual-conservative'],
+      );
+      userAchievements.push(achievement);
+      return userAchievements;
+    }
+    if (rest <= 20) {
+      const achievement = this.createUserAchievement(
+        user,
+        achievementsSortByCode['legendary-holder'],
+      );
+      userAchievements.push(achievement);
+      return userAchievements;
+    }
+    if (rest <= 50) {
+      const achievement = this.createUserAchievement(
+        user,
+        achievementsSortByCode['legend-museum'],
+      );
+      userAchievements.push(achievement);
+      return userAchievements;
+    }
+
     return userAchievements;
   }
 
@@ -87,10 +105,7 @@ export class UserAchievementService {
     const userAchievement = new UserAchievement();
     userAchievement.user = user;
     userAchievement.achievement = achievement;
+    userAchievement.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
     return userAchievement;
-  }
-
-  save(userAchievements: UserAchievement[]) {
-    this.userAchievementRepository.save(userAchievements);
   }
 }

@@ -10,8 +10,8 @@ export class AchievementService {
     private achievementRepository: Repository<Achievement>,
   ) {}
 
-  async getAllByCategory(): Promise<Achievement[] | null> {
-    return this.achievementRepository.findBy({});
+  async getAllByCategory(category: string) {
+    return await this.achievementRepository.findBy({ category });
   }
 
   orderByCode(achievements: Achievement[]) {
