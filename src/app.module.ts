@@ -73,6 +73,8 @@ import { AchievementService } from './achievement/achievement.service';
 import { UserAchievementService } from './user-achievement/user-achievement.service';
 import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 import { AchievementService as AchievementCommand } from './command/achievement/achievement.service';
+import { CollectionController } from './collection/collection.controller';
+import { CollectionService } from './collection/collection.service';
 
 @Module({
   imports: [
@@ -120,6 +122,7 @@ import { AchievementService as AchievementCommand } from './command/achievement/
     RewardController,
     UserController,
     HolderController,
+    CollectionController,
   ],
   providers: [
     AfkHolderService,
@@ -163,6 +166,7 @@ import { AchievementService as AchievementCommand } from './command/achievement/
     WeaponSkinService,
     HoldingRewardEndService,
     UserAchievementService,
+    CollectionService,
   ],
 })
 export class AppModule {
