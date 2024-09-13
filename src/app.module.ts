@@ -13,6 +13,7 @@ import { RewardController } from './reward/reward.controller';
 import { UserController } from './user/user.controller';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
+import { AlchemyV3Service } from './client/alchemy-v3/alchemy-v3.service';
 import { EtherscanService } from './client/etherscan/etherscan.service';
 
 import { AuthModule } from './auth/auth.module';
@@ -123,6 +124,7 @@ import { AchievementService as AchievementCommand } from './command/achievement/
   providers: [
     AfkHolderService,
     AlchemyService,
+    AlchemyV3Service,
     AppService,
     AchievementService,
     AchievementCommand,

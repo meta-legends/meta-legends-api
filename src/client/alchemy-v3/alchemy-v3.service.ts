@@ -1,30 +1,62 @@
 import { Injectable } from '@nestjs/common';
 import { RuntimeException } from '@nestjs/core/errors/exceptions';
+import { Collection } from 'typeorm';
+import axios from "axios";
+
+export const ETHEREUM_MAINNET = 'mainnet';
+export const ETHEREUM_TESTNET = 'sepolia';
+export const POLYGON_MAINNET = 'mainnet';
+export const POLYGON_TESTNET = 'amoy';
 
 export const NETWORKS = {
-  eth: ['mainnet', 'sepolia'],
-  polygon: ['mainnet', 'amoy'],
+  eth: [ETHEREUM_MAINNET, ETHEREUM_TESTNET],
+  polygon: [POLYGON_MAINNET, POLYGON_TESTNET],
 };
+
+export const GET_NFTS_FOR_OWNER = 'getNFTsForOwner';
 
 @Injectable()
 export class AlchemyV3Service {
-  private apiKey: string;
+  private blockchain: string;
+  private network: string;
 
-  constructor() {
-    this.apiKey = process.env.ALCHEMY_API_KEY;
+  setBlockchainAndNetwork(blockchain: string, network: string) {
+    this.blockchain = blockchain;
+    this.network = network;
   }
 
-  buildUrl(blockchain: string, network: string): string {
-    if (!Object.keys(NETWORKS).includes(blockchain)) {
-      const message = `Unknow blockchain ${blockchain}`;
+  getBlockchain(): string {
+    return this.blockchain;
+  }
+
+  getNetwork(): string {
+    return this.network;
+  }
+
+  buildUrl(): string {
+    if (!Object.keys(NETWORKS).includes(this.blockchain)) {
+      const message = `Unknow blockchain ${this.blockchain}`;
       console.log(message);
       new RuntimeException(message);
     }
-    if (!NETWORKS[blockchain].includes(network)) {
-      const message = `Unknow network ${network}`;
+    if (!NETWORKS[this.blockchain].includes(this.network)) {
+      const message = `Unknow network ${this.network}`;
       console.log(message);
       new RuntimeException(message);
     }
-    return `https://${blockchain}-${network}.g.alchemy.com/`;
+    return `https://${this.blockchain}-${this.network}.g.alchemy.com`;
+  }
+
+  async get(method: string, params): Promise<any> {
+    const query = new URLSearchParams(params);
+    const alchemyUrl = this.buildUrl();
+    const alchemyApiKey = process.env.ALCHEMY_API_KEY;
+    const url = `${alchemyUrl}/nft/v3/${alchemyApiKey}/${method}?${query.toString()}`;
+    try {
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
