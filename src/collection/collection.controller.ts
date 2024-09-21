@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Post,
   Header,
   Inject,
   Param,
@@ -30,17 +31,31 @@ export class CollectionController {
     @Param('collection') collection: string,
   ): Promise<unknown | object[]> {
     const wallet = request['user-wallet'];
-    const cacheName = `collection-get-${blockchain}-${network}-${collection}-${wallet}`;
-    const cache = await this.cacheManager.get(cacheName);
-    if (cache != null) {
-      return cache;
-    }
+    // const cacheName = `collection-get-${blockchain}-${network}-${collection}-${wallet}`;
+    // const cache = await this.cacheManager.get(cacheName);
+    // if (cache != null) {
+    //   return cache;
+    // }
     this.collectionService.defineBlockchainAndNetwork(blockchain, network);
     const result = await this.collectionService.getNFTsForOwner(
       collection,
       wallet,
     );
-    await this.cacheManager.set(cacheName, result, 3600000);
+    // await this.cacheManager.set(cacheName, result, 3600000);
     return result;
+  }
+
+  @Post('/metadata/:blockchain/:network/:collection')
+  async getNFTsByTokenIds(
+    @Req() request: Request,
+    @Param('blockchain') blockchain: string,
+    @Param('network') network: string,
+    @Param('collection') collection: string,
+  ) {
+    this.collectionService.defineBlockchainAndNetwork(blockchain, network);
+    return await this.collectionService.getNFTsMetadataByTokenIds(
+      collection,
+      request.body['tokens'],
+    );
   }
 }

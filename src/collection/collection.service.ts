@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {
-  AlchemyV3Service,
+  AlchemyV3Service, GET_NFT_METADATA_BATCH,
   GET_NFTS_FOR_OWNER,
 } from '@src/client/alchemy-v3/alchemy-v3.service';
 
@@ -45,5 +45,22 @@ export class CollectionService {
       result.push(object);
     });
     return result;
+  }
+
+  async getNFTsMetadataByTokenIds(collection: string, tokenIds: any) {
+    const tokens = [];
+    tokenIds.map((tokenId) => {
+      tokens.push({
+        contractAddress: collection,
+        tokenId: tokenId,
+        tokenType: 'ERC721',
+      });
+    });
+    const payload = { tokens: tokens };
+    const res = await this.alchemyV3Service.post(
+      GET_NFT_METADATA_BATCH,
+      payload,
+    );
+    return res['nfts'];
   }
 }

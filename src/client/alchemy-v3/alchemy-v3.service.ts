@@ -14,6 +14,7 @@ export const NETWORKS = {
 };
 
 export const GET_NFTS_FOR_OWNER = 'getNFTsForOwner';
+export const GET_NFT_METADATA_BATCH = 'getNFTMetadataBatch';
 
 @Injectable()
 export class AlchemyV3Service {
@@ -54,6 +55,18 @@ export class AlchemyV3Service {
     const url = `${alchemyUrl}/nft/v3/${alchemyApiKey}/${method}?${query.toString()}`;
     try {
       const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async post(method, payload: any): Promise<any> {
+    const alchemyUrl = this.buildUrl();
+    const alchemyApiKey = process.env.ALCHEMY_API_KEY;
+    const url = `${alchemyUrl}/nft/v3/${alchemyApiKey}/${method}`;
+    try {
+      const response = await axios.post(url, payload);
       return response.data;
     } catch (error) {
       console.log(error);
