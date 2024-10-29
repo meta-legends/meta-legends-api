@@ -6,6 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OgPet } from '../eligibility/og-pet/og-pet.entity';
+import { OgLand } from '../eligibility/og-land/og-land.entity';
 import { HoldingReward } from '../holding-reward/holding-reward.entity';
 import { Exclude } from 'class-transformer';
 import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
@@ -76,6 +77,9 @@ export class User {
 
   @OneToOne(() => OgPet, (ogPet) => ogPet.user)
   ogPet!: OgPet | null;
+
+  @OneToOne(() => OgLand, (ogLand) => ogLand.user)
+  ogLand!: OgLand | null;
 
   @OneToMany(() => HoldingReward, (holdingReward) => holdingReward.user)
   holdingRewards: HoldingReward[];

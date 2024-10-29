@@ -30,6 +30,7 @@ import { Achievement } from './achievement/achievement.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
+import { OgLand } from './eligibility/og-land/og-land.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from './user/user.entity';
 
@@ -98,6 +99,7 @@ import { CollectionService } from './collection/collection.service';
         Legend,
         MintPackage,
         OgPet,
+        OgLand,
         Unstaked,
         User,
         UserAchievement,
