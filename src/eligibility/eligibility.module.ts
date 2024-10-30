@@ -6,11 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EligibilityService } from './eligibility.service';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 import { OgLandService } from './og-land/og-land.service';
+import { LandWishService } from './land-wish/land-wish.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OgPet])],
   exports: [TypeOrmModule],
   controllers: [EligibilityController],
-  providers: [OgPetService, EligibilityService, AlchemyService, OgLandService],
+  providers: [OgPetService, EligibilityService, AlchemyService, OgLandService, LandWishService],
 })
 export class EligibilityModule {}

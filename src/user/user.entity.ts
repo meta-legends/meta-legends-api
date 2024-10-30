@@ -78,9 +78,6 @@ export class User {
   @OneToOne(() => OgPet, (ogPet) => ogPet.user)
   ogPet!: OgPet | null;
 
-  @OneToOne(() => OgLand, (ogLand) => ogLand.user)
-  ogLand!: OgLand | null;
-
   @OneToMany(() => HoldingReward, (holdingReward) => holdingReward.user)
   holdingRewards: HoldingReward[];
 

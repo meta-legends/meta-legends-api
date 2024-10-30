@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-} from 'typeorm';
-import { User } from '@src/user/user.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class OgLand {
@@ -16,15 +9,11 @@ export class OgLand {
   class: string;
 
   @Column('varchar', { nullable: false, length: 63 })
-  city: string;
+  area: string;
 
   @Column('varchar', { nullable: false, unique: true, length: 63 })
   slug: string;
 
-  @Column('varchar', { nullable: true, length: 63 })
-  address: string;
-
-  @OneToOne(() => User, (user) => user.ogLand, { nullable: true })
-  @JoinColumn()
-  user!: User | null;
+  @Column('int', { nullable: false })
+  supply: number;
 }
