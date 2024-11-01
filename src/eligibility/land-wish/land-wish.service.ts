@@ -16,14 +16,23 @@ export class LandWishService {
     private ogLandService: OgLandService,
   ) {}
 
-  async add(user: User, landWishCreateDto: LandWishCreateDto) {
-    const landWish = new LandWish();
-    landWish.user = user;
-    landWish.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-    landWish.land = await this.ogLandService.findOneById(
-      landWishCreateDto.landId,
-    );
-    return this.landWishRepository.save(landWish);
+  async add(user: User, landWishCreateDtos: LandWishCreateDto[]) {
+    const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    const landWishes = [];
+    for (const landWishCreateDto of landWishCreateDtos) {
+      const land = await this.ogLandService.findOneById(
+        landWishCreateDto.landId,
+      );
+      for (let i = 0; i < landWishCreateDto.quantity; i++) {
+        let landWish = new LandWish();
+        landWish.user = user;
+        landWish.createdAt = createdAt;
+        landWish.land = land;
+        landWish = await this.landWishRepository.save(landWish);
+        landWishes.push(landWish);
+      }
+    }
+    return landWishes;
   }
 
   async remaining(land: OgLand) {

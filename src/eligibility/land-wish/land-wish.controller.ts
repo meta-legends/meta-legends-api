@@ -32,12 +32,12 @@ export class LandWishController {
   @Post()
   async book(
     @Req() request: Request,
-    @Body() landWishCreateDto: LandWishCreateDto,
+    @Body() landWishCreateDtos: LandWishCreateDto[],
   ) {
     const wallet = request['user-wallet'];
     const user = await this.userService.findOne(wallet.toLowerCase());
     try {
-      return this.landWishService.add(user, landWishCreateDto);
+      return this.landWishService.add(user, landWishCreateDtos);
     } catch (error) {
       throw new HttpException(
         {
