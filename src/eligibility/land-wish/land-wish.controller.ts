@@ -5,7 +5,9 @@ import {
   Get,
   Header,
   HttpException,
-  HttpStatus, Param,
+  HttpStatus,
+  Inject,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -16,14 +18,15 @@ import { LandWishCreateDto } from '@src/eligibility/land-wish/land-wish-create.d
 import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
 import { Request } from 'express';
 import { UserService } from '@src/user/user.service';
-import {OgLandService} from "@src/eligibility/og-land/og-land.service";
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Controller('land-wishes')
 export class LandWishController {
   constructor(
     private landWishService: LandWishService,
-    private landService: OgLandService,
     private userService: UserService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   @UseGuards(AuthGuard)
@@ -36,6 +39,7 @@ export class LandWishController {
   ) {
     const wallet = request['user-wallet'];
     const user = await this.userService.findOne(wallet.toLowerCase());
+    await this.cacheManager.del('land-get-all');
     try {
       return this.landWishService.add(user, landWishCreateDtos);
     } catch (error) {

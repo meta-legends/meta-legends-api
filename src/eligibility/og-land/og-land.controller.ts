@@ -40,7 +40,16 @@ export class OgLandController {
     if (cache != null) {
       return cache;
     }
-    const result = await this.landService.findAll();
+    const lands = await this.landService.findAll();
+    const result = await Promise.all(
+      lands.map(async (land) => {
+        const count = await this.landWishService.remaining(land);
+        return {
+          item: land,
+          remaining: land.supply - count,
+        };
+      }),
+    );
     await this.cacheManager.set(cacheName, result, 3600000);
     return result;
   }
