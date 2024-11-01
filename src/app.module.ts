@@ -79,6 +79,7 @@ import { AchievementService as AchievementCommand } from './command/achievement/
 import { CollectionController } from './collection/collection.controller';
 import { CollectionService } from './collection/collection.service';
 import { OgLandService } from '@src/eligibility/og-land/og-land.service';
+import {LandWishService} from "@src/eligibility/land-wish/land-wish.service";
 
 @Module({
   imports: [
@@ -175,6 +176,7 @@ import { OgLandService } from '@src/eligibility/og-land/og-land.service';
     HoldingRewardEndService,
     UserAchievementService,
     CollectionService,
+    LandWishService,
   ],
 })
 export class AppModule {

@@ -5,7 +5,7 @@ import {
   Get,
   Header,
   HttpException,
-  HttpStatus,
+  HttpStatus, Param,
   Post,
   Req,
   UseGuards,
@@ -16,11 +16,13 @@ import { LandWishCreateDto } from '@src/eligibility/land-wish/land-wish-create.d
 import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
 import { Request } from 'express';
 import { UserService } from '@src/user/user.service';
+import {OgLandService} from "@src/eligibility/og-land/og-land.service";
 
 @Controller('land-wishes')
 export class LandWishController {
   constructor(
     private landWishService: LandWishService,
+    private landService: OgLandService,
     private userService: UserService,
   ) {}
 
@@ -47,13 +49,4 @@ export class LandWishController {
       );
     }
   }
-
-  @UseGuards(AuthGuard)
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Header('content-type', 'application/json')
-  @Get('/:landId/remaining')
-  async remaining(@Req() request: Request) {
-
-  }
 }
-

@@ -27,6 +27,6 @@ export class LandWishService {
   }
 
   async remaining(land: OgLand) {
-    return await this.landWishRepository.findAndCountBy({ land });
+    return await this.landWishRepository.countBy({ land });
   }
 }
