@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { LandWish } from '@src/eligibility/land-wish/land-wish.entity';
 
 @Entity()
 export class OgLand {
@@ -16,4 +17,7 @@ export class OgLand {
 
   @Column('int', { nullable: false })
   supply: number;
+
+  @OneToMany(() => LandWish, (landWish) => landWish.land)
+  landWishes: LandWish[];
 }

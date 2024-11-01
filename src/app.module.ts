@@ -11,6 +11,7 @@ import { MintPackageController } from './mint-package/mint-package.controller';
 import { LegendController } from './legend/legend.controller';
 import { RewardController } from './reward/reward.controller';
 import { UserController } from './user/user.controller';
+import { OgLandController } from '@src/eligibility/og-land/og-land.controller';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { AlchemyV3Service } from './client/alchemy-v3/alchemy-v3.service';
@@ -33,6 +34,7 @@ import { OgPet } from './eligibility/og-pet/og-pet.entity';
 import { OgLand } from './eligibility/og-land/og-land.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from './user/user.entity';
+import { LandWish } from './eligibility/land-wish/land-wish.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { TestService } from './command/test/test.service';
@@ -76,6 +78,7 @@ import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 import { AchievementService as AchievementCommand } from './command/achievement/achievement.service';
 import { CollectionController } from './collection/collection.controller';
 import { CollectionService } from './collection/collection.service';
+import { OgLandService } from '@src/eligibility/og-land/og-land.service';
 
 @Module({
   imports: [
@@ -100,6 +103,7 @@ import { CollectionService } from './collection/collection.service';
         MintPackage,
         OgPet,
         OgLand,
+        LandWish,
         Unstaked,
         User,
         UserAchievement,
@@ -125,6 +129,7 @@ import { CollectionService } from './collection/collection.service';
     UserController,
     HolderController,
     CollectionController,
+    OgLandController,
   ],
   providers: [
     AfkHolderService,
@@ -150,6 +155,7 @@ import { CollectionService } from './collection/collection.service';
     MintPackageService,
     MetadataService,
     OgPetService,
+    OgLandService,
     PerkOgPetService,
     PerkArmorService,
     PerkOgResidenceService,
