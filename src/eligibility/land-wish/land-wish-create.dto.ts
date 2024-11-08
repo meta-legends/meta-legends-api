@@ -5,5 +5,5 @@ export class LandWishCreateDto {
   landId: number;
 
   @IsNotEmpty()
-  quantity: number;
+  tokenId: number;
 }

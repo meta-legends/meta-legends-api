@@ -7,6 +7,9 @@ export class LandWish {
   @PrimaryGeneratedColumn()
   id!: number | null;
 
+  @Column('int', { nullable: false })
+  tokenId: number;
+
   @ManyToOne(() => OgLand, (land) => land.landWishes)
   land: OgLand;
 
