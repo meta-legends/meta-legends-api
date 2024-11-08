@@ -53,4 +53,11 @@ export class LandWishController {
       );
     }
   }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Header('content-type', 'application/json')
+  @Get()
+  getAll() {
+    return this.landWishService.getAll();
+  }
 }

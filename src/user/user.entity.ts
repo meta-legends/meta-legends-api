@@ -6,18 +6,16 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OgPet } from '../eligibility/og-pet/og-pet.entity';
-import { OgLand } from '../eligibility/og-land/og-land.entity';
 import { HoldingReward } from '../holding-reward/holding-reward.entity';
 import { Exclude } from 'class-transformer';
 import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
-import {LandWish} from "@src/eligibility/land-wish/land-wish.entity";
+import { LandWish } from '@src/eligibility/land-wish/land-wish.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Exclude()
   @Column('varchar', { length: 63, unique: true })
   wallet: string;
 
