@@ -81,6 +81,7 @@ import { CollectionService } from './collection/collection.service';
 import { OgLandService } from '@src/eligibility/og-land/og-land.service';
 import {LandWishService} from "@src/eligibility/land-wish/land-wish.service";
 import { LandService } from './command/metadata/land/land.service';
+import { LandController } from './metadata/land/land.controller';
 
 @Module({
   imports: [
@@ -132,6 +133,7 @@ import { LandService } from './command/metadata/land/land.service';
     HolderController,
     CollectionController,
     OgLandController,
+    LandController,
   ],
   providers: [
     AfkHolderService,

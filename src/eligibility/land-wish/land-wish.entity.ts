@@ -10,6 +10,12 @@ export class LandWish {
   @Column('int', { nullable: false })
   tokenId: number;
 
+  @Column('varchar', { nullable: false, length: 63 })
+  category: string;
+
+  @Column('boolean', { default: false })
+  hasGuardian: boolean;
+
   @ManyToOne(() => OgLand, (land) => land.landWishes)
   land: OgLand;
 
