@@ -8,10 +8,15 @@ import { JwtService } from '@nestjs/jwt';
 
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
+import { AuthService } from '@src/auth/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService, private reflector: Reflector) {}
+  constructor(
+    private jwtService: JwtService,
+    private reflector: Reflector,
+    private authService: AuthService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -38,7 +43,10 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    return true;
+    const apiKey = request.headers['x-api-key'];
+
+    if (!apiKey) return false;
+    return this.authService.validateApiKey(apiKey);
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

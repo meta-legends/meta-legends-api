@@ -184,7 +184,7 @@ import { LandController } from './metadata/land/land.controller';
 export class AppModule {
   constructor(private dataSource: DataSource) {}
 
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('');
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(AuthMiddleware).forRoutes('');
+  // }
 }

@@ -13,9 +13,13 @@ import { OgLand } from './og-land/og-land.entity';
 import { LandWish } from '@src/eligibility/land-wish/land-wish.entity';
 import { User } from '@src/user/user.entity';
 import { OgLandController } from '@src/eligibility/og-land/og-land.controller';
+import { AuthModule } from '@src/auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OgPet, OgLand, LandWish, User])],
+  imports: [
+    TypeOrmModule.forFeature([OgPet, OgLand, LandWish, User]),
+    AuthModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [EligibilityController, LandWishController, OgLandController],
   providers: [

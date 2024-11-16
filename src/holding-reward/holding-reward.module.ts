@@ -10,9 +10,13 @@ import { EtherscanService } from '@src/client/etherscan/etherscan.service';
 import { AlchemyService } from '@src/client/alchemy/alchemy.service';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
+import { AuthModule } from '@src/auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([HoldingReward, Legend, User])],
+  imports: [
+    TypeOrmModule.forFeature([HoldingReward, Legend, User]),
+    AuthModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [HoldingRewardController],
   providers: [

@@ -17,9 +17,13 @@ import { LegendService } from '../legend/legend.service';
 import { EtherscanService } from '../client/etherscan/etherscan.service';
 import { AlchemyService } from '../client/alchemy/alchemy.service';
 import { DatetimeService } from '../utils/datetime/datetime.service';
+import { AuthModule } from '@src/auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MintPackage, Unstaked, Legend])],
+  imports: [
+    TypeOrmModule.forFeature([MintPackage, Unstaked, Legend]),
+    AuthModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [RewardController],
   providers: [

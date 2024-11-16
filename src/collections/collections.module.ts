@@ -18,6 +18,8 @@ import { VehicleService } from './vehicle/vehicle.service';
 import { VehicleController } from './vehicle/vehicle.controller';
 import { PerkOgResidenceController } from './perk-og-residence/perk-og-residence.controller';
 import { PerkOgResidenceService } from './perk-og-residence/perk-og-residence.service';
+import {AuthService} from "@src/auth/auth.service";
+import {AuthModule} from "@src/auth/auth.module";
 
 @Module({
   controllers: [
@@ -43,5 +45,6 @@ import { PerkOgResidenceService } from './perk-og-residence/perk-og-residence.se
     VehicleService,
     PerkOgResidenceService,
   ],
+  imports: [AuthModule],
 })
 export class CollectionsModule {}
