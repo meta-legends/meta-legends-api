@@ -33,12 +33,23 @@ export class LandController {
       description:
         'This NFT represents an OG Land whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends',
       image: 'https://legends-zone.meta-legends.com/lands/' + id + '/image',
+      animation_url:
+        'https://legends-zone.meta-legends.com/lands/' + id + '/image',
       // animation_url: 'https://legends-zone.meta-legends.com/lands/' + id,
-      attributes: {
-        class: className[0].toLocaleUpperCase() + className.slice(1),
-        category: category[0].toLocaleUpperCase() + category.slice(1),
-        hasGuardian: landWish.category == 'legendary' ? 'Yes' : 'No',
-      },
+      attributes: [
+        {
+          trait_type: 'Class',
+          value: className[0].toLocaleUpperCase() + className.slice(1),
+        },
+        {
+          trait_type: 'Category',
+          value: category[0].toLocaleUpperCase() + category.slice(1),
+        },
+        {
+          trait_type: 'Guardian',
+          value: landWish.category == 'legendary' ? 'Yes' : 'No',
+        },
+      ],
     };
   }
 }
