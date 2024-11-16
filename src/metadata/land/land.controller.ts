@@ -1,7 +1,15 @@
-import {Controller, Get, Header, Inject, NotFoundException, Param} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Header,
+  Inject,
+  NotFoundException,
+  Param,
+} from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
+import { Public } from '@src/common/decorators/public.decorator';
 
 @Controller('lands')
 export class LandController {
@@ -10,6 +18,7 @@ export class LandController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
+  @Public()
   @Header('content-type', 'application/json')
   @Get('/metadata/:id')
   async get(@Param('id') id: number) {
