@@ -7,13 +7,21 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { Request } from 'express';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(private jwtService: JwtService, private reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
+    const isPublic = this.reflector.get<boolean>(
+      'isPublic',
+      context.getHandler(),
+    );
+    if (isPublic) {
+      return true; // Autorise l'accès sans authentification
+    }
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException();
