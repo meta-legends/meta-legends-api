@@ -60,4 +60,11 @@ export class LandWishController {
   getAll() {
     return this.landWishService.getAll();
   }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Header('content-type', 'application/json')
+  @Get('/:id')
+  async get(@Param('id') id: number) {
+    return await this.landWishService.get(id);
+  }
 }
