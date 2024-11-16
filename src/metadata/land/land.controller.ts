@@ -13,6 +13,7 @@ import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
 import { Public } from '@src/common/decorators/public.decorator';
 import { createReadStream } from 'fs';
 import { join } from 'path';
+import {LANDS_IMG} from "@src/enum/land-image";
 
 @Controller('lands')
 export class LandController {
@@ -33,14 +34,19 @@ export class LandController {
     if (landWish === null) {
       throw new NotFoundException('Unknow token ID ' + id);
     }
+    const land = landWish.land;
+    const imageName = LANDS_IMG[land.class][land.area];
+    const cid = 'QmcqGJwVSeYy4cCBdNccb4Wf2SuTMfw9M7S8Sc3at8gJk4';
+    const imageUrl = `https://metalegends.mypinata.cloud/ipfs/${cid}/${imageName}`;
+
     const className = landWish.land.class;
     const category = landWish.category;
     const result = {
       name: 'Meta-Life OG Land #' + id,
       description:
         'This NFT represents an OG Land whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends',
-      image: 'https://ml-api.handosensei.com/lands/' + id + '/image',
-      animation_url: 'https://ml-api.handosensei.com/lands/' + id + '/image',
+      image: imageUrl,
+      animation_url: imageUrl,
       // animation_url: 'https://legends-zone.meta-legends.com/lands/' + id,
       attributes: [
         {
