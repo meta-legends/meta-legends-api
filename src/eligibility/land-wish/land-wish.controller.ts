@@ -65,6 +65,6 @@ export class LandWishController {
   @Header('content-type', 'application/json')
   @Get('/:id')
   async get(@Param('id') id: number) {
-    return await this.landWishService.get(id);
+    return await this.landWishService.getByTokenId(id);
   }
 }
