@@ -5,7 +5,7 @@ import {
   Inject,
   NotFoundException,
   Param,
-  Res, StreamableFile,
+  StreamableFile,
 } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
@@ -29,7 +29,7 @@ export class LandController {
     if (cache != null) {
       return cache;
     }
-    const landWish = await this.landWishService.get(id);
+    const landWish = await this.landWishService.getByTokenId(id);
     if (landWish === null) {
       throw new NotFoundException('Unknow token ID ' + id);
     }
@@ -72,7 +72,7 @@ export class LandController {
     if (cache != null) {
       return cache;
     }
-    const landWish = await this.landWishService.get(id);
+    const landWish = await this.landWishService.getByTokenId(id);
     if (landWish === null) {
       throw new NotFoundException('Unknow token ID ' + id);
     }

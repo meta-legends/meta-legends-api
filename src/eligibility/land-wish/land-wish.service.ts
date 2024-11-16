@@ -41,6 +41,7 @@ export class LandWishService {
       landWish.category = await this.pickCategory(
         lands[landWishCreateDto.landId],
       );
+      landWish.hasGuardian = landWish.category === 'legendary';
       landWish = await this.landWishRepository.save(landWish);
       landWishes.push(landWish);
     }
@@ -121,11 +122,11 @@ export class LandWishService {
     return 'normal';
   }
 
-  async get(id: number): Promise<LandWish | null> {
+  async getByTokenId(tokenId: number): Promise<LandWish | null> {
     return await this.landWishRepository.findOne({
       relations: { land: true },
       where: {
-        id: id,
+        tokenId: tokenId,
       },
     });
   }
