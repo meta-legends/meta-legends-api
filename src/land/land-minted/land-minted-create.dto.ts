@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class LandWishCreateDto {
+export class LandMintedCreateDto {
   @IsNotEmpty()
   landId: number;
 

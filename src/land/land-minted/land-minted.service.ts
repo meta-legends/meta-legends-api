@@ -1,60 +1,56 @@
-import {
-  ClassSerializerInterceptor,
-  Header,
-  Injectable,
-  Post,
-  UseInterceptors,
-} from '@nestjs/common';
-import { User } from '@src/user/user.entity';
-import { LandWishCreateDto } from '@src/eligibility/land-wish/land-wish-create.dto';
-import { OgLandService } from '@src/eligibility/og-land/og-land.service';
-import { LandWish } from '@src/eligibility/land-wish/land-wish.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as moment from 'moment';
-import { OgLand } from '@src/eligibility/og-land/og-land.entity';
+import * as moment from 'moment/moment';
+
+import { User } from '@src/user/user.entity';
+import { LandMinted } from '@src/land/land-minted/land-minted.entity';
+
+import { LandService } from '@src/land/land.service';
+
+import { LandMintedCreateDto } from '@src/land/land-minted/land-minted-create.dto';
+import {Land} from "@src/land/land.entity";
 import {LANDS_IMG} from "@src/enum/land-image";
 
 @Injectable()
-export class LandWishService {
+export class LandMintedService {
   constructor(
-    @InjectRepository(LandWish)
-    private landWishRepository: Repository<LandWish>,
-    private ogLandService: OgLandService,
+    @InjectRepository(LandMinted)
+    private landMintedRepository: Repository<LandMinted>,
+    private LandService: LandService,
   ) {}
 
-  async add(user: User, landWishCreateDtos: LandWishCreateDto[]) {
+  async add(user: User, landMintedCreateDtos: LandMintedCreateDto[]) {
     const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-    const landWishes = [];
+    const landsMinted = [];
     const lands = {};
-    for (const landWishCreateDto of landWishCreateDtos) {
-      if (!(landWishCreateDto.landId in lands)) {
-        const land = await this.ogLandService.findOneById(
-          landWishCreateDto.landId,
+    for (const landMintedCreateDto of landMintedCreateDtos) {
+      if (!(landMintedCreateDto.landId in lands)) {
+        const land = await this.LandService.findOneById(
+          landMintedCreateDto.landId,
         );
         lands[land.id] = land;
       }
-      let landWish = new LandWish();
-      landWish.user = user;
-      landWish.createdAt = createdAt;
-      landWish.land = lands[landWishCreateDto.landId];
-      landWish.tokenId = landWishCreateDto.tokenId;
-      landWish.category = await this.pickCategory(
-        lands[landWishCreateDto.landId],
+      let landMinted = new LandMinted();
+      landMinted.user = user;
+      landMinted.createdAt = createdAt;
+      landMinted.land = lands[landMintedCreateDto.landId];
+      landMinted.tokenId = landMintedCreateDto.tokenId;
+      landMinted.category = await this.pickCategory(
+        lands[landMintedCreateDto.landId],
       );
-      landWish.hasGuardian = landWish.category === 'legendary';
-      landWish = await this.landWishRepository.save(landWish);
-      landWishes.push(landWish);
+      landMinted.guardian = landMinted.category === 'legendary';
+      landMinted = await this.landMintedRepository.save(landMinted);
+      landsMinted.push(landMinted);
     }
-    return landWishes;
+    return landsMinted;
   }
-
-  async remaining(land: OgLand) {
-    return await this.landWishRepository.countBy({ land });
+  async remaining(land: Land) {
+    return await this.landMintedRepository.countBy({ land });
   }
 
   async getAll() {
-    return await this.landWishRepository.find({
+    return await this.landMintedRepository.find({
       relations: { land: true, user: true },
       select: {
         user: { wallet: true },
@@ -62,7 +58,7 @@ export class LandWishService {
     });
   }
 
-  async pickCategory(land: OgLand): Promise<string> {
+  async pickCategory(land: Land): Promise<string> {
     const MAX_LIMITS = {
       legendary: 10,
       sacred: 20,
@@ -73,7 +69,7 @@ export class LandWishService {
       sacred: 0,
       normal: 0,
     };
-    const landwishes = await this.landWishRepository.find({
+    const landsMinted = await this.landMintedRepository.find({
       relations: { land: true },
       where: {
         land: {
@@ -81,8 +77,8 @@ export class LandWishService {
         },
       },
     });
-    landwishes.forEach((landWish) => {
-      categories[landWish.category]++;
+    landsMinted.forEach((landMinted) => {
+      categories[landMinted.category]++;
     });
 
     const remainingSlots = {
@@ -123,8 +119,8 @@ export class LandWishService {
     return 'normal';
   }
 
-  async getByTokenId(tokenId: number): Promise<LandWish | null> {
-    return await this.landWishRepository.findOne({
+  async getByTokenId(tokenId: number): Promise<LandMinted | null> {
+    return await this.landMintedRepository.findOne({
       relations: { land: true },
       where: {
         tokenId: tokenId,
@@ -132,16 +128,16 @@ export class LandWishService {
     });
   }
 
-  buildMetadata(landWish: LandWish): object {
-    const land = landWish.land;
+  buildMetadata(landMinted: LandMinted): object {
+    const land = landMinted.land;
     const imageName = LANDS_IMG[land.class][land.area];
     const cid = 'QmcqGJwVSeYy4cCBdNccb4Wf2SuTMfw9M7S8Sc3at8gJk4';
     const imageUrl = `https://metalegends.mypinata.cloud/ipfs/${cid}/${imageName}`;
 
-    const className = landWish.land.class;
-    const category = landWish.category;
+    const className = landMinted.land.class;
+    const category = landMinted.category;
     return {
-      name: 'Meta-Life OG Land #' + landWish.tokenId,
+      name: 'Meta-Life OG Land #' + landMinted.tokenId,
       description:
         'This NFT represents an OG Land whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends',
       image: imageUrl,
@@ -158,7 +154,7 @@ export class LandWishService {
         },
         {
           trait_type: 'Guardian',
-          value: landWish.category == 'legendary' ? 'Yes' : 'No',
+          value: landMinted.category == 'legendary' ? 'Yes' : 'No',
         },
       ],
     };

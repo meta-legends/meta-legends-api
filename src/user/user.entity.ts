@@ -9,7 +9,7 @@ import { OgPet } from '../eligibility/og-pet/og-pet.entity';
 import { HoldingReward } from '../holding-reward/holding-reward.entity';
 import { Exclude } from 'class-transformer';
 import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
-import { LandWish } from '@src/eligibility/land-wish/land-wish.entity';
+import { LandMinted } from '@src/land/land-minted/land-minted.entity';
 
 @Entity()
 export class User {
@@ -80,8 +80,8 @@ export class User {
   @OneToMany(() => HoldingReward, (holdingReward) => holdingReward.user)
   holdingRewards: HoldingReward[];
 
-  @OneToMany(() => LandWish, (landWish) => landWish.user)
-  landWishes: LandWish[];
+  @OneToMany(() => LandMinted, (landMinted) => landMinted.user)
+  landsMinted: LandMinted[];
 
   @OneToMany(() => UserAchievement, (userAchievement) => userAchievement.user)
   userAchievements: UserAchievement[];

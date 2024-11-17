@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { OgLand } from '@src/eligibility/og-land/og-land.entity';
+import { Land } from '@src/land/land.entity';
 import { User } from '@src/user/user.entity';
 
 @Entity()
-export class LandWish {
+export class LandMinted {
   @PrimaryGeneratedColumn()
   id!: number | null;
 
@@ -14,12 +14,12 @@ export class LandWish {
   category: string;
 
   @Column('boolean', { default: false })
-  hasGuardian: boolean;
+  guardian: boolean;
 
-  @ManyToOne(() => OgLand, (land) => land.landWishes)
-  land: OgLand;
+  @ManyToOne(() => Land, (land) => land.landsMinted)
+  land: Land;
 
-  @ManyToOne(() => User, (user) => user.landWishes)
+  @ManyToOne(() => User, (user) => user.landsMinted)
   user: User;
 
   @Column('datetime')

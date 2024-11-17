@@ -13,18 +13,21 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthGuard } from '@src/auth/auth.guard';
-import { LandWishCreateDto } from '@src/eligibility/land-wish/land-wish-create.dto';
-import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
-import { Request } from 'express';
-import { UserService } from '@src/user/user.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { Request } from 'express';
 
-@Controller('land-wishes')
-export class LandWishController {
+import { AuthGuard } from '@src/auth/auth.guard';
+
+import { UserService } from '@src/user/user.service';
+import { LandMintedService } from '@src/land/land-minted/land-minted.service';
+
+import { LandMintedCreateDto } from '@src/land/land-minted/land-minted-create.dto';
+
+@Controller('lands/minted')
+export class LandMintedController {
   constructor(
-    private landWishService: LandWishService,
+    private landMintedService: LandMintedService,
     private userService: UserService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
@@ -35,13 +38,13 @@ export class LandWishController {
   @Post()
   async book(
     @Req() request: Request,
-    @Body() landWishCreateDtos: LandWishCreateDto[],
+    @Body() landMintedCreateDtos: LandMintedCreateDto[],
   ) {
     const wallet = request['user-wallet'];
     const user = await this.userService.findOne(wallet.toLowerCase());
     await this.cacheManager.del('land-get-all');
     try {
-      return this.landWishService.add(user, landWishCreateDtos);
+      return this.landMintedService.add(user, landMintedCreateDtos);
     } catch (error) {
       throw new HttpException(
         {
@@ -58,13 +61,13 @@ export class LandWishController {
   @Header('content-type', 'application/json')
   @Get()
   getAll() {
-    return this.landWishService.getAll();
+    return this.landMintedService.getAll();
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Header('content-type', 'application/json')
   @Get('/:id')
   async get(@Param('id') id: number) {
-    return await this.landWishService.getByTokenId(id);
+    return await this.landMintedService.getByTokenId(id);
   }
 }

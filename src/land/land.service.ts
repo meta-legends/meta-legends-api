@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OgLand } from '@src/eligibility/og-land/og-land.entity';
+import { Land } from '@src/land/land.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class OgLandService {
+export class LandService {
   constructor(
-    @InjectRepository(OgLand) private landRepository: Repository<OgLand>,
+    @InjectRepository(Land) private landRepository: Repository<Land>,
   ) {}
 
-  async findOneById(id: number): Promise<OgLand | null> {
+  async findOneById(id: number): Promise<Land | null> {
     return this.landRepository.findOneBy({ id });
   }
 
-  async findAll(): Promise<OgLand[]> {
+  async findAll(): Promise<Land[]> {
     return this.landRepository.find();
   }
 }

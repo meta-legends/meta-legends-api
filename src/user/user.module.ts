@@ -16,7 +16,7 @@ import { AuthModule } from '@src/auth/auth.module';
     TypeOrmModule.forFeature([Achievement, User, UserAchievement]),
     AuthModule,
   ],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, UserService],
   providers: [AlchemyService, UserService, UserAchievementService],
   controllers: [UserController],
 })

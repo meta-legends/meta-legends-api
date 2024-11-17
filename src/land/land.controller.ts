@@ -1,22 +1,15 @@
-import {
-  Controller,
-  Get,
-  Header,
-  Inject,
-  Param,
-  UseGuards,
-} from '@nestjs/common';
+import {Controller, Get, Header, Inject, Param, UseGuards} from '@nestjs/common';
+import { LandService } from '@src/land/land.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { AuthGuard } from '@src/auth/auth.guard';
-import { OgLandService } from '@src/eligibility/og-land/og-land.service';
-import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
+import { LandMintedService } from '@src/land/land-minted/land-minted.service';
+import {AuthGuard} from "@src/auth/auth.guard";
 
-@Controller(`og-lands`)
-export class OgLandController {
+@Controller('lands')
+export class LandController {
   constructor(
-    private landService: OgLandService,
-    private landWishService: LandWishService,
+    private landService: LandService,
+    private landMintedService: LandMintedService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -27,7 +20,7 @@ export class OgLandController {
     const land = await this.landService.findOneById(landId);
     return {
       land: land,
-      remaining: await this.landWishService.remaining(land),
+      remaining: await this.landMintedService.remaining(land),
     };
   }
 
@@ -43,7 +36,7 @@ export class OgLandController {
     const lands = await this.landService.findAll();
     const result = await Promise.all(
       lands.map(async (land) => {
-        const count = await this.landWishService.remaining(land);
+        const count = await this.landMintedService.remaining(land);
         return {
           item: land,
           remaining: land.supply - count,

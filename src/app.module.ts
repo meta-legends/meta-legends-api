@@ -11,7 +11,7 @@ import { MintPackageController } from './mint-package/mint-package.controller';
 import { LegendController } from './legend/legend.controller';
 import { RewardController } from './reward/reward.controller';
 import { UserController } from './user/user.controller';
-import { OgLandController } from '@src/eligibility/og-land/og-land.controller';
+import { LandController as MetadataLandController } from './metadata/land/land.controller';
 
 import { AlchemyService } from './client/alchemy/alchemy.service';
 import { AlchemyV3Service } from './client/alchemy-v3/alchemy-v3.service';
@@ -23,6 +23,7 @@ import { CollectionsModule } from './collections/collections.module';
 import { EligibilityModule } from './eligibility/eligibility.module';
 import { HoldingRewardModule } from './holding-reward/holding-reward.module';
 import { MintPackageModule } from './mint-package/mint-package.module';
+import { LandModule } from './land/land.module';
 import { RewardModule } from './reward/reward.module';
 import { UtilsModule } from './utils/utils.module';
 import { UserModule } from './user/user.module';
@@ -31,10 +32,10 @@ import { Achievement } from './achievement/achievement.entity';
 import { Legend } from './legend/legend.entity';
 import { MintPackage } from './mint-package/mint-package.entity';
 import { OgPet } from './eligibility/og-pet/og-pet.entity';
-import { OgLand } from './eligibility/og-land/og-land.entity';
+import { Land } from './land/land.entity';
+import { LandMinted } from '@src/land/land-minted/land-minted.entity';
 import { Unstaked } from './reward/unstaked/unstaked.entity';
 import { User } from './user/user.entity';
-import { LandWish } from './eligibility/land-wish/land-wish.entity';
 
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { TestService } from './command/test/test.service';
@@ -78,9 +79,10 @@ import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 import { AchievementService as AchievementCommand } from './command/achievement/achievement.service';
 import { CollectionController } from './collection/collection.controller';
 import { CollectionService } from './collection/collection.service';
-import { OgLandService } from '@src/eligibility/og-land/og-land.service';
-import { LandWishService } from '@src/eligibility/land-wish/land-wish.service';
-import { LandController } from './metadata/land/land.controller';
+import { LandService } from '@src/land/land.service';
+import {LandController} from "@src/land/land.controller";
+
+
 
 @Module({
   imports: [
@@ -104,8 +106,8 @@ import { LandController } from './metadata/land/land.controller';
         Legend,
         MintPackage,
         OgPet,
-        OgLand,
-        LandWish,
+        Land,
+        LandMinted,
         Unstaked,
         User,
         UserAchievement,
@@ -121,6 +123,7 @@ import { LandController } from './metadata/land/land.controller';
     UserModule,
     HoldingRewardModule,
     CollectionsModule,
+    LandModule,
   ],
   controllers: [
     AppController,
@@ -131,7 +134,7 @@ import { LandController } from './metadata/land/land.controller';
     UserController,
     HolderController,
     CollectionController,
-    OgLandController,
+    MetadataLandController,
     LandController,
   ],
   providers: [
@@ -158,7 +161,7 @@ import { LandController } from './metadata/land/land.controller';
     MintPackageService,
     MetadataService,
     OgPetService,
-    OgLandService,
+    LandService,
     PerkOgPetService,
     PerkArmorService,
     PerkOgResidenceService,
@@ -178,7 +181,6 @@ import { LandController } from './metadata/land/land.controller';
     HoldingRewardEndService,
     UserAchievementService,
     CollectionService,
-    LandWishService,
   ],
 })
 export class AppModule {

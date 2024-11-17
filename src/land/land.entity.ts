@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { LandWish } from '@src/eligibility/land-wish/land-wish.entity';
+import { LandMinted } from '@src/land/land-minted/land-minted.entity';
 
 @Entity()
-export class OgLand {
+export class Land {
   @PrimaryGeneratedColumn()
   id!: number | null;
 
@@ -18,6 +18,6 @@ export class OgLand {
   @Column('int', { nullable: false })
   supply: number;
 
-  @OneToMany(() => LandWish, (landWish) => landWish.land)
-  landWishes: LandWish[];
+  @OneToMany(() => LandMinted, (landMinted) => landMinted.land)
+  landsMinted: LandMinted[];
 }
