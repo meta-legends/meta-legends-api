@@ -13,6 +13,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as moment from 'moment';
 import { OgLand } from '@src/eligibility/og-land/og-land.entity';
+import {LANDS_IMG} from "@src/enum/land-image";
 
 @Injectable()
 export class LandWishService {
@@ -129,5 +130,50 @@ export class LandWishService {
         tokenId: tokenId,
       },
     });
+  }
+
+  buildMetadata(landWish: LandWish): object {
+    const land = landWish.land;
+    const imageName = LANDS_IMG[land.class][land.area];
+    const cid = 'QmcqGJwVSeYy4cCBdNccb4Wf2SuTMfw9M7S8Sc3at8gJk4';
+    const imageUrl = `https://metalegends.mypinata.cloud/ipfs/${cid}/${imageName}`;
+
+    const className = landWish.land.class;
+    const category = landWish.category;
+    return {
+      name: 'Meta-Life OG Land #' + landWish.tokenId,
+      description:
+        'This NFT represents an OG Land whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends',
+      image: imageUrl,
+      animation_url: imageUrl,
+      // animation_url: 'https://legends-zone.meta-legends.com/lands/' + id,
+      attributes: [
+        {
+          trait_type: 'Class',
+          value: className[0].toLocaleUpperCase() + className.slice(1),
+        },
+        {
+          trait_type: 'Category',
+          value: category[0].toLocaleUpperCase() + category.slice(1),
+        },
+        {
+          trait_type: 'Guardian',
+          value: landWish.category == 'legendary' ? 'Yes' : 'No',
+        },
+      ],
+    };
+  }
+
+  buildDefaultMetadata(tokenId: number): object {
+    const imageUrl =
+      'https://metalegends.mypinata.cloud/ipfs/QmZYfdGHXG9e9eTQxXB7meGHGu13kfAiMz3Pj6YD8JuwdK';
+    return {
+      name: 'Meta-Life OG Land #' + tokenId,
+      description:
+        'This NFT represents an OG Land whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends',
+      image: imageUrl,
+      animation_url: imageUrl,
+      attributes: [],
+    };
   }
 }
