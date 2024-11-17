@@ -1,9 +1,10 @@
-import {Controller, Get, Header, Inject, Param, UseGuards} from '@nestjs/common';
-import { LandService } from '@src/land/land.service';
+import { Controller, Get, Header, Inject, UseGuards } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { AuthGuard } from '@src/auth/auth.guard';
+
+import { LandService } from '@src/land/land.service';
 import { LandMintedService } from '@src/land/land-minted/land-minted.service';
-import {AuthGuard} from "@src/auth/auth.guard";
 
 @Controller('lands')
 export class LandController {
@@ -12,17 +13,6 @@ export class LandController {
     private landMintedService: LandMintedService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-
-  @UseGuards(AuthGuard)
-  @Header('content-type', 'application/json')
-  @Get('/:landId')
-  async getLand(@Param('landId') landId: number) {
-    const land = await this.landService.findOneById(landId);
-    return {
-      land: land,
-      remaining: await this.landMintedService.remaining(land),
-    };
-  }
 
   @UseGuards(AuthGuard)
   @Header('content-type', 'application/json')
