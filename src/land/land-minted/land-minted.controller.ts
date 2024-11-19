@@ -2,12 +2,10 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
-  Get,
   Header,
   HttpException,
   HttpStatus,
   Inject,
-  Param,
   Post,
   Req,
   UseGuards,
@@ -55,19 +53,5 @@ export class LandMintedController {
         { cause: error },
       );
     }
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Header('content-type', 'application/json')
-  @Get()
-  getAll() {
-    return this.landMintedService.getAll();
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Header('content-type', 'application/json')
-  @Get('/:id')
-  async get(@Param('id') id: number) {
-    return await this.landMintedService.getByTokenId(id);
   }
 }
