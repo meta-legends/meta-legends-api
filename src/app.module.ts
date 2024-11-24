@@ -82,6 +82,8 @@ import { UserAchievement } from '@src/user-achievement/user-achievement.entity';
 import { UnstakedService } from './reward/unstaked/unstaked.service';
 import { UserService } from './user/user.service';
 import { WeaponSkinService } from '@src/collections/weapon-skin/weapon-skin.service';
+import {LandContent} from "@src/land/land-content/land-content.entity";
+import { LandContentService } from './command/land-content/land-content.service';
 
 @Module({
   imports: [
@@ -107,6 +109,7 @@ import { WeaponSkinService } from '@src/collections/weapon-skin/weapon-skin.serv
         OgPet,
         Land,
         LandMinted,
+        LandContent,
         Unstaked,
         User,
         UserAchievement,
@@ -180,6 +183,7 @@ import { WeaponSkinService } from '@src/collections/weapon-skin/weapon-skin.serv
     HoldingRewardEndService,
     UserAchievementService,
     CollectionService,
+    LandContentService,
   ],
 })
 export class AppModule {

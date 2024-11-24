@@ -1,6 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Land } from '@src/land/land.entity';
 import { User } from '@src/user/user.entity';
+import { LandContent } from '@src/land/land-content/land-content.entity';
 
 @Entity()
 export class LandMinted {
@@ -24,4 +31,7 @@ export class LandMinted {
 
   @Column('datetime')
   createdAt: string;
+
+  @OneToOne(() => LandContent, (landContent) => landContent.landMinted)
+  landContent!: LandContent | null;
 }
