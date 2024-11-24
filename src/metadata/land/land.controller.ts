@@ -21,11 +21,11 @@ export class LandController {
     if (cache != null) {
       return cache;
     }
-    const landWish = await this.landMintedService.getByTokenId(id);
-    if (landWish === null) {
+    const landMinted = await this.landMintedService.getByTokenId(id);
+    if (landMinted === null) {
       return this.landMintedService.buildDefaultMetadata(id);
     }
-    const result = this.landMintedService.buildMetadata(landWish);
+    const result = this.landMintedService.buildMetadata(landMinted);
     await this.cacheManager.set(
       'land-minted-metadata-get-' + id,
       result,

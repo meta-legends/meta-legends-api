@@ -1,11 +1,11 @@
 import {
   Body,
   ClassSerializerInterceptor,
-  Controller,
+  Controller, Get,
   Header,
   HttpException,
   HttpStatus,
-  Inject,
+  Inject, NotFoundException, Param,
   Post,
   Req,
   UseGuards,
@@ -21,6 +21,8 @@ import { UserService } from '@src/user/user.service';
 import { LandMintedService } from '@src/land/land-minted/land-minted.service';
 
 import { LandMintedCreateDto } from '@src/land/land-minted/land-minted-create.dto';
+
+import { Public } from '@src/common/decorators/public.decorator';
 
 @Controller('lands/minted')
 export class LandMintedController {
@@ -52,6 +54,17 @@ export class LandMintedController {
         HttpStatus.BAD_REQUEST,
         { cause: error },
       );
+    }
+  }
+
+  @Public()
+  @Header('content-type', 'application/json')
+  @Get('/:tokenId')
+  async get(@Param('tokenId') tokenId: number) {
+    try {
+      return await this.landMintedService.getByTokenId(tokenId);
+    } catch (error) {
+      throw new NotFoundException('Cannot find land token id ' + tokenId);
     }
   }
 }
