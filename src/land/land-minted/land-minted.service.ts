@@ -9,8 +9,9 @@ import { LandMinted } from '@src/land/land-minted/land-minted.entity';
 import { LandService } from '@src/land/land.service';
 
 import { LandMintedCreateDto } from '@src/land/land-minted/land-minted-create.dto';
-import {Land} from "@src/land/land.entity";
-import {LANDS_IMG} from "@src/enum/land-image";
+import { Land } from '@src/land/land.entity';
+import { LANDS_IMG } from '@src/enum/land-image';
+import { LandContentService } from '@src/land/land-content/land-content.service';
 
 @Injectable()
 export class LandMintedService {
@@ -18,6 +19,7 @@ export class LandMintedService {
     @InjectRepository(LandMinted)
     private landMintedRepository: Repository<LandMinted>,
     private LandService: LandService,
+    private landContentService: LandContentService,
   ) {}
 
   async add(user: User, landMintedCreateDtos: LandMintedCreateDto[]) {
@@ -41,6 +43,7 @@ export class LandMintedService {
       );
       landMinted.guardian = landMinted.category === 'legendary';
       landMinted = await this.landMintedRepository.save(landMinted);
+      await this.landContentService.link(landMinted);
       landsMinted.push(landMinted);
     }
     return landsMinted;
