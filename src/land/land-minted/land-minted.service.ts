@@ -144,8 +144,9 @@ export class LandMintedService {
       description:
         'This NFT represents an OG Land whose abilities will be at their full potential in Meta Life, the metaverse by Meta Legends',
       image: imageUrl,
-      animation_url:
-        'https://legends-zone.meta-legends.com/lands/' + landMinted.tokenId,
+      animation_url: imageUrl,
+      // animation_url:
+      //   'https://legends-zone.meta-legends.com/lands/' + landMinted.tokenId,
       attributes: [
         {
           trait_type: 'Class',
