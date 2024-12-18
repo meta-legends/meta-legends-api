@@ -173,7 +173,9 @@ export class LandController {
         biome: uriVideoBiome,
       };
     } catch (error) {
-      throw new NotFoundException('Cannot find land token id ' + tokenId);
+      throw new NotFoundException(
+        `Cannot find land token id ${tokenId} : ${error}`,
+      );
     }
   }
 }
